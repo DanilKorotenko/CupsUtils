@@ -68,13 +68,9 @@ const char *getDestinationURI(cups_dest_t destination)
 
 int main(int argc, const char * argv[])
 {
-    std::cout << "Hello, Printers!\n";
-
     DestinationsData destinations_data = { 0, NULL };
 
     getDestinations(CUPS_PRINTER_LOCAL, CUPS_PRINTER_DISCOVERED, &destinations_data);
-
-    std::cout << "Found: " << destinations_data.number_of_destinations << " destinations" << std::endl;
 
     for (int i = 0; i < destinations_data.number_of_destinations; i++)
     {
