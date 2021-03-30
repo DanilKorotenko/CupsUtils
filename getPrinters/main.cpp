@@ -78,7 +78,8 @@ int main(int argc, const char * argv[])
 
     for (int i = 0; i < destinations_data.number_of_destinations; i++)
     {
-        std::cout << destinations_data.destinations[i].name << " URI:" << getDestinationURI(destinations_data.destinations[i]) << std::endl;
+//        std::cout << destinations_data.destinations[i].name << " URI:" << getDestinationURI(destinations_data.destinations[i]) << std::endl;
+        std::cout << destinations_data.destinations[i].name << std::endl;
     }
 
     cupsFreeDests(destinations_data.number_of_destinations, destinations_data.destinations);
