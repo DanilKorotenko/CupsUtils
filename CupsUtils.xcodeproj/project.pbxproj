@@ -8,23 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		DA95C27026133EC7008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C26F26133EC7008D989B /* main.cpp */; };
+		DA95C27726134249008D989B /* libcups.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C27626134249008D989B /* libcups.tbd */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		DA95C26A26133EC7008D989B /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		DA95C26C26133EC7008D989B /* getPrinters */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = getPrinters; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA95C26F26133EC7008D989B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		DA95C27626134249008D989B /* libcups.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcups.tbd; path = usr/lib/libcups.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +22,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA95C27726134249008D989B /* libcups.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +34,7 @@
 			children = (
 				DA95C26E26133EC7008D989B /* getPrinters */,
 				DA95C26D26133EC7008D989B /* Products */,
+				DA95C27526134249008D989B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,6 +54,14 @@
 			path = getPrinters;
 			sourceTree = "<group>";
 		};
+		DA95C27526134249008D989B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DA95C27626134249008D989B /* libcups.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,7 +71,6 @@
 			buildPhases = (
 				DA95C26826133EC7008D989B /* Sources */,
 				DA95C26926133EC7008D989B /* Frameworks */,
-				DA95C26A26133EC7008D989B /* CopyFiles */,
 			);
 			buildRules = (
 			);
