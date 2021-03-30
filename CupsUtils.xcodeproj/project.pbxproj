@@ -19,6 +19,7 @@
 		DA95C27626134249008D989B /* libcups.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcups.tbd; path = usr/lib/libcups.tbd; sourceTree = SDKROOT; };
 		DA95C27E26135685008D989B /* printersNotifications */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = printersNotifications; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA95C28026135685008D989B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		DA95C28A26136F08008D989B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +45,7 @@
 		DA95C26126133E49008D989B = {
 			isa = PBXGroup;
 			children = (
+				DA95C28A26136F08008D989B /* README.md */,
 				DA95C26E26133EC7008D989B /* getPrinters */,
 				DA95C27F26135685008D989B /* printersNotifications */,
 				DA95C26D26133EC7008D989B /* Products */,
