@@ -6,6 +6,22 @@
 	objectVersion = 50;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		DA95C29D26138284008D989B /* BuildAll */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = DA95C29E26138284008D989B /* Build configuration list for PBXAggregateTarget "BuildAll" */;
+			buildPhases = (
+			);
+			dependencies = (
+				DA95C2A62613828D008D989B /* PBXTargetDependency */,
+				DA95C2A82613828D008D989B /* PBXTargetDependency */,
+				DA95C2AA2613828D008D989B /* PBXTargetDependency */,
+			);
+			name = BuildAll;
+			productName = BuildAll;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		DA95C27026133EC7008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C26F26133EC7008D989B /* main.cpp */; };
 		DA95C27726134249008D989B /* libcups.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C27626134249008D989B /* libcups.tbd */; };
@@ -14,6 +30,30 @@
 		DA95C29226136FB9008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C29126136FB9008D989B /* main.cpp */; };
 		DA95C2992613735B008D989B /* libcups.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C27626134249008D989B /* libcups.tbd */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DA95C2A52613828D008D989B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA95C26226133E49008D989B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA95C26B26133EC7008D989B;
+			remoteInfo = getPrinters;
+		};
+		DA95C2A72613828D008D989B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA95C26226133E49008D989B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA95C28E26136FB8008D989B;
+			remoteInfo = getURIForPrinterName;
+		};
+		DA95C2A92613828D008D989B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA95C26226133E49008D989B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA95C27D26135685008D989B;
+			remoteInfo = printersNotifications;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		DA95C26C26133EC7008D989B /* getPrinters */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = getPrinters; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,6 +216,9 @@
 					DA95C28E26136FB8008D989B = {
 						CreatedOnToolsVersion = 12.4;
 					};
+					DA95C29D26138284008D989B = {
+						CreatedOnToolsVersion = 12.4;
+					};
 				};
 			};
 			buildConfigurationList = DA95C26526133E49008D989B /* Build configuration list for PBXProject "CupsUtils" */;
@@ -194,6 +237,7 @@
 				DA95C26B26133EC7008D989B /* getPrinters */,
 				DA95C27D26135685008D989B /* printersNotifications */,
 				DA95C28E26136FB8008D989B /* getURIForPrinterName */,
+				DA95C29D26138284008D989B /* BuildAll */,
 			);
 		};
 /* End PBXProject section */
@@ -224,6 +268,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DA95C2A62613828D008D989B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA95C26B26133EC7008D989B /* getPrinters */;
+			targetProxy = DA95C2A52613828D008D989B /* PBXContainerItemProxy */;
+		};
+		DA95C2A82613828D008D989B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA95C28E26136FB8008D989B /* getURIForPrinterName */;
+			targetProxy = DA95C2A72613828D008D989B /* PBXContainerItemProxy */;
+		};
+		DA95C2AA2613828D008D989B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA95C27D26135685008D989B /* printersNotifications */;
+			targetProxy = DA95C2A92613828D008D989B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		DA95C26626133E49008D989B /* Debug */ = {
@@ -595,6 +657,24 @@
 			};
 			name = Release;
 		};
+		DA95C29F26138284008D989B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XS293XGL58;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DA95C2A026138284008D989B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XS293XGL58;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -630,6 +710,15 @@
 			buildConfigurations = (
 				DA95C29426136FB9008D989B /* Debug */,
 				DA95C29526136FB9008D989B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA95C29E26138284008D989B /* Build configuration list for PBXAggregateTarget "BuildAll" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA95C29F26138284008D989B /* Debug */,
+				DA95C2A026138284008D989B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
