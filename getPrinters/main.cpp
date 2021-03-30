@@ -61,7 +61,7 @@ int getDestinations(cups_ptype_t type, cups_ptype_t mask, DestinationsData *aDes
 
 const char *getDestinationURI(cups_dest_t destination)
 {
-    const char *result = cupsGetOption("printer-uri-supported", destination.num_options, destination.options);
+    const char *result = cupsGetOption("device-uri", destination.num_options, destination.options);
 
     return result;
 }

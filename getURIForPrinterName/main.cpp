@@ -59,9 +59,16 @@ int getDestinations(cups_ptype_t type, cups_ptype_t mask, DestinationsData *aDes
     return (aDestinationsData->number_of_destinations);
 }
 
-const char *getDestinationURI(cups_dest_t destination)
+const char *getDestinationURI(cups_dest_t *destination)
 {
-    const char *result = cupsGetOption("printer-uri-supported", destination.num_options, destination.options);
+//    const char *result = cupsGetOption("printer-uri-supported", destination.num_options, destination.options);
+    const char *result = cupsGetOption("device-uri", destination->num_options, destination->options);
+
+//    cups_dinfo_t *destinationInfo = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, destination);
+//
+//    cupsFreeDestInfo(destinationInfo);
+//
+//    const char *result = "";
 
     return result;
 }
@@ -83,7 +90,7 @@ int main(int argc, const char * argv[])
     cups_dest_t *printerDestination = cupsGetDest(printerName.c_str(), NULL,
         destinations_data.number_of_destinations, destinations_data.destinations);
 
-    std::cout << getDestinationURI(*printerDestination) << std::endl;
+    std::cout << getDestinationURI(printerDestination) << std::endl;
 
     cupsFreeDests(destinations_data.number_of_destinations, destinations_data.destinations);
 
