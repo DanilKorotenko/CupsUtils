@@ -13,6 +13,7 @@
 			buildPhases = (
 			);
 			dependencies = (
+				DA95C2C026138371008D989B /* PBXTargetDependency */,
 				DA95C2A62613828D008D989B /* PBXTargetDependency */,
 				DA95C2A82613828D008D989B /* PBXTargetDependency */,
 				DA95C2AA2613828D008D989B /* PBXTargetDependency */,
@@ -30,6 +31,7 @@
 		DA95C29226136FB9008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C29126136FB9008D989B /* main.cpp */; };
 		DA95C2992613735B008D989B /* libcups.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C27626134249008D989B /* libcups.tbd */; };
 		DA95C2B626138305008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C2B526138305008D989B /* main.cpp */; };
+		DA95C2C626138592008D989B /* libcups.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C27626134249008D989B /* libcups.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,19 +56,14 @@
 			remoteGlobalIDString = DA95C27D26135685008D989B;
 			remoteInfo = printersNotifications;
 		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		DA95C2B126138305008D989B /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
+		DA95C2BF26138371008D989B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA95C26226133E49008D989B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA95C2B226138305008D989B;
+			remoteInfo = setURIForPrinterName;
 		};
-/* End PBXCopyFilesBuildPhase section */
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		DA95C26C26133EC7008D989B /* getPrinters */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = getPrinters; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA95C2C626138592008D989B /* libcups.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,7 +235,6 @@
 			buildPhases = (
 				DA95C2AF26138305008D989B /* Sources */,
 				DA95C2B026138305008D989B /* Frameworks */,
-				DA95C2B126138305008D989B /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -345,6 +342,11 @@
 			isa = PBXTargetDependency;
 			target = DA95C27D26135685008D989B /* printersNotifications */;
 			targetProxy = DA95C2A92613828D008D989B /* PBXContainerItemProxy */;
+		};
+		DA95C2C026138371008D989B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA95C2B226138305008D989B /* setURIForPrinterName */;
+			targetProxy = DA95C2BF26138371008D989B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
