@@ -10,6 +10,7 @@
 CupsUtilsImpl::CupsUtilsImpl()
 {
     _destinations_data = { 0, NULL };
+    updateDestinationsData();
 }
 
 CupsUtilsImpl::~CupsUtilsImpl()
@@ -23,8 +24,6 @@ CupsUtilsImpl::~CupsUtilsImpl()
 std::vector<std::string> CupsUtilsImpl::getPrintersNames()
 {
     std::vector<std::string> result;
-
-    updateDestinationsData();
 
     for (int i = 0; i < _destinations_data.number_of_destinations; i++)
     {
