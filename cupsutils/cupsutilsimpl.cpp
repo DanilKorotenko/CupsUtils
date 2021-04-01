@@ -6,15 +6,36 @@
 //
 
 #include "cupsutilsimpl.hpp"
-#include "iostream"
 
 CupsUtilsImpl::CupsUtilsImpl()
 {
+    _destinations_data = { 0, NULL };
 }
 
 CupsUtilsImpl::~CupsUtilsImpl()
 {
+    freeDestinationsData(&_destinations_data);
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// Public
+
+std::vector<std::string> CupsUtilsImpl::getPrintersNames()
+{
+    std::vector<std::string> result;
+
+    updateDestinationsData();
+
+    for (int i = 0; i < _destinations_data.number_of_destinations; i++)
+    {
+        result.push_back(_destinations_data.destinations[i].name);
+    }
+
+    return result;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Private
 
 int CupsUtilsImpl::destinationsCallback(CupsDestinationsData *destinations_data,
     unsigned flags, cups_dest_t *dest)
@@ -71,20 +92,7 @@ void CupsUtilsImpl::freeDestinationsData(CupsDestinationsData *aDestinationsData
     *aDestinationsData = {0, NULL};
 }
 
-std::vector<std::string> CupsUtilsImpl::getPrintersNames()
+void CupsUtilsImpl::updateDestinationsData()
 {
-    std::vector<std::string> result;
-
-    CupsDestinationsData destinations_data = { 0, NULL };
-
-    getDestinations(CUPS_PRINTER_LOCAL, CUPS_PRINTER_DISCOVERED, &destinations_data);
-
-    for (int i = 0; i < destinations_data.number_of_destinations; i++)
-    {
-        result.push_back(destinations_data.destinations[i].name);
-    }
-
-    freeDestinationsData(&destinations_data);
-
-    return result;
+    getDestinations(CUPS_PRINTER_LOCAL, CUPS_PRINTER_DISCOVERED, &_destinations_data);
 }

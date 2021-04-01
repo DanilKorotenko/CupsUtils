@@ -35,6 +35,10 @@ private:
         CupsDestinationsData *aDestinationsData);
 
     void freeDestinationsData(CupsDestinationsData *aDestinationsData);
+
+    void updateDestinationsData();
+
+    CupsDestinationsData _destinations_data;
 };
 
 #endif /* cupsutilsimpl_hpp */
