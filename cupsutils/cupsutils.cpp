@@ -29,3 +29,13 @@ std::vector<std::string> CupsUtils::getPrintersNames()
     std::vector<std::string> result;
     return result;
 }
+
+std::string CupsUtils::getDeviceURIForPrinterWithName(std::string aPrinterName)
+{
+    if (_impl)
+    {
+        return _impl->getDeviceURIForPrinterWithName(aPrinterName);
+    }
+    std::string result;
+    return result;
+}

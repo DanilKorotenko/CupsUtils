@@ -26,6 +26,7 @@ public:
     ~CupsUtilsImpl();
 
     std::vector<std::string> getPrintersNames();
+    std::string getDeviceURIForPrinterWithName(std::string aPrinterName);
 
 private:
     static int destinationsCallback(CupsDestinationsData *destinations_data,
@@ -37,6 +38,8 @@ private:
     void freeDestinationsData(CupsDestinationsData *aDestinationsData);
 
     void updateDestinationsData();
+
+    const char *getDeviceURIForDestination(cups_dest_t *destination);
 
     CupsDestinationsData _destinations_data;
 };

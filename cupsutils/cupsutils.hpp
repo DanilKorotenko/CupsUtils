@@ -21,6 +21,8 @@ public:
 
     std::vector<std::string> getPrintersNames();
 
+    std::string getDeviceURIForPrinterWithName(std::string aPrinterName);
+
 private:
     std::unique_ptr<CupsUtilsImpl> _impl;
 };

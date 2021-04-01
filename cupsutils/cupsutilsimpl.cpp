@@ -18,6 +18,7 @@ CupsUtilsImpl::~CupsUtilsImpl()
     freeDestinationsData(&_destinations_data);
 }
 
+#pragma mark Public
 ////////////////////////////////////////////////////////////////////////////////
 // Public
 
@@ -33,6 +34,17 @@ std::vector<std::string> CupsUtilsImpl::getPrintersNames()
     return result;
 }
 
+std::string CupsUtilsImpl::getDeviceURIForPrinterWithName(std::string aPrinterName)
+{
+    cups_dest_t *printerDestination = cupsGetDest(aPrinterName.c_str(), NULL,
+        _destinations_data.number_of_destinations, _destinations_data.destinations);
+
+    std::string result(this->getDeviceURIForDestination(printerDestination));
+
+    return result;
+}
+
+#pragma mark Private
 ////////////////////////////////////////////////////////////////////////////////
 // Private
 
@@ -94,4 +106,18 @@ void CupsUtilsImpl::freeDestinationsData(CupsDestinationsData *aDestinationsData
 void CupsUtilsImpl::updateDestinationsData()
 {
     getDestinations(CUPS_PRINTER_LOCAL, CUPS_PRINTER_DISCOVERED, &_destinations_data);
+}
+
+const char *CupsUtilsImpl::getDeviceURIForDestination(cups_dest_t *destination)
+{
+//    const char *result = cupsGetOption("printer-uri-supported", destination.num_options, destination.options);
+    const char *result = cupsGetOption("device-uri", destination->num_options, destination->options);
+
+//    cups_dinfo_t *destinationInfo = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, destination);
+//
+//    cupsFreeDestInfo(destinationInfo);
+//
+//    const char *result = "";
+
+    return result;
 }
