@@ -39,3 +39,13 @@ std::string CupsUtils::getDeviceURIForPrinterWithName(std::string aPrinterName)
     std::string result;
     return result;
 }
+
+std::vector<CupsOption> CupsUtils::getOptionsForPrinterWithName(std::string aPrinterName)
+{
+    if (_impl)
+    {
+        return _impl->getOptionsForPrinterWithName(aPrinterName);
+    }
+    std::vector<CupsOption> result;
+    return result;
+}

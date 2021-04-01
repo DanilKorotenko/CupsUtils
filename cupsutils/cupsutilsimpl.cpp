@@ -36,10 +36,27 @@ std::vector<std::string> CupsUtilsImpl::getPrintersNames()
 
 std::string CupsUtilsImpl::getDeviceURIForPrinterWithName(std::string aPrinterName)
 {
-    cups_dest_t *printerDestination = cupsGetDest(aPrinterName.c_str(), NULL,
-        _destinations_data.number_of_destinations, _destinations_data.destinations);
+    cups_dest_t *printerDestination = getPrinterDestinationWithName(aPrinterName);
 
     std::string result(this->getDeviceURIForDestination(printerDestination));
+
+    return result;
+}
+
+std::vector<CupsOption> CupsUtilsImpl::getOptionsForPrinterWithName(std::string aPrinterName)
+{
+    std::vector<CupsOption> result;
+
+    cups_dest_t *printerDestination = getPrinterDestinationWithName(aPrinterName);
+
+    for (int i = 0; i < printerDestination->num_options; i++)
+    {
+        cups_option_t option = printerDestination->options[i];
+
+        CupsOption cupsOption = { option.name, option.value };
+
+        result.push_back(cupsOption);
+    }
 
     return result;
 }
@@ -106,6 +123,14 @@ void CupsUtilsImpl::freeDestinationsData(CupsDestinationsData *aDestinationsData
 void CupsUtilsImpl::updateDestinationsData()
 {
     getDestinations(CUPS_PRINTER_LOCAL, CUPS_PRINTER_DISCOVERED, &_destinations_data);
+}
+
+cups_dest_t *CupsUtilsImpl::getPrinterDestinationWithName(std::string aPrinterName)
+{
+    cups_dest_t *printerDestination = cupsGetDest(aPrinterName.c_str(), NULL,
+        _destinations_data.number_of_destinations, _destinations_data.destinations);
+
+    return printerDestination;
 }
 
 const char *CupsUtilsImpl::getDeviceURIForDestination(cups_dest_t *destination)

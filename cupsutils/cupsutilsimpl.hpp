@@ -27,17 +27,17 @@ public:
 
     std::vector<std::string> getPrintersNames();
     std::string getDeviceURIForPrinterWithName(std::string aPrinterName);
+    std::vector<CupsOption> getOptionsForPrinterWithName(std::string aPrinterName);
 
 private:
     static int destinationsCallback(CupsDestinationsData *destinations_data,
         unsigned flags, cups_dest_t *dest);
-
     int getDestinations(cups_ptype_t type, cups_ptype_t mask,
         CupsDestinationsData *aDestinationsData);
-
     void freeDestinationsData(CupsDestinationsData *aDestinationsData);
-
     void updateDestinationsData();
+
+    cups_dest_t *getPrinterDestinationWithName(std::string aPrinterName);
 
     const char *getDeviceURIForDestination(cups_dest_t *destination);
 

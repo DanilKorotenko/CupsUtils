@@ -13,6 +13,12 @@
 
 class CupsUtilsImpl;
 
+typedef struct
+{
+    std::string name;
+    std::string value;
+} CupsOption;
+
 class CupsUtils
 {
 public:
@@ -22,6 +28,8 @@ public:
     std::vector<std::string> getPrintersNames();
 
     std::string getDeviceURIForPrinterWithName(std::string aPrinterName);
+
+    std::vector<CupsOption> getOptionsForPrinterWithName(std::string aPrinterName);
 
 private:
     std::unique_ptr<CupsUtilsImpl> _impl;

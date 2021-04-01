@@ -38,6 +38,7 @@
 		DA95C42A2615D5C4008D989B /* cupsutilsimpl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = DA95C4282615D5C4008D989B /* cupsutilsimpl.hpp */; };
 		DA95C53726160777008D989B /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
 		DA95C5B326161E4B008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C5B226161E4B008D989B /* main.cpp */; };
+		DA95C5C72616231C008D989B /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,19 +84,14 @@
 			remoteGlobalIDString = DA95C3C12615C17D008D989B;
 			remoteInfo = cupsutils;
 		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		DA95C5AE26161E4B008D989B /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
+		DA95C5C52616230E008D989B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA95C26226133E49008D989B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA95C3C12615C17D008D989B;
+			remoteInfo = cupsutils;
 		};
-/* End PBXCopyFilesBuildPhase section */
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		DA95C26C26133EC7008D989B /* getPrinters */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = getPrinters; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,6 +158,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA95C5C72616231C008D989B /* libcupsutils.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,11 +356,11 @@
 			buildPhases = (
 				DA95C5AC26161E4B008D989B /* Sources */,
 				DA95C5AD26161E4B008D989B /* Frameworks */,
-				DA95C5AE26161E4B008D989B /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				DA95C5C62616230E008D989B /* PBXTargetDependency */,
 			);
 			name = listOptionsForPrinterName;
 			productName = listOptionsForPrinterName;
@@ -507,6 +504,11 @@
 			isa = PBXTargetDependency;
 			target = DA95C3C12615C17D008D989B /* cupsutils */;
 			targetProxy = DA95C53526160771008D989B /* PBXContainerItemProxy */;
+		};
+		DA95C5C62616230E008D989B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA95C3C12615C17D008D989B /* cupsutils */;
+			targetProxy = DA95C5C52616230E008D989B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1178,7 +1180,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = XS293XGL58;
+				DEVELOPMENT_TEAM = XQKX38U9F4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1241,7 +1243,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = XS293XGL58;
+				DEVELOPMENT_TEAM = XQKX38U9F4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
