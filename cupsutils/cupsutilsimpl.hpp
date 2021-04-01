@@ -19,13 +19,13 @@ typedef struct
     cups_dest_t *destinations;
 } CupsDestinationsData;
 
-class CupsUtilsImpl : public CupsUtils
+class CupsUtilsImpl
 {
 public:
     CupsUtilsImpl();
     ~CupsUtilsImpl();
 
-    std::vector<std::string> getPrintersNames() override;
+    std::vector<std::string> getPrintersNames();
 
 private:
     static int destinationsCallback(CupsDestinationsData *destinations_data,

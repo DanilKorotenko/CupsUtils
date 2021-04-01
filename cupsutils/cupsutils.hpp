@@ -19,11 +19,10 @@ public:
     CupsUtils();
     ~CupsUtils();
 
-    virtual std::vector<std::string> getPrintersNames();
+    std::vector<std::string> getPrintersNames();
 
 private:
     std::unique_ptr<CupsUtilsImpl> _impl;
-
 };
 
 #endif /* cupsutils_hpp */
