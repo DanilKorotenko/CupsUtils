@@ -19,6 +19,8 @@ typedef struct
     std::string value;
 } CupsOption;
 
+extern const char *kDeviceURIOptionName;
+
 class CupsUtils
 {
 public:
@@ -26,10 +28,10 @@ public:
     ~CupsUtils();
 
     std::vector<std::string> getPrintersNames();
-
-    std::string getDeviceURIForPrinterWithName(std::string aPrinterName);
-
-    std::vector<CupsOption> getOptionsForPrinterWithName(std::string aPrinterName);
+    std::vector<CupsOption> getListOfOptionsForPrinterWithName(std::string aPrinterName);
+    std::string getOptionValueForPrinterWithName(std::string aPrinterName, std::string anOptionName);
+    bool setOptionForPrinterWithName(std::string aPrinterName, const CupsOption &anOption);
+    bool checkURI(std::string anUri);
 
 private:
     std::unique_ptr<CupsUtilsImpl> _impl;

@@ -13,10 +13,13 @@
 			buildPhases = (
 			);
 			dependencies = (
-				DA95C2C026138371008D989B /* PBXTargetDependency */,
 				DA95C2A62613828D008D989B /* PBXTargetDependency */,
 				DA95C2A82613828D008D989B /* PBXTargetDependency */,
+				DA95C6F626177A42008D989B /* PBXTargetDependency */,
+				DA95C6F826177A42008D989B /* PBXTargetDependency */,
 				DA95C2AA2613828D008D989B /* PBXTargetDependency */,
+				DA95C6FA26177A42008D989B /* PBXTargetDependency */,
+				DA95C2C026138371008D989B /* PBXTargetDependency */,
 			);
 			name = BuildAll;
 			productName = BuildAll;
@@ -29,7 +32,6 @@
 		DA95C28726136BB8008D989B /* libcups.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C27626134249008D989B /* libcups.tbd */; };
 		DA95C29226136FB9008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C29126136FB9008D989B /* main.cpp */; };
 		DA95C2B626138305008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C2B526138305008D989B /* main.cpp */; };
-		DA95C2C626138592008D989B /* libcups.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C27626134249008D989B /* libcups.tbd */; };
 		DA95C3D52615C1A5008D989B /* cupsutils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C3D32615C1A5008D989B /* cupsutils.cpp */; };
 		DA95C3D62615C1A5008D989B /* cupsutils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = DA95C3D42615C1A5008D989B /* cupsutils.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		DA95C3F12615C7E8008D989B /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
@@ -41,6 +43,8 @@
 		DA95C5C72616231C008D989B /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
 		DA95C5DD26162C59008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C5DC26162C59008D989B /* main.cpp */; };
 		DA95C5F026171381008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C5EF26171381008D989B /* main.cpp */; };
+		DA95C6D9261775BC008D989B /* filter_manager.sh in CopyFiles */ = {isa = PBXBuildFile; fileRef = DA95C6CF2617732F008D989B /* filter_manager.sh */; };
+		DA95C760261B27D1008D989B /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +97,34 @@
 			remoteGlobalIDString = DA95C3C12615C17D008D989B;
 			remoteInfo = cupsutils;
 		};
+		DA95C6F526177A42008D989B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA95C26226133E49008D989B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA95C5EC26171381008D989B;
+			remoteInfo = helloWorldFilter;
+		};
+		DA95C6F726177A42008D989B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA95C26226133E49008D989B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA95C5AF26161E4B008D989B;
+			remoteInfo = listOptionsForPrinterName;
+		};
+		DA95C6F926177A42008D989B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA95C26226133E49008D989B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA95C5D926162C59008D989B;
+			remoteInfo = setOptionForPrinterWithName;
+		};
+		DA95C755261B27C7008D989B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA95C26226133E49008D989B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA95C3C12615C17D008D989B;
+			remoteInfo = cupsutils;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -107,12 +139,13 @@
 		};
 		DA95C5EB26171381008D989B /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 6;
 			files = (
+				DA95C6D9261775BC008D989B /* filter_manager.sh in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -138,6 +171,7 @@
 		DA95C5DC26162C59008D989B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		DA95C5ED26171381008D989B /* helloWorldFilter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = helloWorldFilter; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA95C5EF26171381008D989B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		DA95C6CF2617732F008D989B /* filter_manager.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = filter_manager.sh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,7 +203,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA95C2C626138592008D989B /* libcups.tbd in Frameworks */,
+				DA95C760261B27D1008D989B /* libcupsutils.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +342,7 @@
 		DA95C5EE26171381008D989B /* helloWorldFilter */ = {
 			isa = PBXGroup;
 			children = (
+				DA95C6CF2617732F008D989B /* filter_manager.sh */,
 				DA95C5EF26171381008D989B /* main.cpp */,
 			);
 			path = helloWorldFilter;
@@ -388,6 +423,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				DA95C756261B27C7008D989B /* PBXTargetDependency */,
 			);
 			name = setURIForPrinterName;
 			productName = setURIForPrinterName;
@@ -629,6 +665,26 @@
 			target = DA95C3C12615C17D008D989B /* cupsutils */;
 			targetProxy = DA95C5C52616230E008D989B /* PBXContainerItemProxy */;
 		};
+		DA95C6F626177A42008D989B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA95C5EC26171381008D989B /* helloWorldFilter */;
+			targetProxy = DA95C6F526177A42008D989B /* PBXContainerItemProxy */;
+		};
+		DA95C6F826177A42008D989B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA95C5AF26161E4B008D989B /* listOptionsForPrinterName */;
+			targetProxy = DA95C6F726177A42008D989B /* PBXContainerItemProxy */;
+		};
+		DA95C6FA26177A42008D989B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA95C5D926162C59008D989B /* setOptionForPrinterWithName */;
+			targetProxy = DA95C6F926177A42008D989B /* PBXContainerItemProxy */;
+		};
+		DA95C756261B27C7008D989B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA95C3C12615C17D008D989B /* cupsutils */;
+			targetProxy = DA95C755261B27C7008D989B /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -698,6 +754,10 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path",
+					"${BUILT_PRODUCTS_DIR}",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -755,6 +815,10 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path",
+					"${BUILT_PRODUCTS_DIR}",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -936,6 +1000,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -993,6 +1058,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -1194,6 +1260,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = "@rpath";
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1254,6 +1321,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = "@rpath";
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -1317,6 +1385,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1374,6 +1443,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -1418,7 +1488,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = XS293XGL58;
+				DEVELOPMENT_TEAM = XQKX38U9F4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1481,7 +1551,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = XS293XGL58;
+				DEVELOPMENT_TEAM = XQKX38U9F4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;

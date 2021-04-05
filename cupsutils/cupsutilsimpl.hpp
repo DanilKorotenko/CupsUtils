@@ -21,14 +21,19 @@ typedef struct
 
 class CupsUtilsImpl
 {
+#pragma mark Public
 public:
     CupsUtilsImpl();
     ~CupsUtilsImpl();
 
     std::vector<std::string> getPrintersNames();
-    std::string getDeviceURIForPrinterWithName(std::string aPrinterName);
     std::vector<CupsOption> getOptionsForPrinterWithName(std::string aPrinterName);
+    std::string getOptionValueForPrinterWithName(std::string aPrinterName, std::string anOptionName);
+    bool setOptionForPrinterWithName(std::string aPrinterName,
+        const CupsOption &anOption);
+    bool checkURI(std::string anUri);
 
+#pragma mark Private
 private:
     static int destinationsCallback(CupsDestinationsData *destinations_data,
         unsigned flags, cups_dest_t *dest);
@@ -36,10 +41,7 @@ private:
         CupsDestinationsData *aDestinationsData);
     void freeDestinationsData(CupsDestinationsData *aDestinationsData);
     void updateDestinationsData();
-
     cups_dest_t *getPrinterDestinationWithName(std::string aPrinterName);
-
-    const char *getDeviceURIForDestination(cups_dest_t *destination);
 
     CupsDestinationsData _destinations_data;
 };

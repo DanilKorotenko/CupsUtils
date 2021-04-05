@@ -21,7 +21,7 @@ int main(int argc, const char * argv[])
     CupsUtils cupsUtils;
 
     std::vector<CupsOption> printerOptions =
-        cupsUtils.getOptionsForPrinterWithName(printerName);
+        cupsUtils.getListOfOptionsForPrinterWithName(printerName);
 
     for (std::vector<CupsOption>::iterator it = printerOptions.begin();
         it != printerOptions.end(); it++)

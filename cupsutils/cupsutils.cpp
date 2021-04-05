@@ -8,6 +8,7 @@
 #include "cupsutils.hpp"
 #include "cupsutilsimpl.hpp"
 
+const char *kDeviceURIOptionName = "device-uri";
 
 CupsUtils::CupsUtils()
     : _impl(new CupsUtilsImpl())
@@ -30,17 +31,8 @@ std::vector<std::string> CupsUtils::getPrintersNames()
     return result;
 }
 
-std::string CupsUtils::getDeviceURIForPrinterWithName(std::string aPrinterName)
-{
-    if (_impl)
-    {
-        return _impl->getDeviceURIForPrinterWithName(aPrinterName);
-    }
-    std::string result;
-    return result;
-}
-
-std::vector<CupsOption> CupsUtils::getOptionsForPrinterWithName(std::string aPrinterName)
+std::vector<CupsOption> CupsUtils::getListOfOptionsForPrinterWithName(
+    std::string aPrinterName)
 {
     if (_impl)
     {
@@ -48,4 +40,33 @@ std::vector<CupsOption> CupsUtils::getOptionsForPrinterWithName(std::string aPri
     }
     std::vector<CupsOption> result;
     return result;
+}
+
+std::string CupsUtils::getOptionValueForPrinterWithName(std::string aPrinterName, std::string anOptionName)
+{
+    if (_impl)
+    {
+        return _impl->getOptionValueForPrinterWithName(aPrinterName, anOptionName);
+    }
+    std::string result;
+    return result;
+}
+
+bool CupsUtils::setOptionForPrinterWithName(std::string aPrinterName,
+    const CupsOption &anOption)
+{
+    if (_impl)
+    {
+        return _impl->setOptionForPrinterWithName(aPrinterName, anOption);
+    }
+    return false;
+}
+
+bool CupsUtils::checkURI(std::string anUri)
+{
+    if (_impl)
+    {
+        return _impl->checkURI(anUri);
+    }
+    return false;
 }
