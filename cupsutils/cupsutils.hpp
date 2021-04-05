@@ -20,6 +20,7 @@ typedef struct
 } CupsOption;
 
 extern const char *kDeviceURIOptionName;
+extern const char *kPrinterURIOptionName;
 
 class CupsUtils
 {

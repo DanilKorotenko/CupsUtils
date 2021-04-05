@@ -64,16 +64,21 @@ std::string CupsUtilsImpl::getOptionValueForPrinterWithName(
 {
     cups_dest_t *printerDestination = getPrinterDestinationWithName(aPrinterName);
 
-    const char *result = cupsGetOption(anOptionName.c_str(),
+    const char *optionValue = cupsGetOption(anOptionName.c_str(),
         printerDestination->num_options, printerDestination->options);
 
 //    cups_dinfo_t *destinationInfo = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, destination);
 //
 //    cupsFreeDestInfo(destinationInfo);
 
-    std::string res(result);
+    std::string result;
 
-    return res;
+    if (optionValue != NULL)
+    {
+        result = optionValue;
+    }
+
+    return result;
 }
 
 bool CupsUtilsImpl::setOptionForPrinterWithName(std::string aPrinterName,
@@ -103,7 +108,7 @@ bool CupsUtilsImpl::setOptionForPrinterWithName(std::string aPrinterName,
     std::cout << "newDeviceURIFromOptions: " <<
         newDeviceURIFromOptions.c_str() << std::endl;
 
-    std::string printerURI = cupsGetOption("printer-uri-supported",
+    std::string printerURI = cupsGetOption(kPrinterURIOptionName,
         printerDestination->num_options,
         printerDestination->options);
 

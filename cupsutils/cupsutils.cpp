@@ -9,6 +9,7 @@
 #include "cupsutilsimpl.hpp"
 
 const char *kDeviceURIOptionName = "device-uri";
+const char *kPrinterURIOptionName = "printer-uri-supported";
 
 CupsUtils::CupsUtils()
     : _impl(new CupsUtilsImpl())

@@ -45,6 +45,7 @@
 		DA95C5F026171381008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C5EF26171381008D989B /* main.cpp */; };
 		DA95C6D9261775BC008D989B /* filter_manager.sh in CopyFiles */ = {isa = PBXBuildFile; fileRef = DA95C6CF2617732F008D989B /* filter_manager.sh */; };
 		DA95C760261B27D1008D989B /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
+		DA95C76C261B30FF008D989B /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,18 +126,16 @@
 			remoteGlobalIDString = DA95C3C12615C17D008D989B;
 			remoteInfo = cupsutils;
 		};
+		DA95C76A261B30FA008D989B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA95C26226133E49008D989B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA95C3C12615C17D008D989B;
+			remoteInfo = cupsutils;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		DA95C5D826162C59008D989B /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
 		DA95C5EB26171381008D989B /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
@@ -227,6 +226,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA95C76C261B30FF008D989B /* libcupsutils.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,11 +470,11 @@
 			buildPhases = (
 				DA95C5D626162C59008D989B /* Sources */,
 				DA95C5D726162C59008D989B /* Frameworks */,
-				DA95C5D826162C59008D989B /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				DA95C76B261B30FA008D989B /* PBXTargetDependency */,
 			);
 			name = setOptionForPrinterWithName;
 			productName = setOptionForPrinterWithName;
@@ -684,6 +684,11 @@
 			isa = PBXTargetDependency;
 			target = DA95C3C12615C17D008D989B /* cupsutils */;
 			targetProxy = DA95C755261B27C7008D989B /* PBXContainerItemProxy */;
+		};
+		DA95C76B261B30FA008D989B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA95C3C12615C17D008D989B /* cupsutils */;
+			targetProxy = DA95C76A261B30FA008D989B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
