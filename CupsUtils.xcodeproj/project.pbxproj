@@ -47,8 +47,6 @@
 		DA95C760261B27D1008D989B /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
 		DA95C76C261B30FF008D989B /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
 		DA95C849261B519B008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C848261B519B008D989B /* main.cpp */; };
-		DA95C86F261C80E8008D989B /* PPDUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C858261C7EFB008D989B /* PPDUtils.cpp */; };
-		DA95C870261C80E8008D989B /* PPDUtilsImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C85B261C7EFB008D989B /* PPDUtilsImpl.cpp */; };
 		DA95C87E261C80FF008D989B /* libppdutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C860261C80CC008D989B /* libppdutils.dylib */; };
 		DAF7D12E261C87B60035C543 /* libcups.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C27626134249008D989B /* libcups.tbd */; };
 /* End PBXBuildFile section */
@@ -185,44 +183,7 @@
 		DA95C6CF2617732F008D989B /* filter_manager.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = filter_manager.sh; sourceTree = "<group>"; };
 		DA95C846261B519B008D989B /* listFilters */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = listFilters; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA95C848261B519B008D989B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		DA95C858261C7EFB008D989B /* PPDUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PPDUtils.cpp; sourceTree = "<group>"; };
-		DA95C859261C7EFB008D989B /* PPDUtilsImpl.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PPDUtilsImpl.hpp; sourceTree = "<group>"; };
-		DA95C85A261C7EFB008D989B /* PPDUtils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PPDUtils.hpp; sourceTree = "<group>"; };
-		DA95C85B261C7EFB008D989B /* PPDUtilsImpl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PPDUtilsImpl.cpp; sourceTree = "<group>"; };
 		DA95C860261C80CC008D989B /* libppdutils.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libppdutils.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		DAF7D13B261C8BAB0035C543 /* ppdc-mediasize.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ppdc-mediasize.cxx"; sourceTree = "<group>"; };
-		DAF7D13C261C8BAB0035C543 /* ppdc-constraint.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ppdc-constraint.cxx"; sourceTree = "<group>"; };
-		DAF7D13D261C8BAB0035C543 /* ppdc-option.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ppdc-option.cxx"; sourceTree = "<group>"; };
-		DAF7D13E261C8BAB0035C543 /* ppdhtml.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ppdhtml.cxx; sourceTree = "<group>"; };
-		DAF7D13F261C8BAC0035C543 /* sample.drv */ = {isa = PBXFileReference; lastKnownFileType = text; path = sample.drv; sourceTree = "<group>"; };
-		DAF7D140261C8BAC0035C543 /* ppdc-choice.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ppdc-choice.cxx"; sourceTree = "<group>"; };
-		DAF7D141261C8BAC0035C543 /* genstrings.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = genstrings.cxx; sourceTree = "<group>"; };
-		DAF7D142261C8BAC0035C543 /* ppdc-driver.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ppdc-driver.cxx"; sourceTree = "<group>"; };
-		DAF7D143261C8BAC0035C543 /* foo-fr.po */ = {isa = PBXFileReference; lastKnownFileType = text; path = "foo-fr.po"; sourceTree = "<group>"; };
-		DAF7D144261C8BAC0035C543 /* ppdc-shared.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ppdc-shared.cxx"; sourceTree = "<group>"; };
-		DAF7D145261C8BAC0035C543 /* foo.drv */ = {isa = PBXFileReference; lastKnownFileType = text; path = foo.drv; sourceTree = "<group>"; };
-		DAF7D146261C8BAC0035C543 /* ppdc-filter.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ppdc-filter.cxx"; sourceTree = "<group>"; };
-		DAF7D147261C8BAC0035C543 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		DAF7D148261C8BAC0035C543 /* ppdc-font.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ppdc-font.cxx"; sourceTree = "<group>"; };
-		DAF7D149261C8BAC0035C543 /* ppdc-variable.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ppdc-variable.cxx"; sourceTree = "<group>"; };
-		DAF7D14A261C8BAC0035C543 /* ppdpo.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ppdpo.cxx; sourceTree = "<group>"; };
-		DAF7D14B261C8BAC0035C543 /* ppdc.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ppdc.cxx; sourceTree = "<group>"; };
-		DAF7D14C261C8BAC0035C543 /* ppdc-array.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ppdc-array.cxx"; sourceTree = "<group>"; };
-		DAF7D14D261C8BAD0035C543 /* ppdc-message.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ppdc-message.cxx"; sourceTree = "<group>"; };
-		DAF7D14E261C8BAD0035C543 /* testcatalog.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = testcatalog.cxx; sourceTree = "<group>"; };
-		DAF7D14F261C8BAD0035C543 /* ppdc-source.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ppdc-source.cxx"; sourceTree = "<group>"; };
-		DAF7D150261C8BAD0035C543 /* ppdi.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ppdi.cxx; sourceTree = "<group>"; };
-		DAF7D151261C8BAD0035C543 /* ppdc-import.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ppdc-import.cxx"; sourceTree = "<group>"; };
-		DAF7D152261C8BAD0035C543 /* ppdc-string.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ppdc-string.cxx"; sourceTree = "<group>"; };
-		DAF7D153261C8BAD0035C543 /* ppdc-private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ppdc-private.h"; sourceTree = "<group>"; };
-		DAF7D154261C8BAD0035C543 /* ppdmerge.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ppdmerge.cxx; sourceTree = "<group>"; };
-		DAF7D155261C8BAD0035C543 /* ppdc-file.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ppdc-file.cxx"; sourceTree = "<group>"; };
-		DAF7D156261C8BAD0035C543 /* ppdc-attr.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ppdc-attr.cxx"; sourceTree = "<group>"; };
-		DAF7D157261C8BAD0035C543 /* ppdc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ppdc.h; sourceTree = "<group>"; };
-		DAF7D158261C8BAD0035C543 /* Dependencies */ = {isa = PBXFileReference; lastKnownFileType = text; path = Dependencies; sourceTree = "<group>"; };
-		DAF7D159261C8BAE0035C543 /* ppdc-profile.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ppdc-profile.cxx"; sourceTree = "<group>"; };
-		DAF7D15A261C8BAE0035C543 /* ppdc-catalog.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ppdc-catalog.cxx"; sourceTree = "<group>"; };
-		DAF7D15B261C8BAE0035C543 /* ppdc-group.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ppdc-group.cxx"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -311,7 +272,6 @@
 		DA95C26126133E49008D989B = {
 			isa = PBXGroup;
 			children = (
-				DA95C857261C7E9D008D989B /* PPDUtils */,
 				DA95C28A26136F08008D989B /* README.md */,
 				DA95C3CC2615C184008D989B /* cupsutils */,
 				DA95C27F26135685008D989B /* printersNotifications */,
@@ -426,58 +386,6 @@
 				DA95C848261B519B008D989B /* main.cpp */,
 			);
 			path = listFilters;
-			sourceTree = "<group>";
-		};
-		DA95C857261C7E9D008D989B /* PPDUtils */ = {
-			isa = PBXGroup;
-			children = (
-				DAF7D13A261C8B870035C543 /* ppdc */,
-				DA95C858261C7EFB008D989B /* PPDUtils.cpp */,
-				DA95C85A261C7EFB008D989B /* PPDUtils.hpp */,
-				DA95C85B261C7EFB008D989B /* PPDUtilsImpl.cpp */,
-				DA95C859261C7EFB008D989B /* PPDUtilsImpl.hpp */,
-			);
-			path = PPDUtils;
-			sourceTree = "<group>";
-		};
-		DAF7D13A261C8B870035C543 /* ppdc */ = {
-			isa = PBXGroup;
-			children = (
-				DAF7D158261C8BAD0035C543 /* Dependencies */,
-				DAF7D143261C8BAC0035C543 /* foo-fr.po */,
-				DAF7D145261C8BAC0035C543 /* foo.drv */,
-				DAF7D141261C8BAC0035C543 /* genstrings.cxx */,
-				DAF7D147261C8BAC0035C543 /* Makefile */,
-				DAF7D14C261C8BAC0035C543 /* ppdc-array.cxx */,
-				DAF7D156261C8BAD0035C543 /* ppdc-attr.cxx */,
-				DAF7D15A261C8BAE0035C543 /* ppdc-catalog.cxx */,
-				DAF7D140261C8BAC0035C543 /* ppdc-choice.cxx */,
-				DAF7D13C261C8BAB0035C543 /* ppdc-constraint.cxx */,
-				DAF7D142261C8BAC0035C543 /* ppdc-driver.cxx */,
-				DAF7D155261C8BAD0035C543 /* ppdc-file.cxx */,
-				DAF7D146261C8BAC0035C543 /* ppdc-filter.cxx */,
-				DAF7D148261C8BAC0035C543 /* ppdc-font.cxx */,
-				DAF7D15B261C8BAE0035C543 /* ppdc-group.cxx */,
-				DAF7D151261C8BAD0035C543 /* ppdc-import.cxx */,
-				DAF7D13B261C8BAB0035C543 /* ppdc-mediasize.cxx */,
-				DAF7D14D261C8BAD0035C543 /* ppdc-message.cxx */,
-				DAF7D13D261C8BAB0035C543 /* ppdc-option.cxx */,
-				DAF7D153261C8BAD0035C543 /* ppdc-private.h */,
-				DAF7D159261C8BAE0035C543 /* ppdc-profile.cxx */,
-				DAF7D144261C8BAC0035C543 /* ppdc-shared.cxx */,
-				DAF7D14F261C8BAD0035C543 /* ppdc-source.cxx */,
-				DAF7D152261C8BAD0035C543 /* ppdc-string.cxx */,
-				DAF7D149261C8BAC0035C543 /* ppdc-variable.cxx */,
-				DAF7D14B261C8BAC0035C543 /* ppdc.cxx */,
-				DAF7D157261C8BAD0035C543 /* ppdc.h */,
-				DAF7D13E261C8BAB0035C543 /* ppdhtml.cxx */,
-				DAF7D150261C8BAD0035C543 /* ppdi.cxx */,
-				DAF7D154261C8BAD0035C543 /* ppdmerge.cxx */,
-				DAF7D14A261C8BAC0035C543 /* ppdpo.cxx */,
-				DAF7D13F261C8BAC0035C543 /* sample.drv */,
-				DAF7D14E261C8BAD0035C543 /* testcatalog.cxx */,
-			);
-			path = ppdc;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -820,8 +728,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA95C86F261C80E8008D989B /* PPDUtils.cpp in Sources */,
-				DA95C870261C80E8008D989B /* PPDUtilsImpl.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
