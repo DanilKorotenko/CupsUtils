@@ -32,6 +32,11 @@ public:
     bool setOptionForPrinterWithName(std::string aPrinterName,
         const CupsOption &anOption);
     bool checkURI(std::string anUri);
+    bool getDocument(
+        const std::string &aPrinterURI,
+        const std::string &aJobIDStr,
+        const std::string &aDocumentNumberStr,
+        const std::string &anOutputFileName);
 
 #pragma mark Private
 private:

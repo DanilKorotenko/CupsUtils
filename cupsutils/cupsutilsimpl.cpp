@@ -7,6 +7,10 @@
 
 #include "cupsutilsimpl.hpp"
 #include <iostream>
+#include <sys/stat.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <errno.h>
 
 static bool set_printer_options(
     int num_options,
@@ -146,6 +150,91 @@ bool CupsUtilsImpl::checkURI(std::string anUri)
     }
 
     return true;
+}
+
+bool CupsUtilsImpl::getDocument(
+    const std::string &aPrinterURI,
+    const std::string &aJobIDStr,
+    const std::string &aDocumentNumberStr,
+    const std::string &anOutputFileName)
+{
+    mode_t umask_ = umask(0000); // let the output file be mode 0777
+
+
+
+    ipp_t *request = ippNewRequest(IPP_OP_CUPS_GET_DOCUMENT);
+
+//    ATTR charset attributes-charset utf-8
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_CHARSET, "attributes-charset", NULL, "utf-8");
+
+//    ATTR language attributes-natural-language en
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_LANGUAGE, "attributes-natural-language", NULL, "en");
+
+//    ATTR uri printer-uri $uri
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, aPrinterURI.c_str());
+
+//    ATTR integer job-id 125
+    int jobID = std::stoi(aJobIDStr);
+    ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER, "job-id", jobID);
+
+//    ATTR integer document-number 1
+    int documentNumber = std::stoi(aDocumentNumberStr);
+    ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER, "document-number", documentNumber);
+
+//    ipp_t *response = cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/admin/");
+
+    int fd = open(anOutputFileName.c_str(), O_WRONLY | O_CREAT);
+    if (fd > 0)
+    {
+        ipp_t *response = cupsDoIORequest(CUPS_HTTP_DEFAULT, request, "/admin/", -1, fd);
+
+        ipp_status_t lastError = cupsLastError();
+        if (lastError > IPP_STATUS_OK_CONFLICTING)
+        {
+            std::cout << "IPP error string: " << ippErrorString(lastError) << std::endl;
+            std::cout << "Cups last error: " << cupsLastErrorString() << std::endl;
+            return false;
+        }
+
+
+        close(fd);
+
+        ippDelete(response);
+
+    }
+
+
+//    std::ofstream outfile(anOutputFileName.c_str());
+//
+//    char buffer[1024];
+//    ssize_t bytes_read = 0;
+//
+//    do
+//    {
+//        bytes_read = cupsReadResponseData(CUPS_HTTP_DEFAULT, buffer, 1024);
+//        if (bytes_read > 0)
+//        {
+//            outfile << buffer;
+//        }
+//    }
+//    while (bytes_read > 0);
+
+//ssize_t					/* O - Bytes read, 0 on EOF, -1 on error */
+//cupsReadResponseData(
+//    http_t *http,			/* I - Connection to server or @code CUPS_HTTP_DEFAULT@ */
+//    char   *buffer,			/* I - Buffer to use */
+//    size_t length)			/* I - Number of bytes to read */
+
+//            outfile << msg << std::endl;
+
+//    outfile.close();
+
+        umask(umask_); // restore old umask
+
+
+    return true;
+
+
 }
 
 #pragma mark Private

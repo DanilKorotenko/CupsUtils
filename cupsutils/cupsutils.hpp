@@ -33,6 +33,11 @@ public:
     std::string getOptionValueForPrinterWithName(std::string aPrinterName, std::string anOptionName);
     bool setOptionForPrinterWithName(std::string aPrinterName, const CupsOption &anOption);
     bool checkURI(std::string anUri);
+    bool getDocument(
+        const std::string &aPrinterURI,
+        const std::string &aJobIDStr,
+        const std::string &aDocumentNumberStr,
+        const std::string &anOutputFileName);
 
 private:
     std::unique_ptr<CupsUtilsImpl> _impl;
