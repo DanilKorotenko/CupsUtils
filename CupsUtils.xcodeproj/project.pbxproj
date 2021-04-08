@@ -33,7 +33,7 @@
 		DA95C29226136FB9008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C29126136FB9008D989B /* main.cpp */; };
 		DA95C2B626138305008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C2B526138305008D989B /* main.cpp */; };
 		DA95C3D52615C1A5008D989B /* cupsutils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C3D32615C1A5008D989B /* cupsutils.cpp */; };
-		DA95C3D62615C1A5008D989B /* cupsutils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = DA95C3D42615C1A5008D989B /* cupsutils.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		DA95C3D62615C1A5008D989B /* cupsutils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = DA95C3D42615C1A5008D989B /* cupsutils.hpp */; };
 		DA95C3F12615C7E8008D989B /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
 		DA95C3FE2615C9E2008D989B /* libcups.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C27626134249008D989B /* libcups.tbd */; };
 		DA95C4292615D5C4008D989B /* cupsutilsimpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C4272615D5C4008D989B /* cupsutilsimpl.cpp */; };
@@ -348,8 +348,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA95C3D62615C1A5008D989B /* cupsutils.hpp in Headers */,
 				DA95C42A2615D5C4008D989B /* cupsutilsimpl.hpp in Headers */,
+				DA95C3D62615C1A5008D989B /* cupsutils.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
