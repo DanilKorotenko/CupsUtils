@@ -30,5 +30,9 @@ int main(int argc, const char * argv[])
     bool setOptionResult = cupsUtils.setOptionForPrinterWithName(printerName,
         { optionName, optionValue });
 
+    std::cout << (setOptionResult ?
+        "The option was successfuly set." : "Unable to set option.") << std::endl;
+
+
     return 0;
 }

@@ -13,6 +13,7 @@
 			buildPhases = (
 			);
 			dependencies = (
+				DAF7D264261EFC740035C543 /* PBXTargetDependency */,
 				DA95C2A62613828D008D989B /* PBXTargetDependency */,
 				DA95C2A82613828D008D989B /* PBXTargetDependency */,
 				DA95C6F826177A42008D989B /* PBXTargetDependency */,
@@ -131,6 +132,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = DA95C3C12615C17D008D989B;
 			remoteInfo = cupsutils;
+		};
+		DAF7D263261EFC740035C543 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA95C26226133E49008D989B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAF7D1DF261EE9190035C543;
+			remoteInfo = getDocument;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -535,13 +543,13 @@
 			targets = (
 				DA95C29D26138284008D989B /* BuildAll */,
 				DA95C3C12615C17D008D989B /* cupsutils */,
-				DA95C27D26135685008D989B /* printersNotifications */,
+				DAF7D1DF261EE9190035C543 /* getDocument */,
 				DA95C26B26133EC7008D989B /* getPrinters */,
 				DA95C28E26136FB8008D989B /* getURIForPrinterName */,
-				DA95C2B226138305008D989B /* setURIForPrinterName */,
 				DA95C5AF26161E4B008D989B /* listOptionsForPrinterName */,
+				DA95C27D26135685008D989B /* printersNotifications */,
 				DA95C5D926162C59008D989B /* setOptionForPrinterWithName */,
-				DAF7D1DF261EE9190035C543 /* getDocument */,
+				DA95C2B226138305008D989B /* setURIForPrinterName */,
 			);
 		};
 /* End PBXProject section */
@@ -674,6 +682,11 @@
 			isa = PBXTargetDependency;
 			target = DA95C3C12615C17D008D989B /* cupsutils */;
 			targetProxy = DAF7D20F261EF84D0035C543 /* PBXContainerItemProxy */;
+		};
+		DAF7D264261EFC740035C543 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAF7D1DF261EE9190035C543 /* getDocument */;
+			targetProxy = DAF7D263261EFC740035C543 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
