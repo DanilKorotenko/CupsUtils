@@ -55,3 +55,23 @@ List of printer options:
 ./listOptionsForPrinterName <printer-name>
 ```
 
+
+
+Set option value for printer:
+```
+./setOptionForPrinterWithName <printer-name> <option-name> <option-value>
+```
+It is equivalent for:
+```
+lpadmin -p printer -o <option-name>=<option-value>
+
+```
+The command:
+```
+./setOptionForPrinterWithName <printer-name> <device-uri> <new-device-uri>
+```
+Is equvalent for:
+```
+lpadmin -p printername -v device-uri
+```
+
