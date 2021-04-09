@@ -9,6 +9,12 @@ Go to the build dir:
 cd <path-to-build-dir>
 ```
 
+#### getPrinters
+```
+./getPrinters
+```
+Returns local printers list.
+
 
 Should print cups notifications but not working for osx.
 ```
@@ -16,10 +22,6 @@ Should print cups notifications but not working for osx.
 ```
 
 
-Returns local printers list.
-```
-./getPrinters
-```
 
 
 Get the device_uri for specified printer name, which is obtained from getPrinters command.
