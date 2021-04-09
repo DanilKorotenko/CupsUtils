@@ -37,6 +37,8 @@ public:
         const std::string &aJobIDStr,
         const std::string &aDocumentNumberStr,
         const std::string &anOutputFileName);
+    bool setPrinterHoldNewJobs(
+        const std::string &aPrinterName);
 
 #pragma mark Private
 private:
@@ -47,6 +49,7 @@ private:
     void freeDestinationsData(CupsDestinationsData *aDestinationsData);
     void updateDestinationsData();
     cups_dest_t *getPrinterDestinationWithName(std::string aPrinterName);
+    std::string getPrinterURIWithName(std::string aPrinterName);
 
     CupsDestinationsData _destinations_data;
 };

@@ -160,8 +160,6 @@ bool CupsUtilsImpl::getDocument(
 {
     mode_t umask_ = umask(0000); // let the output file be mode 0777
 
-
-
     ipp_t *request = ippNewRequest(IPP_OP_CUPS_GET_DOCUMENT);
 
 //    ATTR charset attributes-charset utf-8
@@ -231,10 +229,39 @@ bool CupsUtilsImpl::getDocument(
 
         umask(umask_); // restore old umask
 
+    return true;
+}
+
+bool CupsUtilsImpl::setPrinterHoldNewJobs(const std::string &aPrinterName)
+{
+    ipp_t *request = ippNewRequest(IPP_OP_HOLD_NEW_JOBS);
+
+    std::string printerURI = getPrinterURIWithName(aPrinterName);
+
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL,
+        printerURI.c_str());
+//    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
+
+    ipp_t *response = cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/admin/");
+
+    ipp_status_t ippStatus = ippGetStatusCode(response);
+
+    ippDelete(response);
+
+    if (ippStatus != IPP_STATUS_OK)
+    {
+        std::cout << "IPP error string: " << ippErrorString(ippStatus) << std::endl;
+        return false;
+    }
+
+    ipp_status_t lastError = cupsLastError();
+    if (lastError > IPP_STATUS_OK_CONFLICTING)
+    {
+        std::cout << "Cups last error: " << cupsLastErrorString() << std::endl;
+        return false;
+    }
 
     return true;
-
-
 }
 
 #pragma mark Private
@@ -307,6 +334,17 @@ cups_dest_t *CupsUtilsImpl::getPrinterDestinationWithName(std::string aPrinterNa
         _destinations_data.number_of_destinations, _destinations_data.destinations);
 
     return printerDestination;
+}
+
+std::string CupsUtilsImpl::getPrinterURIWithName(std::string aPrinterName)
+{
+    cups_dest_t *printerDestination = getPrinterDestinationWithName(aPrinterName);
+
+    std::string printerURI = cupsGetOption(kPrinterURIOptionName,
+        printerDestination->num_options,
+        printerDestination->options);
+
+    return printerURI;
 }
 
 static bool set_printer_options(

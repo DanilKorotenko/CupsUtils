@@ -38,6 +38,8 @@ public:
         const std::string &aJobIDStr,
         const std::string &aDocumentNumberStr,
         const std::string &anOutputFileName);
+    bool setPrinterHoldNewJobs(
+        const std::string &aPrinterName);
 
 private:
     std::unique_ptr<CupsUtilsImpl> _impl;

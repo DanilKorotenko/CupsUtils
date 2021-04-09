@@ -83,7 +83,15 @@ bool CupsUtils::getDocument(
         return _impl->getDocument(aPrinterURI, aJobIDStr, aDocumentNumberStr,
             anOutputFileName);
     }
-
     return false;
+}
 
+bool CupsUtils::setPrinterHoldNewJobs(
+    const std::string &aPrinterName)
+{
+    if (_impl)
+    {
+        return _impl->setPrinterHoldNewJobs(aPrinterName);
+    }
+    return false;
 }
