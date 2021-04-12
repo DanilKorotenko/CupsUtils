@@ -39,12 +39,11 @@ Is equvalent for:
 ```
 lpadmin -p printername -v device-uri
 ```
-
-
-Should print cups notifications but not working for osx.
+Set printer hold new jobs until indefinite
 ```
-./printersNotifications
+lpadmin -p printer -o job-hold-until-default=indefinite
 ```
+
 
 
 Get the device_uri for specified printer name, which is obtained from getPrinters command.
