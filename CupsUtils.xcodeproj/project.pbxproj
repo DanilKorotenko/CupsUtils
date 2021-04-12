@@ -30,12 +30,12 @@
 		DA95C28126135685008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C28026135685008D989B /* main.cpp */; };
 		DA95C28726136BB8008D989B /* libcups.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C27626134249008D989B /* libcups.tbd */; };
 		DA95C29226136FB9008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C29126136FB9008D989B /* main.cpp */; };
-		DA95C3D52615C1A5008D989B /* cupsutils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C3D32615C1A5008D989B /* cupsutils.cpp */; };
-		DA95C3D62615C1A5008D989B /* cupsutils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = DA95C3D42615C1A5008D989B /* cupsutils.hpp */; };
+		DA95C3D52615C1A5008D989B /* CupsUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C3D32615C1A5008D989B /* CupsUtils.cpp */; };
+		DA95C3D62615C1A5008D989B /* CupsUtils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = DA95C3D42615C1A5008D989B /* CupsUtils.hpp */; };
 		DA95C3F12615C7E8008D989B /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
 		DA95C3FE2615C9E2008D989B /* libcups.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C27626134249008D989B /* libcups.tbd */; };
-		DA95C4292615D5C4008D989B /* cupsutilsimpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C4272615D5C4008D989B /* cupsutilsimpl.cpp */; };
-		DA95C42A2615D5C4008D989B /* cupsutilsimpl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = DA95C4282615D5C4008D989B /* cupsutilsimpl.hpp */; };
+		DA95C4292615D5C4008D989B /* CupsUtilsImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C4272615D5C4008D989B /* CupsUtilsImpl.cpp */; };
+		DA95C42A2615D5C4008D989B /* CupsUtilsImpl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = DA95C4282615D5C4008D989B /* CupsUtilsImpl.hpp */; };
 		DA95C53726160777008D989B /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
 		DA95C5B326161E4B008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C5B226161E4B008D989B /* main.cpp */; };
 		DA95C5C72616231C008D989B /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
@@ -167,10 +167,10 @@
 		DA95C28F26136FB8008D989B /* getURIForPrinterName */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = getURIForPrinterName; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA95C29126136FB9008D989B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		DA95C3C22615C17D008D989B /* libcupsutils.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libcupsutils.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		DA95C3D32615C1A5008D989B /* cupsutils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cupsutils.cpp; sourceTree = "<group>"; };
-		DA95C3D42615C1A5008D989B /* cupsutils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = cupsutils.hpp; sourceTree = "<group>"; };
-		DA95C4272615D5C4008D989B /* cupsutilsimpl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cupsutilsimpl.cpp; sourceTree = "<group>"; };
-		DA95C4282615D5C4008D989B /* cupsutilsimpl.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = cupsutilsimpl.hpp; sourceTree = "<group>"; };
+		DA95C3D32615C1A5008D989B /* CupsUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CupsUtils.cpp; sourceTree = "<group>"; };
+		DA95C3D42615C1A5008D989B /* CupsUtils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CupsUtils.hpp; sourceTree = "<group>"; };
+		DA95C4272615D5C4008D989B /* CupsUtilsImpl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CupsUtilsImpl.cpp; sourceTree = "<group>"; };
+		DA95C4282615D5C4008D989B /* CupsUtilsImpl.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CupsUtilsImpl.hpp; sourceTree = "<group>"; };
 		DA95C5B026161E4B008D989B /* listOptionsForPrinterName */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = listOptionsForPrinterName; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA95C5B226161E4B008D989B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		DA95C5DA26162C59008D989B /* setOptionForPrinterWithName */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = setOptionForPrinterWithName; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -338,10 +338,10 @@
 		DA95C3CC2615C184008D989B /* cupsutils */ = {
 			isa = PBXGroup;
 			children = (
-				DA95C3D32615C1A5008D989B /* cupsutils.cpp */,
-				DA95C3D42615C1A5008D989B /* cupsutils.hpp */,
-				DA95C4272615D5C4008D989B /* cupsutilsimpl.cpp */,
-				DA95C4282615D5C4008D989B /* cupsutilsimpl.hpp */,
+				DA95C3D32615C1A5008D989B /* CupsUtils.cpp */,
+				DA95C3D42615C1A5008D989B /* CupsUtils.hpp */,
+				DA95C4272615D5C4008D989B /* CupsUtilsImpl.cpp */,
+				DA95C4282615D5C4008D989B /* CupsUtilsImpl.hpp */,
 			);
 			path = cupsutils;
 			sourceTree = "<group>";
@@ -401,8 +401,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA95C42A2615D5C4008D989B /* cupsutilsimpl.hpp in Headers */,
-				DA95C3D62615C1A5008D989B /* cupsutils.hpp in Headers */,
+				DA95C42A2615D5C4008D989B /* CupsUtilsImpl.hpp in Headers */,
+				DA95C3D62615C1A5008D989B /* CupsUtils.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -678,8 +678,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA95C4292615D5C4008D989B /* cupsutilsimpl.cpp in Sources */,
-				DA95C3D52615C1A5008D989B /* cupsutils.cpp in Sources */,
+				DA95C4292615D5C4008D989B /* CupsUtilsImpl.cpp in Sources */,
+				DA95C3D52615C1A5008D989B /* CupsUtils.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

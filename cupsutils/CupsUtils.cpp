@@ -5,8 +5,8 @@
 //  Created by Danil Korotenko on 4/1/21.
 //
 
-#include "cupsutils.hpp"
-#include "cupsutilsimpl.hpp"
+#include "CupsUtils.hpp"
+#include "CupsUtilsImpl.hpp"
 
 const char *kDeviceURIOptionName = "device-uri";
 const char *kPrinterURIOptionName = "printer-uri-supported";

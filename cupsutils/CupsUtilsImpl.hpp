@@ -11,7 +11,7 @@
 #include <memory>
 #include <cups/cups.h>
 
-#include "cupsutils.hpp"
+#include "CupsUtils.hpp"
 
 typedef struct
 {
