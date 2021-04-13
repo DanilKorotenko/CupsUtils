@@ -159,6 +159,10 @@
 /* Begin PBXFileReference section */
 		DA240B272625B8330014E80E /* setPrinterJobHoldUntilDefaultIndefinite */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = setPrinterJobHoldUntilDefaultIndefinite; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA240B292625B8330014E80E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		DA240B472625C0090014E80E /* CUPSListenerImplOSX.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CUPSListenerImplOSX.cpp; sourceTree = "<group>"; };
+		DA240B482625C0090014E80E /* ICUPSListener.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ICUPSListener.hpp; sourceTree = "<group>"; };
+		DA240B492625C0090014E80E /* CUPSListenerFactory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CUPSListenerFactory.cpp; sourceTree = "<group>"; };
+		DA240B4A2625C0090014E80E /* CUPSListenerImplOSX.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CUPSListenerImplOSX.hpp; sourceTree = "<group>"; };
 		DA95C26C26133EC7008D989B /* getPrinters */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = getPrinters; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA95C26F26133EC7008D989B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		DA95C27626134249008D989B /* libcups.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcups.tbd; path = usr/lib/libcups.tbd; sourceTree = SDKROOT; };
@@ -337,6 +341,10 @@
 		DA95C3CC2615C184008D989B /* cupsutils */ = {
 			isa = PBXGroup;
 			children = (
+				DA240B492625C0090014E80E /* CUPSListenerFactory.cpp */,
+				DA240B472625C0090014E80E /* CUPSListenerImplOSX.cpp */,
+				DA240B4A2625C0090014E80E /* CUPSListenerImplOSX.hpp */,
+				DA240B482625C0090014E80E /* ICUPSListener.hpp */,
 				DA95C3D32615C1A5008D989B /* CupsUtils.cpp */,
 				DA95C3D42615C1A5008D989B /* CupsUtils.hpp */,
 				DA95C4272615D5C4008D989B /* CupsUtilsImpl.cpp */,
