@@ -21,6 +21,8 @@ typedef struct
 
 extern const char *kDeviceURIOptionName;
 extern const char *kPrinterURIOptionName;
+extern const char *kJobHoldUntilDefaultOptionName;
+extern const char *kJobHoldUntilDefaultOptionValueIndefinite;
 
 class CupsUtils
 {

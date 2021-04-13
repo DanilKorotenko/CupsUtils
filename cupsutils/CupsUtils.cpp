@@ -10,6 +10,8 @@
 
 const char *kDeviceURIOptionName = "device-uri";
 const char *kPrinterURIOptionName = "printer-uri-supported";
+const char *kJobHoldUntilDefaultOptionName = "job-hold-until-default";
+const char *kJobHoldUntilDefaultOptionValueIndefinite = "indefinite";
 
 CupsUtils::CupsUtils()
     : _impl(new CupsUtilsImpl())
