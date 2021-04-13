@@ -4,6 +4,8 @@
 #include "CupsUtils.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
+namespace CupsUtilities
+{
 
 CUPSListenerImplOSX::CUPSListenerImplOSX(
     const onPrinterAdded& aPrinterAddedCallback,
@@ -57,7 +59,9 @@ void CUPSListenerImplOSX::jobChanged()
 {
     if (_jobAddedCallback)
     {
-        std::string jobURI;
-        _jobAddedCallback(jobURI);
+        CupsJob job;
+        _jobAddedCallback(job);
     }
+}
+
 }

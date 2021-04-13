@@ -6,7 +6,7 @@
 //
 
 #include <iostream>
-#include "cupsutils/CupsUtils.hpp"
+#include "CupsUtils.hpp"
 
 int main(int argc, const char * argv[])
 {

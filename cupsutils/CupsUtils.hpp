@@ -10,20 +10,12 @@
 
 #include <string>
 #include <vector>
+#include "CupsUtilsTypes.hpp"
+
+namespace CupsUtilities
+{
 
 class CupsUtilsImpl;
-
-typedef struct
-{
-    std::string name;
-    std::string value;
-} CupsOption;
-
-typedef struct
-{
-    int job_id;
-    std::string title;
-} CupsJob;
 
 extern const char *kDeviceURIOptionName;
 extern const char *kPrinterURIOptionName;
@@ -53,5 +45,7 @@ public:
 private:
     std::unique_ptr<CupsUtilsImpl> _impl;
 };
+
+}
 
 #endif /* cupsutils_hpp */

@@ -12,6 +12,9 @@
 #include <fcntl.h>
 #include <errno.h>
 
+namespace CupsUtilities
+{
+
 static bool set_printer_options(
     int num_options,
     cups_option_t *options,
@@ -868,4 +871,6 @@ myHttpSeparateURI(
   */
 
   return (status);
+}
+
 }

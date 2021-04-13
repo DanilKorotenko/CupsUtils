@@ -13,6 +13,9 @@
 
 #include "CupsUtils.hpp"
 
+namespace CupsUtilities
+{
+
 typedef struct
 {
     int number_of_destinations;
@@ -54,5 +57,7 @@ private:
 
     CupsDestinationsData _destinations_data;
 };
+
+}
 
 #endif /* cupsutilsimpl_hpp */

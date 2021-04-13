@@ -29,6 +29,10 @@
 		DA240B3B2625BA260014E80E /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
 		DA240B7D2625C5B90014E80E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA240B7C2625C5B90014E80E /* main.cpp */; };
 		DA240B8F2625C6540014E80E /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
+		DA240BA32625C8E80014E80E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA240BA22625C8E80014E80E /* main.cpp */; };
+		DA240BC42625CD2A0014E80E /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
+		DA240BC52625CD370014E80E /* CUPSListenerFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA240B492625C0090014E80E /* CUPSListenerFactory.cpp */; };
+		DA240BD32625CD3A0014E80E /* CUPSListenerImplOSX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA240B472625C0090014E80E /* CUPSListenerImplOSX.cpp */; };
 		DA95C27026133EC7008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C26F26133EC7008D989B /* main.cpp */; };
 		DA95C29226136FB9008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C29126136FB9008D989B /* main.cpp */; };
 		DA95C3D52615C1A5008D989B /* CupsUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C3D32615C1A5008D989B /* CupsUtils.cpp */; };
@@ -59,6 +63,13 @@
 			remoteInfo = cupsutils;
 		};
 		DA240B8D2625C64A0014E80E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA95C26226133E49008D989B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA95C3C12615C17D008D989B;
+			remoteInfo = cupsutils;
+		};
+		DA240BC22625CD260014E80E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DA95C26226133E49008D989B /* Project object */;
 			proxyType = 1;
@@ -174,6 +185,9 @@
 		DA240B4A2625C0090014E80E /* CUPSListenerImplOSX.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CUPSListenerImplOSX.hpp; sourceTree = "<group>"; };
 		DA240B7A2625C5B90014E80E /* getActiveJobs */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = getActiveJobs; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA240B7C2625C5B90014E80E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		DA240BA02625C8E80014E80E /* cupsListener */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cupsListener; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA240BA22625C8E80014E80E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		DA240BB42625CAC80014E80E /* CupsUtilsTypes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CupsUtilsTypes.hpp; sourceTree = "<group>"; };
 		DA95C26C26133EC7008D989B /* getPrinters */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = getPrinters; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA95C26F26133EC7008D989B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		DA95C27626134249008D989B /* libcups.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcups.tbd; path = usr/lib/libcups.tbd; sourceTree = SDKROOT; };
@@ -213,6 +227,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA240B8F2625C6540014E80E /* libcupsutils.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA240B9D2625C8E80014E80E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA240BC42625CD2A0014E80E /* libcupsutils.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +327,14 @@
 			path = getActiveJobs;
 			sourceTree = "<group>";
 		};
+		DA240BA12625C8E80014E80E /* cupsListener */ = {
+			isa = PBXGroup;
+			children = (
+				DA240BA22625C8E80014E80E /* main.cpp */,
+			);
+			path = cupsListener;
+			sourceTree = "<group>";
+		};
 		DA95C26126133E49008D989B = {
 			isa = PBXGroup;
 			children = (
@@ -320,6 +350,7 @@
 				DACDAA8026245A49003731E5 /* cupsNotificationsListenerOSX */,
 				DA240B282625B8330014E80E /* setPrinterJobHoldUntilDefaultIndefinite */,
 				DA240B7B2625C5B90014E80E /* getActiveJobs */,
+				DA240BA12625C8E80014E80E /* cupsListener */,
 				DA95C27526134249008D989B /* Frameworks */,
 				DA95C26D26133EC7008D989B /* Products */,
 			);
@@ -339,6 +370,7 @@
 				DACDAA7F26245A49003731E5 /* cupsNotificationsListenerOSX */,
 				DA240B272625B8330014E80E /* setPrinterJobHoldUntilDefaultIndefinite */,
 				DA240B7A2625C5B90014E80E /* getActiveJobs */,
+				DA240BA02625C8E80014E80E /* cupsListener */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -370,6 +402,7 @@
 		DA95C3CC2615C184008D989B /* cupsutils */ = {
 			isa = PBXGroup;
 			children = (
+				DA240BB42625CAC80014E80E /* CupsUtilsTypes.hpp */,
 				DA240B492625C0090014E80E /* CUPSListenerFactory.cpp */,
 				DA240B472625C0090014E80E /* CUPSListenerImplOSX.cpp */,
 				DA240B4A2625C0090014E80E /* CUPSListenerImplOSX.hpp */,
@@ -477,6 +510,23 @@
 			name = getActiveJobs;
 			productName = getActiveJobs;
 			productReference = DA240B7A2625C5B90014E80E /* getActiveJobs */;
+			productType = "com.apple.product-type.tool";
+		};
+		DA240B9F2625C8E80014E80E /* cupsListener */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA240BA42625C8E80014E80E /* Build configuration list for PBXNativeTarget "cupsListener" */;
+			buildPhases = (
+				DA240B9C2625C8E80014E80E /* Sources */,
+				DA240B9D2625C8E80014E80E /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA240BC32625CD260014E80E /* PBXTargetDependency */,
+			);
+			name = cupsListener;
+			productName = cupsListener;
+			productReference = DA240BA02625C8E80014E80E /* cupsListener */;
 			productType = "com.apple.product-type.tool";
 		};
 		DA95C26B26133EC7008D989B /* getPrinters */ = {
@@ -646,6 +696,9 @@
 					DA240B792625C5B90014E80E = {
 						CreatedOnToolsVersion = 12.4;
 					};
+					DA240B9F2625C8E80014E80E = {
+						CreatedOnToolsVersion = 12.4;
+					};
 					DA95C26B26133EC7008D989B = {
 						CreatedOnToolsVersion = 12.4;
 					};
@@ -703,6 +756,7 @@
 				DACDAA7E26245A49003731E5 /* cupsNotificationsListenerOSX */,
 				DA240B262625B8330014E80E /* setPrinterJobHoldUntilDefaultIndefinite */,
 				DA240B792625C5B90014E80E /* getActiveJobs */,
+				DA240B9F2625C8E80014E80E /* cupsListener */,
 			);
 		};
 /* End PBXProject section */
@@ -721,6 +775,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA240B7D2625C5B90014E80E /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA240B9C2625C8E80014E80E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA240BA32625C8E80014E80E /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -745,6 +807,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA95C4292615D5C4008D989B /* CupsUtilsImpl.cpp in Sources */,
+				DA240BD32625CD3A0014E80E /* CUPSListenerImplOSX.cpp in Sources */,
+				DA240BC52625CD370014E80E /* CUPSListenerFactory.cpp in Sources */,
 				DA95C3D52615C1A5008D989B /* CupsUtils.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -809,6 +873,11 @@
 			isa = PBXTargetDependency;
 			target = DA95C3C12615C17D008D989B /* cupsutils */;
 			targetProxy = DA240B8D2625C64A0014E80E /* PBXContainerItemProxy */;
+		};
+		DA240BC32625CD260014E80E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA95C3C12615C17D008D989B /* cupsutils */;
+			targetProxy = DA240BC22625CD260014E80E /* PBXContainerItemProxy */;
 		};
 		DA95C2A62613828D008D989B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1051,6 +1120,125 @@
 			name = Debug;
 		};
 		DA240B802625C5B90014E80E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = XQKX38U9F4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		DA240BA52625C8E80014E80E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = XQKX38U9F4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		DA240BA62625C8E80014E80E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -2250,6 +2438,15 @@
 			buildConfigurations = (
 				DA240B7F2625C5B90014E80E /* Debug */,
 				DA240B802625C5B90014E80E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA240BA42625C8E80014E80E /* Build configuration list for PBXNativeTarget "cupsListener" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA240BA52625C8E80014E80E /* Debug */,
+				DA240BA62625C8E80014E80E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

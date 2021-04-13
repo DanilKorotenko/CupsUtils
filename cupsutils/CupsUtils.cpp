@@ -8,6 +8,9 @@
 #include "CupsUtils.hpp"
 #include "CupsUtilsImpl.hpp"
 
+namespace CupsUtilities
+{
+
 const char *kDeviceURIOptionName = "device-uri";
 const char *kPrinterURIOptionName = "printer-uri-supported";
 const char *kJobHoldUntilDefaultOptionName = "job-hold-until-default";
@@ -106,4 +109,6 @@ std::vector<CupsJob> CupsUtils::getActiveJobs()
     }
     std::vector<CupsJob> result;
     return result;
+}
+
 }

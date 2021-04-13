@@ -4,20 +4,24 @@
 #include <vector>
 #include <memory>
 #include <functional>
+#include "CupsUtilsTypes.hpp"
 
-// 1st argument is added printer name
-using onPrinterAdded = std::function<void(const std::string&)>;
-// 1st argument is added job uri
-using onJobAdded = std::function<void(const std::string&)>;
-
-class ICUPSListener
+namespace CupsUtilities
 {
-public:
-    using UPtrT = std::unique_ptr<ICUPSListener>;
+    // 1st argument is added printer name
+    using onPrinterAdded = std::function<void(const std::string&)>;
+    // 1st argument is added job uri
+    using onJobAdded = std::function<void(const CupsJob&)>;
 
-    virtual ~ICUPSListener() {}
-};
+    class ICUPSListener
+    {
+    public:
+        using UPtrT = std::unique_ptr<ICUPSListener>;
 
-ICUPSListener::UPtrT createCupsListener(
-    const onPrinterAdded& aPrinterAddedCallback,
-    const onJobAdded& aJobAddedCallback);
+        virtual ~ICUPSListener() {}
+    };
+
+    ICUPSListener::UPtrT createCupsListener(
+        const onPrinterAdded& aPrinterAddedCallback,
+        const onJobAdded& aJobAddedCallback);
+}
