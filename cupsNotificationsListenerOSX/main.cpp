@@ -144,8 +144,17 @@ static void PrintUsage(void)
 
 int main(int argc, const char * argv[])
 {
-    // if
-    int retVal = ListenUsingGCD( ((size_t) argc) - 1, &argv[1]);
+    int retVal = 0;
+
+    if (argc < 2)
+    {
+        PrintUsage();
+        retVal = EXIT_FAILURE;
+    }
+    else
+    {
+        retVal = ListenUsingGCD( ((size_t) argc) - 1, &argv[1]);
+    }
 
     return retVal;
 }

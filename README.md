@@ -50,3 +50,6 @@ Get the device_uri for specified printer name, which is obtained from getPrinter
 ```
 ./getURIForPrinterName <printer-name>
 ```
+
+### Listening to CUPS notifications
+
