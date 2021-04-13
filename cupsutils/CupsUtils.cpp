@@ -97,3 +97,13 @@ bool CupsUtils::setPrinterHoldNewJobs(
     }
     return false;
 }
+
+std::vector<CupsJob> CupsUtils::getActiveJobs()
+{
+    if (_impl)
+    {
+        return _impl->getActiveJobs();
+    }
+    std::vector<CupsJob> result;
+    return result;
+}

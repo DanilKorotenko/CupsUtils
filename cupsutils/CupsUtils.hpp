@@ -19,6 +19,12 @@ typedef struct
     std::string value;
 } CupsOption;
 
+typedef struct
+{
+    int job_id;
+    std::string title;
+} CupsJob;
+
 extern const char *kDeviceURIOptionName;
 extern const char *kPrinterURIOptionName;
 extern const char *kJobHoldUntilDefaultOptionName;
@@ -42,6 +48,7 @@ public:
         const std::string &anOutputFileName);
     bool setPrinterHoldNewJobs(
         const std::string &aPrinterName);
+    std::vector<CupsJob> getActiveJobs();
 
 private:
     std::unique_ptr<CupsUtilsImpl> _impl;

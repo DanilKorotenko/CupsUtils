@@ -39,6 +39,7 @@ public:
         const std::string &anOutputFileName);
     bool setPrinterHoldNewJobs(
         const std::string &aPrinterName);
+    std::vector<CupsJob> getActiveJobs();
 
 #pragma mark Private
 private:

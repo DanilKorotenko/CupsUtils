@@ -264,6 +264,32 @@ bool CupsUtilsImpl::setPrinterHoldNewJobs(const std::string &aPrinterName)
     return true;
 }
 
+std::vector<CupsJob> CupsUtilsImpl::getActiveJobs()
+{
+    std::vector<CupsJob> result;
+
+    cups_job_t *jobs = NULL;
+
+//int					/* O - Number of jobs */
+//cupsGetJobs(cups_job_t **jobs,		/* O - Job data */
+//            const char *name,		/* I - @code NULL@ = all destinations, otherwise show jobs for named destination */
+//            int        myjobs,		/* I - 0 = all users, 1 = mine */
+//	    int        whichjobs)	/* I - @code CUPS_WHICHJOBS_ALL@, @code CUPS_WHICHJOBS_ACTIVE@, or @code CUPS_WHICHJOBS_COMPLETED@ */
+
+    int num_jobs = cupsGetJobs(&jobs, NULL, 0, CUPS_WHICHJOBS_ACTIVE);
+
+    for (int i = 0; i < num_jobs; i++)
+    {
+        cups_job_t aJob = jobs[i];
+
+        result.push_back({ aJob.id, aJob.title });
+    }
+
+    cupsFreeJobs(num_jobs, jobs);
+
+    return result;
+}
+
 #pragma mark Private
 ////////////////////////////////////////////////////////////////////////////////
 // Private
