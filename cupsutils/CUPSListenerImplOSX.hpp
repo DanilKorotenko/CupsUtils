@@ -17,11 +17,14 @@ namespace CupsUtilities
         void printerListChanged();
         void jobChanged();
 
-        onPrinterAdded _printerAddedCallback;
-        onJobAdded _jobAddedCallback;
+        onPrinterAdded      _printerAddedCallback;
+        onJobAdded          _jobAddedCallback;
 
-        dispatch_queue_t _listening_queue;
-        int _printerListChangedToken;
-        int _jobChangedToken;
+        dispatch_queue_t    _listening_queue;
+        int                 _printerListChangedToken;
+        int                 _jobChangedToken;
+
+        std::vector<std::string> _printers;
+        std::vector<CupsJob>     _jobs;
     };
 }
