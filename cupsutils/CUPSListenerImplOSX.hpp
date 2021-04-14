@@ -8,16 +8,19 @@ namespace CupsUtilities
     class CUPSListenerImplOSX: public ICUPSListener
     {
     public:
-        CUPSListenerImplOSX(
-            const onPrinterAdded& aPrinterAddedCallback,
-            const onJobAdded& aJobAddedCallback);
+        CUPSListenerImplOSX();
         ~CUPSListenerImplOSX();
+
+        void setPrinterAddedCallback(const onPrinterAdded& aPrinterAddedCallback) override;
+        void setPrinterListEmpty(const onPrinterListEmpty& aPrinterListEmptyCallback) override;
+        void setJobAddedCallback(const onJobAdded& aJobAddedCallback) override;
 
     private:
         void printerListChanged();
         void jobChanged();
 
         onPrinterAdded      _printerAddedCallback;
+        onPrinterListEmpty  _printerListEmptyCallback;
         onJobAdded          _jobAddedCallback;
 
         dispatch_queue_t    _listening_queue;

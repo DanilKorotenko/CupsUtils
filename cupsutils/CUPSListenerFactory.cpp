@@ -3,13 +3,8 @@
 
 namespace CupsUtilities
 {
-
-ICUPSListener::UPtrT createCupsListener(
-    const onPrinterAdded& aPrinterAddedCallback,
-    const onJobAdded& aJobAddedCallback)
-{
-    return std::unique_ptr<CUPSListenerImplOSX>(new CUPSListenerImplOSX(
-        aPrinterAddedCallback, aJobAddedCallback));
-}
-
+    ICUPSListener::UPtrT createCupsListener()
+    {
+        return std::unique_ptr<CUPSListenerImplOSX>(new CUPSListenerImplOSX());
+    }
 }
