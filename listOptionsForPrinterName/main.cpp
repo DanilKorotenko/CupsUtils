@@ -18,12 +18,12 @@ int main(int argc, const char * argv[])
 
     std::string printerName = argv[1];
 
-    CupsUtils cupsUtils;
+    CupsUtilities::CupsUtils cupsUtils;
 
-    std::vector<CupsOption> printerOptions =
+    std::vector<CupsUtilities::CupsOption> printerOptions =
         cupsUtils.getListOfOptionsForPrinterWithName(printerName);
 
-    for (std::vector<CupsOption>::iterator it = printerOptions.begin();
+    for (std::vector<CupsUtilities::CupsOption>::iterator it = printerOptions.begin();
         it != printerOptions.end(); it++)
     {
         std::cout << (*it).name.c_str() << " : " << (*it).value.c_str() << std::endl;

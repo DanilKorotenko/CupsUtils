@@ -18,9 +18,9 @@ int main(int argc, const char * argv[])
 
     std::string printerName = argv[1];
 
-    CupsUtils cupsUtils;
+    CupsUtilities::CupsUtils cupsUtils;
 
-    std::cout << cupsUtils.getOptionValueForPrinterWithName(printerName, kDeviceURIOptionName) << std::endl;
+    std::cout << cupsUtils.getOptionValueForPrinterWithName(printerName, CupsUtilities::kDeviceURIOptionName) << std::endl;
 
     return 0;
 }

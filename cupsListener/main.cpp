@@ -22,11 +22,11 @@ void onJobAdded(const CupsUtilities::CupsJob& aCupsJob)
 int main(int argc, const char * argv[])
 {
     CupsUtilities::ICUPSListener::UPtrT cupsListener(
-        createCupsListener(
-            std::bind(&onPrinterAdded, std::placeholders::_1),
-            std::bind(&onJobAdded, std::placeholders::_1)
-        )
+        CupsUtilities::createCupsListener()
     );
+
+    cupsListener->setPrinterAddedCallback(std::bind(&onPrinterAdded, std::placeholders::_1));
+    cupsListener->setJobAddedCallback(std::bind(&onJobAdded, std::placeholders::_1));
 
     dispatch_main();
 

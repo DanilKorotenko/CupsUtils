@@ -20,7 +20,7 @@ int main(int argc, const char * argv[])
     std::string optionName = argv[2];
     std::string optionValue = argv[3];
 
-    CupsUtils cupsUtils;
+    CupsUtilities::CupsUtils cupsUtils;
 
     std::string previousOptionValue = cupsUtils.getOptionValueForPrinterWithName(
         printerName, optionName);

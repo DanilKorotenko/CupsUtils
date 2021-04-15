@@ -10,11 +10,11 @@
 
 int main(int argc, const char * argv[])
 {
-    CupsUtils cupsUtils;
+    CupsUtilities::CupsUtils cupsUtils;
 
-    std::vector<CupsJob> activeJobs = cupsUtils.getActiveJobs();
+    std::vector<CupsUtilities::CupsJob> activeJobs = cupsUtils.getActiveJobs();
 
-    for (std::vector<CupsJob>::iterator it = activeJobs.begin();
+    for (std::vector<CupsUtilities::CupsJob>::iterator it = activeJobs.begin();
         it != activeJobs.end(); it++)
     {
         std::cout << (*it).job_id << " : " << (*it).title.c_str() << std::endl;

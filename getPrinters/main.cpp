@@ -10,7 +10,7 @@
 
 int main(int argc, const char * argv[])
 {
-    CupsUtils cupsUtils;
+    CupsUtilities::CupsUtils cupsUtils;
 
     std::vector<std::string> printerNames = cupsUtils.getPrintersNames();
 

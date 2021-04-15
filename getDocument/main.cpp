@@ -25,7 +25,7 @@ int main(int argc, const char * argv[])
     std::string documentNumberStr = argv[3];
     std::string outputFileName = argv[4];
 
-    CupsUtils cupsUtils;
+    CupsUtilities::CupsUtils cupsUtils;
 
     cupsUtils.getDocument(printerURI, jobIDStr, documentNumberStr, outputFileName);
 

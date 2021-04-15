@@ -18,15 +18,16 @@ int main(int argc, const char * argv[])
 
     std::string printerName = argv[1];
 
-    CupsUtils cupsUtils;
+    CupsUtilities::CupsUtils cupsUtils;
 
     std::string previousOptionValue = cupsUtils.getOptionValueForPrinterWithName(
-        printerName, kJobHoldUntilDefaultOptionName);
+        printerName, CupsUtilities::kJobHoldUntilDefaultOptionName);
 
     std::cout << "previousOptionValue: " << previousOptionValue.c_str() << std::endl;
 
     bool setOptionResult = cupsUtils.setOptionForPrinterWithName(printerName,
-        { kJobHoldUntilDefaultOptionName, kJobHoldUntilDefaultOptionValueIndefinite });
+        { CupsUtilities::kJobHoldUntilDefaultOptionName,
+        CupsUtilities::kJobHoldUntilDefaultOptionValueIndefinite });
 
     std::cout << (setOptionResult ?
         "The option was successfuly set." : "Unable to set option.") << std::endl;
