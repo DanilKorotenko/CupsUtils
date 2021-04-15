@@ -285,7 +285,7 @@ std::vector<CupsJob> CupsUtilsImpl::getActiveJobs()
     {
         cups_job_t aJob = jobs[i];
 
-        result.push_back({ aJob.id, aJob.title });
+        result.push_back({ aJob.id, aJob.title, aJob.dest });
     }
 
     cupsFreeJobs(num_jobs, jobs);

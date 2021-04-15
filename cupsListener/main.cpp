@@ -16,7 +16,8 @@ void onPrinterAdded(const std::string& aPrinterName)
 
 void onJobAdded(const CupsUtilities::CupsJob& aCupsJob)
 {
-    std::cout << "Job Added: " << aCupsJob.job_id << " : " << aCupsJob.title.c_str() << std::endl;
+    std::cout << "Job Added: " << aCupsJob.destinationName << " : "
+        << aCupsJob.job_id << " : " << aCupsJob.title.c_str() << std::endl;
 }
 
 int main(int argc, const char * argv[])

@@ -17,7 +17,7 @@ int main(int argc, const char * argv[])
     for (std::vector<CupsUtilities::CupsJob>::iterator it = activeJobs.begin();
         it != activeJobs.end(); it++)
     {
-        std::cout << (*it).job_id << " : " << (*it).title.c_str() << std::endl;
+        std::cout << (*it).destinationName << " : " << (*it).job_id << " : " << (*it).title.c_str() << std::endl;
     }
 
     return 0;
