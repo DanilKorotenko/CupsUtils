@@ -43,6 +43,7 @@ public:
     bool setPrinterHoldNewJobs(
         const std::string &aPrinterName);
     std::vector<CupsJob> getActiveJobs();
+    void cancelJob(std::string aPrinterName, int aJobId);
 
 #pragma mark Private
 private:
@@ -51,11 +52,6 @@ private:
     int getDestinations(cups_ptype_t type, cups_ptype_t mask,
         CupsDestinationsData *aDestinationsData);
     void freeDestinationsData(CupsDestinationsData *aDestinationsData);
-    void updateDestinationsData();
-    cups_dest_t *getPrinterDestinationWithName(std::string aPrinterName);
-    std::string getPrinterURIWithName(std::string aPrinterName);
-
-    CupsDestinationsData _destinations_data;
 };
 
 }

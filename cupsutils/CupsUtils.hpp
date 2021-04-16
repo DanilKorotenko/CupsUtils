@@ -41,6 +41,7 @@ public:
     bool setPrinterHoldNewJobs(
         const std::string &aPrinterName);
     std::vector<CupsJob> getActiveJobs();
+    void cancelJob(std::string aPrinterName, int aJobId);
 
 private:
     std::unique_ptr<CupsUtilsImpl> _impl;

@@ -23,13 +23,10 @@ static bool set_printer_options(
 
 CupsUtilsImpl::CupsUtilsImpl()
 {
-    _destinations_data = { 0, NULL };
-    updateDestinationsData();
 }
 
 CupsUtilsImpl::~CupsUtilsImpl()
 {
-    freeDestinationsData(&_destinations_data);
 }
 
 #pragma mark Public
@@ -40,10 +37,15 @@ std::vector<std::string> CupsUtilsImpl::getPrintersNames()
 {
     std::vector<std::string> result;
 
-    for (int i = 0; i < _destinations_data.number_of_destinations; i++)
+    CupsDestinationsData destinations_data = { 0, NULL };
+    getDestinations(CUPS_PRINTER_LOCAL, CUPS_PRINTER_DISCOVERED, &destinations_data);
+
+    for (int i = 0; i < destinations_data.number_of_destinations; i++)
     {
-        result.push_back(_destinations_data.destinations[i].name);
+        result.push_back(destinations_data.destinations[i].name);
     }
+
+    freeDestinationsData(&destinations_data);
 
     return result;
 }
@@ -52,7 +54,11 @@ std::vector<CupsOption> CupsUtilsImpl::getOptionsForPrinterWithName(std::string 
 {
     std::vector<CupsOption> result;
 
-    cups_dest_t *printerDestination = getPrinterDestinationWithName(aPrinterName);
+    CupsDestinationsData destinations_data = { 0, NULL };
+    getDestinations(CUPS_PRINTER_LOCAL, CUPS_PRINTER_DISCOVERED, &destinations_data);
+
+    cups_dest_t *printerDestination = cupsGetDest(aPrinterName.c_str(), NULL,
+        destinations_data.number_of_destinations, destinations_data.destinations);
 
     for (int i = 0; i < printerDestination->num_options; i++)
     {
@@ -63,20 +69,22 @@ std::vector<CupsOption> CupsUtilsImpl::getOptionsForPrinterWithName(std::string 
         result.push_back(cupsOption);
     }
 
+    freeDestinationsData(&destinations_data);
+
     return result;
 }
 
 std::string CupsUtilsImpl::getOptionValueForPrinterWithName(
     std::string aPrinterName, std::string anOptionName)
 {
-    cups_dest_t *printerDestination = getPrinterDestinationWithName(aPrinterName);
+    CupsDestinationsData destinations_data = { 0, NULL };
+    getDestinations(CUPS_PRINTER_LOCAL, CUPS_PRINTER_DISCOVERED, &destinations_data);
+
+    cups_dest_t *printerDestination = cupsGetDest(aPrinterName.c_str(), NULL,
+        destinations_data.number_of_destinations, destinations_data.destinations);
 
     const char *optionValue = cupsGetOption(anOptionName.c_str(),
         printerDestination->num_options, printerDestination->options);
-
-//    cups_dinfo_t *destinationInfo = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, destination);
-//
-//    cupsFreeDestInfo(destinationInfo);
 
     std::string result;
 
@@ -85,13 +93,19 @@ std::string CupsUtilsImpl::getOptionValueForPrinterWithName(
         result = optionValue;
     }
 
+    freeDestinationsData(&destinations_data);
+
     return result;
 }
 
 bool CupsUtilsImpl::setOptionForPrinterWithName(std::string aPrinterName,
     const CupsOption &anOption)
 {
-    cups_dest_t *printerDestination = getPrinterDestinationWithName(aPrinterName);
+    CupsDestinationsData destinations_data = { 0, NULL };
+    getDestinations(CUPS_PRINTER_LOCAL, CUPS_PRINTER_DISCOVERED, &destinations_data);
+
+    cups_dest_t *printerDestination = cupsGetDest(aPrinterName.c_str(), NULL,
+        destinations_data.number_of_destinations, destinations_data.destinations);
 
     std::cout << "remove option" << std::endl;
 
@@ -119,9 +133,13 @@ bool CupsUtilsImpl::setOptionForPrinterWithName(std::string aPrinterName,
         printerDestination->num_options,
         printerDestination->options);
 
-    return set_printer_options(printerDestination->num_options,
+    bool result = set_printer_options(printerDestination->num_options,
         printerDestination->options,
         printerURI.c_str());
+
+    freeDestinationsData(&destinations_data);
+
+    return result;
 }
 
 bool CupsUtilsImpl::checkURI(std::string anUri)
@@ -239,7 +257,8 @@ bool CupsUtilsImpl::setPrinterHoldNewJobs(const std::string &aPrinterName)
 {
     ipp_t *request = ippNewRequest(IPP_OP_HOLD_NEW_JOBS);
 
-    std::string printerURI = getPrinterURIWithName(aPrinterName);
+    std::string printerURI = getOptionValueForPrinterWithName(aPrinterName,
+        kPrinterURIOptionName);
 
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL,
         printerURI.c_str());
@@ -291,6 +310,11 @@ std::vector<CupsJob> CupsUtilsImpl::getActiveJobs()
     cupsFreeJobs(num_jobs, jobs);
 
     return result;
+}
+
+void CupsUtilsImpl::cancelJob(std::string aPrinterName, int aJobId)
+{
+    cupsCancelJob(aPrinterName.c_str(), aJobId);
 }
 
 #pragma mark Private
@@ -350,30 +374,6 @@ void CupsUtilsImpl::freeDestinationsData(CupsDestinationsData *aDestinationsData
         aDestinationsData->destinations);
 
     *aDestinationsData = {0, NULL};
-}
-
-void CupsUtilsImpl::updateDestinationsData()
-{
-    getDestinations(CUPS_PRINTER_LOCAL, CUPS_PRINTER_DISCOVERED, &_destinations_data);
-}
-
-cups_dest_t *CupsUtilsImpl::getPrinterDestinationWithName(std::string aPrinterName)
-{
-    cups_dest_t *printerDestination = cupsGetDest(aPrinterName.c_str(), NULL,
-        _destinations_data.number_of_destinations, _destinations_data.destinations);
-
-    return printerDestination;
-}
-
-std::string CupsUtilsImpl::getPrinterURIWithName(std::string aPrinterName)
-{
-    cups_dest_t *printerDestination = getPrinterDestinationWithName(aPrinterName);
-
-    std::string printerURI = cupsGetOption(kPrinterURIOptionName,
-        printerDestination->num_options,
-        printerDestination->options);
-
-    return printerURI;
 }
 
 static bool set_printer_options(

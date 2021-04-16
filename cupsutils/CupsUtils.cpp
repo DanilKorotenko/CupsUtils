@@ -111,4 +111,12 @@ std::vector<CupsJob> CupsUtils::getActiveJobs()
     return result;
 }
 
+void CupsUtils::cancelJob(std::string aPrinterName, int aJobId)
+{
+    if (_impl)
+    {
+        cancelJob(aPrinterName, aJobId);
+    }
+}
+
 }
