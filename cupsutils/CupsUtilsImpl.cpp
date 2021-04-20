@@ -253,39 +253,6 @@ bool CupsUtilsImpl::getDocument(
     return true;
 }
 
-bool CupsUtilsImpl::setPrinterHoldNewJobs(const std::string &aPrinterName)
-{
-    ipp_t *request = ippNewRequest(IPP_OP_HOLD_NEW_JOBS);
-
-    std::string printerURI = getOptionValueForPrinterWithName(aPrinterName,
-        kPrinterURIOptionName);
-
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL,
-        printerURI.c_str());
-//    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
-
-    ipp_t *response = cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/admin/");
-
-    ipp_status_t ippStatus = ippGetStatusCode(response);
-
-    ippDelete(response);
-
-    if (ippStatus != IPP_STATUS_OK)
-    {
-        std::cout << "IPP error string: " << ippErrorString(ippStatus) << std::endl;
-        return false;
-    }
-
-    ipp_status_t lastError = cupsLastError();
-    if (lastError > IPP_STATUS_OK_CONFLICTING)
-    {
-        std::cout << "Cups last error: " << cupsLastErrorString() << std::endl;
-        return false;
-    }
-
-    return true;
-}
-
 std::vector<CupsJob> CupsUtilsImpl::getActiveJobs()
 {
     std::vector<CupsJob> result;
@@ -312,9 +279,34 @@ std::vector<CupsJob> CupsUtilsImpl::getActiveJobs()
     return result;
 }
 
-void CupsUtilsImpl::cancelJob(std::string aPrinterName, int aJobId)
+void CupsUtilsImpl::cancelJob(int aJobId)
 {
-    cupsCancelJob(aPrinterName.c_str(), aJobId);
+    cupsCancelJob(NULL, aJobId);
+}
+
+bool CupsUtilsImpl::releaseJob(int aJobId)
+{
+    ipp_t *request = ippNewRequest(IPP_OP_RELEASE_JOB);
+
+    char jobUri[HTTP_MAX_URI];
+    snprintf(jobUri, sizeof(jobUri), "ipp://localhost/jobs/%d", aJobId);
+
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", NULL, jobUri);
+
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
+               NULL, cupsUser());
+
+    ippDelete(cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/jobs/"));
+
+    ipp_status_t lastError = cupsLastError();
+    if (lastError > IPP_STATUS_OK_CONFLICTING)
+    {
+        std::cout << "IPP error string: " << ippErrorString(lastError) << std::endl;
+        std::cout << "Cups last error: " << cupsLastErrorString() << std::endl;
+        return false;
+    }
+
+    return true;
 }
 
 #pragma mark Private

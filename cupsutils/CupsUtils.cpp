@@ -91,16 +91,6 @@ bool CupsUtils::getDocument(
     return false;
 }
 
-bool CupsUtils::setPrinterHoldNewJobs(
-    const std::string &aPrinterName)
-{
-    if (_impl)
-    {
-        return _impl->setPrinterHoldNewJobs(aPrinterName);
-    }
-    return false;
-}
-
 std::vector<CupsJob> CupsUtils::getActiveJobs()
 {
     if (_impl)
@@ -111,12 +101,21 @@ std::vector<CupsJob> CupsUtils::getActiveJobs()
     return result;
 }
 
-void CupsUtils::cancelJob(std::string aPrinterName, int aJobId)
+void CupsUtils::cancelJob(int aJobId)
 {
     if (_impl)
     {
-        _impl->cancelJob(aPrinterName, aJobId);
+        _impl->cancelJob(aJobId);
     }
+}
+
+bool CupsUtils::releaseJob(int aJobId)
+{
+    if (_impl)
+    {
+        _impl->releaseJob(aJobId);
+    }
+    return false;
 }
 
 }

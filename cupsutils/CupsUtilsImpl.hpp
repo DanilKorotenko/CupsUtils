@@ -40,10 +40,9 @@ public:
         const std::string &aJobIDStr,
         const std::string &aDocumentNumberStr,
         const std::string &anOutputFileName);
-    bool setPrinterHoldNewJobs(
-        const std::string &aPrinterName);
     std::vector<CupsJob> getActiveJobs();
-    void cancelJob(std::string aPrinterName, int aJobId);
+    void cancelJob(int aJobId);
+    bool releaseJob(int aJobId);
 
 #pragma mark Private
 private:
