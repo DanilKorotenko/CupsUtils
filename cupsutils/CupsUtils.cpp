@@ -115,7 +115,7 @@ void CupsUtils::cancelJob(std::string aPrinterName, int aJobId)
 {
     if (_impl)
     {
-        cancelJob(aPrinterName, aJobId);
+        _impl->cancelJob(aPrinterName, aJobId);
     }
 }
 

@@ -50,6 +50,7 @@
 		DA95C5C72616231C008D989B /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
 		DA95C5DD26162C59008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C5DC26162C59008D989B /* main.cpp */; };
 		DA95C76C261B30FF008D989B /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
+		DAB6E3D3262D9FF0009D2E77 /* policyManager.py in CopyFiles */ = {isa = PBXBuildFile; fileRef = DAB6E3D1262D9FD4009D2E77 /* policyManager.py */; };
 		DACDAA1926205ADB003731E5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DACDAA1826205ADB003731E5 /* main.cpp */; };
 		DACDAA2826205B4C003731E5 /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
 		DACDAA632624474C003731E5 /* cupsUtilsNotificatorMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DACDAA622624474C003731E5 /* cupsUtilsNotificatorMain.cpp */; };
@@ -183,12 +184,22 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		DA07684926270CA900088F8B /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = usr/share/man/man1;
+			dstSubfolderSpec = 6;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAB6E3D2262D9FE0009D2E77 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				DAB6E3D3262D9FF0009D2E77 /* policyManager.py in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DACDAA5E2624474C003731E5 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -239,6 +250,7 @@
 		DA95C5B226161E4B008D989B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		DA95C5DA26162C59008D989B /* setOptionForPrinterWithName */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = setOptionForPrinterWithName; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA95C5DC26162C59008D989B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		DAB6E3D1262D9FD4009D2E77 /* policyManager.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = policyManager.py; sourceTree = "<group>"; };
 		DACDAA1626205ADB003731E5 /* setPrinterHoldNewJobs */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = setPrinterHoldNewJobs; sourceTree = BUILT_PRODUCTS_DIR; };
 		DACDAA1826205ADB003731E5 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		DACDAA602624474C003731E5 /* cupsUtilsNotificator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cupsUtilsNotificator; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -455,6 +467,7 @@
 		DA95C3CC2615C184008D989B /* cupsutils */ = {
 			isa = PBXGroup;
 			children = (
+				DAB6E3D1262D9FD4009D2E77 /* policyManager.py */,
 				DA240BB42625CAC80014E80E /* CupsUtilsTypes.hpp */,
 				DA240B492625C0090014E80E /* CUPSListenerFactory.cpp */,
 				DA240B472625C0090014E80E /* CUPSListenerImplOSX.cpp */,
@@ -640,6 +653,7 @@
 				DA95C3BE2615C17D008D989B /* Headers */,
 				DA95C3BF2615C17D008D989B /* Sources */,
 				DA95C3C02615C17D008D989B /* Frameworks */,
+				DAB6E3D2262D9FE0009D2E77 /* CopyFiles */,
 			);
 			buildRules = (
 			);
