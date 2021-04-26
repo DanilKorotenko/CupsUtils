@@ -24,6 +24,7 @@ typedef struct
     int job_id;
     std::string title;
     std::string destinationName;
+    std::string userName;
 } CupsJob;
 
 }

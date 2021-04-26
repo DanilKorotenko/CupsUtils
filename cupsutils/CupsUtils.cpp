@@ -13,6 +13,7 @@ namespace CupsUtilities
 
 const char *kDeviceURIOptionName = "device-uri";
 const char *kPrinterURIOptionName = "printer-uri-supported";
+const char *kPrinterOperationPolicyOptionName = "printer-op-policy";
 const char *kJobHoldUntilDefaultOptionName = "job-hold-until-default";
 const char *kJobHoldUntilDefaultOptionValueIndefinite = "indefinite";
 

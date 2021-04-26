@@ -19,6 +19,7 @@ class CupsUtilsImpl;
 
 extern const char *kDeviceURIOptionName;
 extern const char *kPrinterURIOptionName;
+extern const char *kPrinterOperationPolicyOptionName;
 extern const char *kJobHoldUntilDefaultOptionName;
 extern const char *kJobHoldUntilDefaultOptionValueIndefinite;
 
