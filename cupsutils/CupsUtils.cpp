@@ -78,16 +78,21 @@ bool CupsUtils::checkURI(std::string anUri)
     return false;
 }
 
-bool CupsUtils::getDocument(
-    const std::string &aPrinterURI,
-    const std::string &aJobIDStr,
-    const std::string &aDocumentNumberStr,
+int CupsUtils::getJobNumberOfDocuments(int aJobID)
+{
+    if (_impl)
+    {
+        return _impl->getJobNumberOfDocuments(aJobID);
+    }
+    return -1;
+}
+
+bool CupsUtils::getDocument(int aJobID, int aDocumentNumber,
     const std::string &anOutputFileName)
 {
     if (_impl)
     {
-        return _impl->getDocument(aPrinterURI, aJobIDStr, aDocumentNumberStr,
-            anOutputFileName);
+        return _impl->getDocument(aJobID, aDocumentNumber, anOutputFileName);
     }
     return false;
 }

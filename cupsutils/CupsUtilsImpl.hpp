@@ -35,10 +35,8 @@ public:
     bool setOptionForPrinterWithName(std::string aPrinterName,
         const CupsOption &anOption);
     bool checkURI(std::string anUri);
-    bool getDocument(
-        const std::string &aPrinterURI,
-        const std::string &aJobIDStr,
-        const std::string &aDocumentNumberStr,
+    int getJobNumberOfDocuments(int aJobID);
+    bool getDocument(int aJobID, int aDocumentNumber,
         const std::string &anOutputFileName);
     std::vector<CupsJob> getActiveJobs();
     void cancelJob(int aJobId);

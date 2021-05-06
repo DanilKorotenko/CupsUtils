@@ -11,6 +11,8 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 namespace CupsUtilities
 {
@@ -173,32 +175,60 @@ bool CupsUtilsImpl::checkURI(std::string anUri)
     return true;
 }
 
-bool CupsUtilsImpl::getDocument(
-    const std::string &aPrinterURI,
-    const std::string &aJobIDStr,
-    const std::string &aDocumentNumberStr,
+int CupsUtilsImpl::getJobNumberOfDocuments(int aJobID)
+{
+    static const char * const job_attrs[] =/* Job attributes we want */
+        {
+            "number-of-documents"
+        };
+
+    ipp_t *request = ippNewRequest(IPP_OP_GET_JOB_ATTRIBUTES);
+
+    // create jobUri
+    char jobUri[HTTP_MAX_URI];
+    snprintf(jobUri, sizeof(jobUri), "ipp://localhost/jobs/%d", aJobID);
+
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", NULL, jobUri);
+
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
+        NULL, cupsUser());
+
+    ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
+        "requested-attributes", 2, NULL, job_attrs);
+
+    ipp_t *response = cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/jobs/");
+
+    ipp_attribute_t *attr = ippFindAttribute(response, "number-of-documents", IPP_TAG_INTEGER);
+
+    int result = ippGetInteger(attr, 0);
+
+    ippDelete(response);
+
+    return result;
+}
+
+bool CupsUtilsImpl::getDocument(int aJobID, int aDocumentNumber,
     const std::string &anOutputFileName)
 {
-    mode_t umask_ = umask(0000); // let the output file be mode 0777
-
     ipp_t *request = ippNewRequest(IPP_OP_CUPS_GET_DOCUMENT);
 
 //    ATTR charset attributes-charset utf-8
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_CHARSET, "attributes-charset", NULL, "utf-8");
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_CHARSET,
+        "attributes-charset", NULL, "utf-8");
 
 //    ATTR language attributes-natural-language en
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_LANGUAGE, "attributes-natural-language", NULL, "en");
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_LANGUAGE,
+        "attributes-natural-language", NULL, "en");
 
-//    ATTR uri printer-uri $uri
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, aPrinterURI.c_str());
+    // create jobUri
+    char jobUri[HTTP_MAX_URI];
+    snprintf(jobUri, sizeof(jobUri), "ipp://localhost/jobs/%d", aJobID);
 
-//    ATTR integer job-id 125
-    int jobID = std::stoi(aJobIDStr);
-    ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER, "job-id", jobID);
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", NULL, jobUri);
 
 //    ATTR integer document-number 1
-    int documentNumber = std::stoi(aDocumentNumberStr);
-    ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER, "document-number", documentNumber);
+    ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
+        "document-number", aDocumentNumber);
 
     int fd = open(anOutputFileName.c_str(), O_WRONLY | O_CREAT);
     if (fd > 0)
@@ -213,12 +243,12 @@ bool CupsUtilsImpl::getDocument(
             return false;
         }
 
+        fchmod(fd, 0644);
+
         close(fd);
 
         ippDelete(response);
     }
-
-    umask(umask_); // restore old umask
 
     return true;
 }
@@ -241,7 +271,14 @@ std::vector<CupsJob> CupsUtilsImpl::getActiveJobs()
     {
         cups_job_t aJob = jobs[i];
 
-        result.push_back({ aJob.id, aJob.title, aJob.dest });
+        CupsJob job;
+        job.job_id = aJob.id;
+        job.title = aJob.title;
+        job.destinationName = aJob.dest;
+        job.userName = aJob.user;
+        job.format = aJob.format;
+
+        result.push_back(job);
     }
 
     cupsFreeJobs(num_jobs, jobs);
@@ -258,6 +295,7 @@ bool CupsUtilsImpl::releaseJob(int aJobId)
 {
     ipp_t *request = ippNewRequest(IPP_OP_RELEASE_JOB);
 
+    // create jobUri
     char jobUri[HTTP_MAX_URI];
     snprintf(jobUri, sizeof(jobUri), "ipp://localhost/jobs/%d", aJobId);
 

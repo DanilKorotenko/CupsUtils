@@ -25,6 +25,7 @@ typedef struct
     std::string title;
     std::string destinationName;
     std::string userName;
+    std::string format;
 } CupsJob;
 
 }
