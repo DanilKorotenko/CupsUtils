@@ -200,8 +200,6 @@ bool CupsUtilsImpl::getDocument(
     int documentNumber = std::stoi(aDocumentNumberStr);
     ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER, "document-number", documentNumber);
 
-//    ipp_t *response = cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/admin/");
-
     int fd = open(anOutputFileName.c_str(), O_WRONLY | O_CREAT);
     if (fd > 0)
     {
@@ -215,40 +213,12 @@ bool CupsUtilsImpl::getDocument(
             return false;
         }
 
-
         close(fd);
 
         ippDelete(response);
-
     }
 
-
-//    std::ofstream outfile(anOutputFileName.c_str());
-//
-//    char buffer[1024];
-//    ssize_t bytes_read = 0;
-//
-//    do
-//    {
-//        bytes_read = cupsReadResponseData(CUPS_HTTP_DEFAULT, buffer, 1024);
-//        if (bytes_read > 0)
-//        {
-//            outfile << buffer;
-//        }
-//    }
-//    while (bytes_read > 0);
-
-//ssize_t					/* O - Bytes read, 0 on EOF, -1 on error */
-//cupsReadResponseData(
-//    http_t *http,			/* I - Connection to server or @code CUPS_HTTP_DEFAULT@ */
-//    char   *buffer,			/* I - Buffer to use */
-//    size_t length)			/* I - Number of bytes to read */
-
-//            outfile << msg << std::endl;
-
-//    outfile.close();
-
-        umask(umask_); // restore old umask
+    umask(umask_); // restore old umask
 
     return true;
 }

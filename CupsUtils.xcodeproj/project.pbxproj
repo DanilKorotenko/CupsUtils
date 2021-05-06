@@ -13,14 +13,16 @@
 			buildPhases = (
 			);
 			dependencies = (
-				DA1BDBD92628612D00A706C7 /* PBXTargetDependency */,
 				DAF7D264261EFC740035C543 /* PBXTargetDependency */,
 				DA95C2A62613828D008D989B /* PBXTargetDependency */,
 				DA95C2A82613828D008D989B /* PBXTargetDependency */,
 				DA95C6F826177A42008D989B /* PBXTargetDependency */,
 				DA95C6FA26177A42008D989B /* PBXTargetDependency */,
+				DA6AEE8826440D0D00A290B2 /* PBXTargetDependency */,
 				DA1BDBD52628612400A706C7 /* PBXTargetDependency */,
 				DA1BDBD72628612A00A706C7 /* PBXTargetDependency */,
+				DA1BDBD92628612D00A706C7 /* PBXTargetDependency */,
+				DA6AEE8A26440D5100A290B2 /* PBXTargetDependency */,
 			);
 			name = BuildAll;
 			productName = BuildAll;
@@ -55,8 +57,6 @@
 		DAB6E48C262EF82F009D2E77 /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
 		DAB6E4C6263023E0009D2E77 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DAB6E4C5263023E0009D2E77 /* main.cpp */; };
 		DAB6E4DC26302660009D2E77 /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
-		DACDAA1926205ADB003731E5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DACDAA1826205ADB003731E5 /* main.cpp */; };
-		DACDAA2826205B4C003731E5 /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
 		DACDAA632624474C003731E5 /* cupsUtilsNotificatorMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DACDAA622624474C003731E5 /* cupsUtilsNotificatorMain.cpp */; };
 		DACDAA8226245A49003731E5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DACDAA8126245A49003731E5 /* main.cpp */; };
 		DAF7D1E3261EE9190035C543 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DAF7D1E2261EE9190035C543 /* main.cpp */; };
@@ -105,6 +105,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = DA95C3C12615C17D008D989B;
 			remoteInfo = cupsutils;
+		};
+		DA6AEE8726440D0D00A290B2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA95C26226133E49008D989B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DACDAA7E26245A49003731E5;
+			remoteInfo = cupsNotificationsListenerOSX;
+		};
+		DA6AEE8926440D5100A290B2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA95C26226133E49008D989B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAB6E473262EF561009D2E77;
+			remoteInfo = releaseJob;
 		};
 		DA95C2A52613828D008D989B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -170,13 +184,6 @@
 			remoteInfo = cupsutils;
 		};
 		DAB6E4DA26302658009D2E77 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DA95C26226133E49008D989B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DA95C3C12615C17D008D989B;
-			remoteInfo = cupsutils;
-		};
-		DACDAA2626205B44003731E5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DA95C26226133E49008D989B /* Project object */;
 			proxyType = 1;
@@ -273,8 +280,6 @@
 		DAB6E476262EF561009D2E77 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		DAB6E4C3263023E0009D2E77 /* listPrintersPolicies */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = listPrintersPolicies; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB6E4C5263023E0009D2E77 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		DACDAA1626205ADB003731E5 /* setPrinterHoldNewJobs */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = setPrinterHoldNewJobs; sourceTree = BUILT_PRODUCTS_DIR; };
-		DACDAA1826205ADB003731E5 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		DACDAA602624474C003731E5 /* cupsUtilsNotificator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cupsUtilsNotificator; sourceTree = BUILT_PRODUCTS_DIR; };
 		DACDAA622624474C003731E5 /* cupsUtilsNotificatorMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cupsUtilsNotificatorMain.cpp; sourceTree = "<group>"; };
 		DACDAA7F26245A49003731E5 /* cupsNotificationsListenerOSX */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cupsNotificationsListenerOSX; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -371,14 +376,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DACDAA1326205ADB003731E5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DACDAA2826205B4C003731E5 /* libcupsutils.dylib in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DACDAA5D2624474C003731E5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -446,7 +443,6 @@
 				DA95C5B126161E4B008D989B /* listOptionsForPrinterName */,
 				DA95C5DB26162C59008D989B /* setOptionForPrinterWithName */,
 				DAF7D1E1261EE9190035C543 /* getDocument */,
-				DACDAA1726205ADB003731E5 /* setPrinterHoldNewJobs */,
 				DACDAA612624474C003731E5 /* cupsUtilsNotificator */,
 				DACDAA8026245A49003731E5 /* cupsNotificationsListenerOSX */,
 				DA240B282625B8330014E80E /* setPrinterJobHoldUntilDefaultIndefinite */,
@@ -469,7 +465,6 @@
 				DA95C5B026161E4B008D989B /* listOptionsForPrinterName */,
 				DA95C5DA26162C59008D989B /* setOptionForPrinterWithName */,
 				DAF7D1E0261EE9190035C543 /* getDocument */,
-				DACDAA1626205ADB003731E5 /* setPrinterHoldNewJobs */,
 				DACDAA602624474C003731E5 /* cupsUtilsNotificator */,
 				DACDAA7F26245A49003731E5 /* cupsNotificationsListenerOSX */,
 				DA240B272625B8330014E80E /* setPrinterJobHoldUntilDefaultIndefinite */,
@@ -553,14 +548,6 @@
 				DAB6E4C5263023E0009D2E77 /* main.cpp */,
 			);
 			path = listPrintersPolicies;
-			sourceTree = "<group>";
-		};
-		DACDAA1726205ADB003731E5 /* setPrinterHoldNewJobs */ = {
-			isa = PBXGroup;
-			children = (
-				DACDAA1826205ADB003731E5 /* main.cpp */,
-			);
-			path = setPrinterHoldNewJobs;
 			sourceTree = "<group>";
 		};
 		DACDAA612624474C003731E5 /* cupsUtilsNotificator */ = {
@@ -790,23 +777,6 @@
 			productReference = DAB6E4C3263023E0009D2E77 /* listPrintersPolicies */;
 			productType = "com.apple.product-type.tool";
 		};
-		DACDAA1526205ADB003731E5 /* setPrinterHoldNewJobs */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DACDAA1C26205ADB003731E5 /* Build configuration list for PBXNativeTarget "setPrinterHoldNewJobs" */;
-			buildPhases = (
-				DACDAA1226205ADB003731E5 /* Sources */,
-				DACDAA1326205ADB003731E5 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				DACDAA2726205B44003731E5 /* PBXTargetDependency */,
-			);
-			name = setPrinterHoldNewJobs;
-			productName = setPrinterHoldNewJobs;
-			productReference = DACDAA1626205ADB003731E5 /* setPrinterHoldNewJobs */;
-			productType = "com.apple.product-type.tool";
-		};
 		DACDAA5F2624474C003731E5 /* cupsUtilsNotificator */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DACDAA642624474C003731E5 /* Build configuration list for PBXNativeTarget "cupsUtilsNotificator" */;
@@ -902,9 +872,6 @@
 					DAB6E4C2263023E0009D2E77 = {
 						CreatedOnToolsVersion = 12.4;
 					};
-					DACDAA1526205ADB003731E5 = {
-						CreatedOnToolsVersion = 12.4;
-					};
 					DACDAA5F2624474C003731E5 = {
 						CreatedOnToolsVersion = 12.4;
 					};
@@ -936,7 +903,6 @@
 				DA95C28E26136FB8008D989B /* getURIForPrinterName */,
 				DA95C5AF26161E4B008D989B /* listOptionsForPrinterName */,
 				DA95C5D926162C59008D989B /* setOptionForPrinterWithName */,
-				DACDAA1526205ADB003731E5 /* setPrinterHoldNewJobs */,
 				DACDAA5F2624474C003731E5 /* cupsUtilsNotificator */,
 				DACDAA7E26245A49003731E5 /* cupsNotificationsListenerOSX */,
 				DA240B262625B8330014E80E /* setPrinterJobHoldUntilDefaultIndefinite */,
@@ -1041,14 +1007,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DACDAA1226205ADB003731E5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DACDAA1926205ADB003731E5 /* main.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DACDAA5C2624474C003731E5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1106,6 +1064,16 @@
 			target = DA95C3C12615C17D008D989B /* cupsutils */;
 			targetProxy = DA240BC22625CD260014E80E /* PBXContainerItemProxy */;
 		};
+		DA6AEE8826440D0D00A290B2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DACDAA7E26245A49003731E5 /* cupsNotificationsListenerOSX */;
+			targetProxy = DA6AEE8726440D0D00A290B2 /* PBXContainerItemProxy */;
+		};
+		DA6AEE8A26440D5100A290B2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAB6E473262EF561009D2E77 /* releaseJob */;
+			targetProxy = DA6AEE8926440D5100A290B2 /* PBXContainerItemProxy */;
+		};
 		DA95C2A62613828D008D989B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DA95C26B26133EC7008D989B /* getPrinters */;
@@ -1155,11 +1123,6 @@
 			isa = PBXTargetDependency;
 			target = DA95C3C12615C17D008D989B /* cupsutils */;
 			targetProxy = DAB6E4DA26302658009D2E77 /* PBXContainerItemProxy */;
-		};
-		DACDAA2726205B44003731E5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DA95C3C12615C17D008D989B /* cupsutils */;
-			targetProxy = DACDAA2626205B44003731E5 /* PBXContainerItemProxy */;
 		};
 		DAF7D210261EF84D0035C543 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2551,127 +2514,6 @@
 			};
 			name = Release;
 		};
-		DACDAA1A26205ADB003731E5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = XQKX38U9F4;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		DACDAA1B26205ADB003731E5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = XQKX38U9F4;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
 		DACDAA652624474C003731E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3147,15 +2989,6 @@
 			buildConfigurations = (
 				DAB6E4C7263023E0009D2E77 /* Debug */,
 				DAB6E4C8263023E0009D2E77 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		DACDAA1C26205ADB003731E5 /* Build configuration list for PBXNativeTarget "setPrinterHoldNewJobs" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DACDAA1A26205ADB003731E5 /* Debug */,
-				DACDAA1B26205ADB003731E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
