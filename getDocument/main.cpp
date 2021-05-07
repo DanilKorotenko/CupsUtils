@@ -9,6 +9,7 @@
 #include <sstream>
 
 #include "cupsutils.hpp"
+#include "UTTypeAdapter.h"
 
 // You should run this utility from sudo, to be able to get document from the
 // printing job.
@@ -44,12 +45,7 @@ int main(int argc, const char * argv[])
 
             for (int docNum = 0; docNum < numberOfDocuments; docNum++)
             {
-                std::string ext = "pdf";
-                if (job.format == "application/pdf")
-                {
-                    ext = "pdf";
-                }
-                // else other formats
+                std::string ext = UTFileExtensionForMIMEType(job.format);
 
                 // we must specify docNumber starting from 1
                 std::stringstream docName;

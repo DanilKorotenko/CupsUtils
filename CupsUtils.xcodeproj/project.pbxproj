@@ -39,6 +39,8 @@
 		DA240BC42625CD2A0014E80E /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
 		DA240BC52625CD370014E80E /* CUPSListenerFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA240B492625C0090014E80E /* CUPSListenerFactory.cpp */; };
 		DA240BD32625CD3A0014E80E /* CUPSListenerImplOSX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA240B472625C0090014E80E /* CUPSListenerImplOSX.cpp */; };
+		DA2EBC8826454537007CC932 /* UTTypeAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA2EBC87264544A9007CC932 /* UTTypeAdapter.mm */; };
+		DA2EBC8C264546CC007CC932 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA2EBC8B264546CC007CC932 /* UniformTypeIdentifiers.framework */; };
 		DA95C27026133EC7008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C26F26133EC7008D989B /* main.cpp */; };
 		DA95C29226136FB9008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C29126136FB9008D989B /* main.cpp */; };
 		DA95C3D52615C1A5008D989B /* CupsUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C3D32615C1A5008D989B /* CupsUtils.cpp */; };
@@ -260,6 +262,10 @@
 		DA240BA02625C8E80014E80E /* cupsListener */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cupsListener; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA240BA22625C8E80014E80E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		DA240BB42625CAC80014E80E /* CupsUtilsTypes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CupsUtilsTypes.hpp; sourceTree = "<group>"; };
+		DA2EBC86264543F5007CC932 /* UTTypeAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UTTypeAdapter.h; sourceTree = "<group>"; };
+		DA2EBC87264544A9007CC932 /* UTTypeAdapter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = UTTypeAdapter.mm; sourceTree = "<group>"; };
+		DA2EBC89264546B9007CC932 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		DA2EBC8B264546CC007CC932 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
 		DA95C26C26133EC7008D989B /* getPrinters */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = getPrinters; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA95C26F26133EC7008D989B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		DA95C27626134249008D989B /* libcups.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcups.tbd; path = usr/lib/libcups.tbd; sourceTree = SDKROOT; };
@@ -394,6 +400,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA2EBC8C264546CC007CC932 /* UniformTypeIdentifiers.framework in Frameworks */,
 				DAF7D211261EF8590035C543 /* libcupsutils.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -488,6 +495,8 @@
 		DA95C27526134249008D989B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DA2EBC8B264546CC007CC932 /* UniformTypeIdentifiers.framework */,
+				DA2EBC89264546B9007CC932 /* CoreServices.framework */,
 				DA95C27626134249008D989B /* libcups.tbd */,
 			);
 			name = Frameworks;
@@ -504,16 +513,18 @@
 		DA95C3CC2615C184008D989B /* cupsutils */ = {
 			isa = PBXGroup;
 			children = (
-				DAB6E3D1262D9FD4009D2E77 /* policyManager.py */,
-				DA240BB42625CAC80014E80E /* CupsUtilsTypes.hpp */,
 				DA240B492625C0090014E80E /* CUPSListenerFactory.cpp */,
 				DA240B472625C0090014E80E /* CUPSListenerImplOSX.cpp */,
 				DA240B4A2625C0090014E80E /* CUPSListenerImplOSX.hpp */,
-				DA240B482625C0090014E80E /* ICUPSListener.hpp */,
 				DA95C3D32615C1A5008D989B /* CupsUtils.cpp */,
 				DA95C3D42615C1A5008D989B /* CupsUtils.hpp */,
 				DA95C4272615D5C4008D989B /* CupsUtilsImpl.cpp */,
 				DA95C4282615D5C4008D989B /* CupsUtilsImpl.hpp */,
+				DA240BB42625CAC80014E80E /* CupsUtilsTypes.hpp */,
+				DA240B482625C0090014E80E /* ICUPSListener.hpp */,
+				DAB6E3D1262D9FD4009D2E77 /* policyManager.py */,
+				DA2EBC86264543F5007CC932 /* UTTypeAdapter.h */,
+				DA2EBC87264544A9007CC932 /* UTTypeAdapter.mm */,
 			);
 			path = cupsutils;
 			sourceTree = "<group>";
@@ -1027,6 +1038,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA2EBC8826454537007CC932 /* UTTypeAdapter.mm in Sources */,
 				DAF7D1E3261EE9190035C543 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
