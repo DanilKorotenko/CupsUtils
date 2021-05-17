@@ -39,6 +39,7 @@ public:
         const std::string &anOutputFileName);
     std::vector<CupsJob> getActiveJobs();
     void cancelJob(int aJobId);
+    void cancelAllJobs();
     bool releaseJob(int aJobId);
 
 private:

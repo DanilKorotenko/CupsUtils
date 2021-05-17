@@ -291,6 +291,11 @@ void CupsUtilsImpl::cancelJob(int aJobId)
     cupsCancelJob(NULL, aJobId);
 }
 
+void CupsUtilsImpl::cancelAllJobs()
+{
+    cupsCancelJob(NULL, CUPS_JOBID_ALL);
+}
+
 bool CupsUtilsImpl::releaseJob(int aJobId)
 {
     ipp_t *request = ippNewRequest(IPP_OP_RELEASE_JOB);

@@ -115,6 +115,14 @@ void CupsUtils::cancelJob(int aJobId)
     }
 }
 
+void CupsUtils::cancelAllJobs()
+{
+    if (_impl)
+    {
+        _impl->cancelAllJobs();
+    }
+}
+
 bool CupsUtils::releaseJob(int aJobId)
 {
     if (_impl)
