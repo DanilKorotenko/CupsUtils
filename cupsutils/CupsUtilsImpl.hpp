@@ -29,19 +29,25 @@ public:
     CupsUtilsImpl();
     ~CupsUtilsImpl();
 
-    std::vector<std::string> getPrintersNames();
+    std::vector<CupsPrinter> getPrinters();
+    CupsPrinter getPrinterWithName(std::string aPrinterName);
+
     std::vector<CupsOption> getOptionsForPrinterWithName(std::string aPrinterName);
-    std::string getOptionValueForPrinterWithName(std::string aPrinterName, std::string anOptionName);
+
+    std::string getOptionValueForPrinterWithName(
+        cups_dest_t *aPrinterDestination, std::string anOptionName);
+    std::string getOptionValueForPrinterWithName(
+        std::string aPrinterName, std::string anOptionName);
     bool setOptionForPrinterWithName(std::string aPrinterName,
         const CupsOption &anOption);
     bool checkURI(std::string anUri);
     int getJobNumberOfDocuments(int aJobID);
     bool getDocument(int aJobID, int aDocumentNumber,
         const std::string &anOutputFileName);
-    std::vector<CupsJob> getActiveJobs();
+    std::vector<CupsJob::PtrT> getActiveJobs();
     void cancelJob(int aJobId);
-    void cancelAllJobs();
     bool releaseJob(int aJobId);
+    std::string lastErrorString();
 
 #pragma mark Private
 private:
@@ -50,6 +56,13 @@ private:
     int getDestinations(cups_ptype_t type, cups_ptype_t mask,
         CupsDestinationsData *aDestinationsData);
     void freeDestinationsData(CupsDestinationsData *aDestinationsData);
+    bool setPrinterOptions(
+        int num_options,
+        cups_option_t *options,
+        const char *printerUri);
+
+    CupsDestinationsData _destinations_data = { 0, NULL };
+
 };
 
 }

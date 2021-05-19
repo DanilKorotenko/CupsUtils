@@ -9,6 +9,7 @@
 #define CupsUtilsTypes_hpp
 
 #include <string>
+#include <sstream>
 
 namespace CupsUtilities
 {
@@ -19,14 +20,19 @@ typedef struct
     std::string value;
 } CupsOption;
 
-typedef struct
+struct CupsPrinter
 {
-    int job_id;
-    std::string title;
-    std::string destinationName;
-    std::string userName;
-    std::string format;
-} CupsJob;
+//    enum class State
+//    {
+//        Idle = 3,
+//        Processing,
+//        Stopped
+//    };
+
+    std::string name;
+//    State       state;
+    std::string stateReasons;
+};
 
 }
 

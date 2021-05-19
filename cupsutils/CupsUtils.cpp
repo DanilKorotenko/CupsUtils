@@ -11,11 +11,15 @@
 namespace CupsUtilities
 {
 
-const char *kDeviceURIOptionName = "device-uri";
-const char *kPrinterURIOptionName = "printer-uri-supported";
-const char *kPrinterOperationPolicyOptionName = "printer-op-policy";
-const char *kJobHoldUntilDefaultOptionName = "job-hold-until-default";
+const char *kOptionNameDeviceURI =                  "device-uri";
+const char *kOptionNamePrinterURI =                 "printer-uri-supported";
+const char *kOptionNamePrinterOperationPolicy =     "printer-op-policy";
+
+const char *kOptionNameJobHoldUntilDefault =        "job-hold-until-default";
 const char *kJobHoldUntilDefaultOptionValueIndefinite = "indefinite";
+
+const char *kOptionNamePrinterState =               "printer-state";
+const char *kOptionNamePrinterStateReasons =        "printer-state-reasons";
 
 CupsUtils::CupsUtils()
     : _impl(new CupsUtilsImpl())
@@ -28,13 +32,13 @@ CupsUtils::~CupsUtils()
     _impl.reset();
 }
 
-std::vector<std::string> CupsUtils::getPrintersNames()
+std::vector<CupsPrinter> CupsUtils::getPrinters()
 {
     if (_impl)
     {
-        return _impl->getPrintersNames();
+        return _impl->getPrinters();
     }
-    std::vector<std::string> result;
+    std::vector<CupsPrinter> result;
     return result;
 }
 
@@ -97,13 +101,13 @@ bool CupsUtils::getDocument(int aJobID, int aDocumentNumber,
     return false;
 }
 
-std::vector<CupsJob> CupsUtils::getActiveJobs()
+std::vector<CupsJob::PtrT> CupsUtils::getActiveJobs()
 {
     if (_impl)
     {
         return _impl->getActiveJobs();
     }
-    std::vector<CupsJob> result;
+    std::vector<CupsJob::PtrT> result;
     return result;
 }
 
@@ -115,14 +119,6 @@ void CupsUtils::cancelJob(int aJobId)
     }
 }
 
-void CupsUtils::cancelAllJobs()
-{
-    if (_impl)
-    {
-        _impl->cancelAllJobs();
-    }
-}
-
 bool CupsUtils::releaseJob(int aJobId)
 {
     if (_impl)
@@ -131,5 +127,16 @@ bool CupsUtils::releaseJob(int aJobId)
     }
     return false;
 }
+
+std::string CupsUtils::lastErrorString()
+{
+    if (_impl)
+    {
+        return _impl->lastErrorString();
+    }
+    std::string result;
+    return result;
+}
+
 
 }

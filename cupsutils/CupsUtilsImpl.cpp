@@ -17,50 +17,82 @@
 namespace CupsUtilities
 {
 
-static bool set_printer_options(
-    int num_options,
-    cups_option_t *options,
-    const char *printerUri);
-
-
 CupsUtilsImpl::CupsUtilsImpl()
+    : _destinations_data({ 0, NULL })
 {
+    getDestinations(CUPS_PRINTER_LOCAL, CUPS_PRINTER_DISCOVERED, &_destinations_data);
 }
 
 CupsUtilsImpl::~CupsUtilsImpl()
 {
+    freeDestinationsData(&_destinations_data);
 }
 
 #pragma mark Public
 ////////////////////////////////////////////////////////////////////////////////
 // Public
 
-std::vector<std::string> CupsUtilsImpl::getPrintersNames()
+std::vector<CupsPrinter> CupsUtilsImpl::getPrinters()
 {
-    std::vector<std::string> result;
+    std::vector<CupsPrinter> result;
 
-    CupsDestinationsData destinations_data = { 0, NULL };
-    getDestinations(CUPS_PRINTER_LOCAL, CUPS_PRINTER_DISCOVERED, &destinations_data);
-
-    for (int i = 0; i < destinations_data.number_of_destinations; i++)
+    for (int i = 0; i < _destinations_data.number_of_destinations; i++)
     {
-        result.push_back(destinations_data.destinations[i].name);
+        CupsPrinter printer;
+        printer.name = _destinations_data.destinations[i].name;
+
+        printer.stateReasons = getOptionValueForPrinterWithName(
+            printer.name, kOptionNamePrinterStateReasons);
+
+//        std::string stateString =
+//            getOptionValueForPrinterWithName(
+//                printer.name, kOptionNamePrinterState);
+//        int state = atoi(stateString.c_str());
+//        if (state < 3 || state > 5)
+//        {
+//            state = 5; // stopped
+//        }
+//
+//        printer.state = (CupsPrinter::State)state;
+
+        result.push_back(printer);
     }
 
-    freeDestinationsData(&destinations_data);
-
     return result;
+}
+
+CupsPrinter CupsUtilsImpl::getPrinterWithName(std::string aPrinterName)
+{
+    CupsPrinter printer;
+
+    cups_dest_t *printerDestination = cupsGetDest(aPrinterName.c_str(), NULL,
+        _destinations_data.number_of_destinations, _destinations_data.destinations);
+
+    printer.name = printerDestination->name;
+
+    printer.stateReasons = getOptionValueForPrinterWithName(
+        printerDestination, kOptionNamePrinterStateReasons);
+
+//    std::string stateString =
+//        getOptionValueForPrinterWithName(
+//            printer.name, kOptionNamePrinterState);
+//    int state = atoi(stateString.c_str());
+//    if (state < 3 || state > 5)
+//    {
+//        state = 5; // stopped
+//    }
+//
+//    printer.state = (CupsPrinter::State)state;
+
+    return printer;
 }
 
 std::vector<CupsOption> CupsUtilsImpl::getOptionsForPrinterWithName(std::string aPrinterName)
 {
     std::vector<CupsOption> result;
 
-    CupsDestinationsData destinations_data = { 0, NULL };
-    getDestinations(CUPS_PRINTER_LOCAL, CUPS_PRINTER_DISCOVERED, &destinations_data);
-
     cups_dest_t *printerDestination = cupsGetDest(aPrinterName.c_str(), NULL,
-        destinations_data.number_of_destinations, destinations_data.destinations);
+        _destinations_data.number_of_destinations, _destinations_data.destinations);
 
     for (int i = 0; i < printerDestination->num_options; i++)
     {
@@ -71,7 +103,21 @@ std::vector<CupsOption> CupsUtilsImpl::getOptionsForPrinterWithName(std::string 
         result.push_back(cupsOption);
     }
 
-    freeDestinationsData(&destinations_data);
+    return result;
+}
+
+std::string CupsUtilsImpl::getOptionValueForPrinterWithName(
+    cups_dest_t *aPrinterDestination, std::string anOptionName)
+{
+    const char *optionValue = cupsGetOption(anOptionName.c_str(),
+        aPrinterDestination->num_options, aPrinterDestination->options);
+
+    std::string result;
+
+    if (optionValue != NULL)
+    {
+        result = optionValue;
+    }
 
     return result;
 }
@@ -79,11 +125,8 @@ std::vector<CupsOption> CupsUtilsImpl::getOptionsForPrinterWithName(std::string 
 std::string CupsUtilsImpl::getOptionValueForPrinterWithName(
     std::string aPrinterName, std::string anOptionName)
 {
-    CupsDestinationsData destinations_data = { 0, NULL };
-    getDestinations(CUPS_PRINTER_LOCAL, CUPS_PRINTER_DISCOVERED, &destinations_data);
-
     cups_dest_t *printerDestination = cupsGetDest(aPrinterName.c_str(), NULL,
-        destinations_data.number_of_destinations, destinations_data.destinations);
+        _destinations_data.number_of_destinations, _destinations_data.destinations);
 
     const char *optionValue = cupsGetOption(anOptionName.c_str(),
         printerDestination->num_options, printerDestination->options);
@@ -95,51 +138,29 @@ std::string CupsUtilsImpl::getOptionValueForPrinterWithName(
         result = optionValue;
     }
 
-    freeDestinationsData(&destinations_data);
-
     return result;
 }
 
 bool CupsUtilsImpl::setOptionForPrinterWithName(std::string aPrinterName,
     const CupsOption &anOption)
 {
-    CupsDestinationsData destinations_data = { 0, NULL };
-    getDestinations(CUPS_PRINTER_LOCAL, CUPS_PRINTER_DISCOVERED, &destinations_data);
-
     cups_dest_t *printerDestination = cupsGetDest(aPrinterName.c_str(), NULL,
-        destinations_data.number_of_destinations, destinations_data.destinations);
-
-    std::cout << "remove option" << std::endl;
+        _destinations_data.number_of_destinations, _destinations_data.destinations);
 
     printerDestination->num_options = cupsRemoveOption(anOption.name.c_str(),
         printerDestination->num_options, &printerDestination->options);
-
-    std::cout << "num_options: " << printerDestination->num_options << std::endl;
-
-    std::cout << "add option" << std::endl;
 
     printerDestination->num_options = cupsAddOption(anOption.name.c_str(),
         anOption.value.c_str(),
         printerDestination->num_options, &printerDestination->options);
 
-    std::cout << "num_options: " << printerDestination->num_options << std::endl;
-
-    std::string newDeviceURIFromOptions = cupsGetOption(anOption.name.c_str(),
+    std::string printerURI = cupsGetOption(kOptionNamePrinterURI,
         printerDestination->num_options,
         printerDestination->options);
 
-    std::cout << "newDeviceURIFromOptions: " <<
-        newDeviceURIFromOptions.c_str() << std::endl;
-
-    std::string printerURI = cupsGetOption(kPrinterURIOptionName,
-        printerDestination->num_options,
-        printerDestination->options);
-
-    bool result = set_printer_options(printerDestination->num_options,
+    bool result = setPrinterOptions(printerDestination->num_options,
         printerDestination->options,
         printerURI.c_str());
-
-    freeDestinationsData(&destinations_data);
 
     return result;
 }
@@ -198,9 +219,20 @@ int CupsUtilsImpl::getJobNumberOfDocuments(int aJobID)
 
     ipp_t *response = cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/jobs/");
 
-    ipp_attribute_t *attr = ippFindAttribute(response, "number-of-documents", IPP_TAG_INTEGER);
+    int result = 0;
 
-    int result = ippGetInteger(attr, 0);
+    ipp_status_t lastError = cupsLastError();
+    if (lastError > IPP_STATUS_OK_CONFLICTING)
+    {
+        std::cout << "IPP error string: " << ippErrorString(lastError) << std::endl;
+        std::cout << "Cups last error: " << cupsLastErrorString() << std::endl;
+        result = 0;
+    }
+    else
+    {
+        ipp_attribute_t *attr = ippFindAttribute(response, "number-of-documents", IPP_TAG_INTEGER);
+        result = ippGetInteger(attr, 0);
+    }
 
     ippDelete(response);
 
@@ -240,11 +272,14 @@ bool CupsUtilsImpl::getDocument(int aJobID, int aDocumentNumber,
         {
             std::cout << "IPP error string: " << ippErrorString(lastError) << std::endl;
             std::cout << "Cups last error: " << cupsLastErrorString() << std::endl;
+
+            fchmod(fd, 0644);
+            close(fd);
+
             return false;
         }
 
         fchmod(fd, 0644);
-
         close(fd);
 
         ippDelete(response);
@@ -291,11 +326,6 @@ void CupsUtilsImpl::cancelJob(int aJobId)
     cupsCancelJob(NULL, aJobId);
 }
 
-void CupsUtilsImpl::cancelAllJobs()
-{
-    cupsCancelJob(NULL, CUPS_JOBID_ALL);
-}
-
 bool CupsUtilsImpl::releaseJob(int aJobId)
 {
     ipp_t *request = ippNewRequest(IPP_OP_RELEASE_JOB);
@@ -320,6 +350,20 @@ bool CupsUtilsImpl::releaseJob(int aJobId)
     }
 
     return true;
+}
+
+std::string CupsUtilsImpl::lastErrorString()
+{
+    std::stringstream ss;
+    ipp_status_t lastError = cupsLastError();
+    ss << "lastError code: " << lastError << "\n";
+    if (lastError > IPP_STATUS_OK_CONFLICTING)
+    {
+        ss << "IPP error string: " << ippErrorString(lastError) << "\n";
+        ss << "Cups last error: " << cupsLastErrorString() << "\n";
+    }
+
+    return ss.str();
 }
 
 #pragma mark Private
@@ -381,7 +425,7 @@ void CupsUtilsImpl::freeDestinationsData(CupsDestinationsData *aDestinationsData
     *aDestinationsData = {0, NULL};
 }
 
-static bool set_printer_options(
+bool CupsUtilsImpl::setPrinterOptions(
     int num_options,
     cups_option_t *options,
     const char *printerUri)

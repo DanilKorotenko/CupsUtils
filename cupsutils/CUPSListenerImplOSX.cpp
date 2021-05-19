@@ -7,17 +7,29 @@
 namespace CupsUtilities
 {
     CUPSListenerImplOSX::CUPSListenerImplOSX()
-            : _printerAddedCallback(nullptr)
-            , _printerListEmptyCallback(nullptr)
-            , _jobAddedCallback(nullptr)
-            , _printerListChangedToken(0)
-            , _jobChangedToken(0)
-            , _printers()
-            , _jobs()
+        : _printerAddedCallback(nullptr)
+        , _printerStateChangedCallback(nullptr)
+        , _printerListEmptyCallback(nullptr)
+        , _jobAddedCallback(nullptr)
+        , _printerListChangedToken(0)
+        , _jobChangedToken(0)
+        , _printers()
+        , _jobs()
     {
         _listening_queue =
             dispatch_queue_create("cups_listening_queue", NULL);
+    }
 
+    CUPSListenerImplOSX::~CUPSListenerImplOSX()
+    {
+        notify_cancel(_printerListChangedToken);
+        notify_cancel(_jobChangedToken);
+    }
+
+    void CUPSListenerImplOSX::start()
+    {
+        // this notification will be sent on printer added, deleted, modified
+        // see cupsd/main.cpp for details.
         notify_register_dispatch("com.apple.printerListChange",
             &_printerListChangedToken, _listening_queue,
             ^(int token)
@@ -39,25 +51,34 @@ namespace CupsUtilities
             });
     }
 
-    CUPSListenerImplOSX::~CUPSListenerImplOSX()
-    {
-        notify_cancel(_printerListChangedToken);
-        notify_cancel(_jobChangedToken);
-    }
-
-    void CUPSListenerImplOSX::setPrinterAddedCallback(const onPrinterAdded& aPrinterAddedCallback)
+    void CUPSListenerImplOSX::setPrinterAddedCallback(
+        const onPrinterAdded& aPrinterAddedCallback)
     {
         _printerAddedCallback = aPrinterAddedCallback;
     }
 
-    void CUPSListenerImplOSX::setPrinterListEmpty(const onPrinterListEmpty& aPrinterListEmptyCallback)
+    void CUPSListenerImplOSX::setPrinterStateChangedCallback(
+        const onPrinterStateChanged& aPrinterStateChangedCallback)
+    {
+        _printerStateChangedCallback = aPrinterStateChangedCallback;
+    }
+
+    void CUPSListenerImplOSX::setPrinterListEmpty(
+        const onPrinterListEmpty& aPrinterListEmptyCallback)
     {
         _printerListEmptyCallback = aPrinterListEmptyCallback;
     }
 
-    void CUPSListenerImplOSX::setJobAddedCallback(const onJobAdded& aJobAddedCallback)
+    void CUPSListenerImplOSX::setJobAddedCallback(
+        const onJobAdded& aJobAddedCallback)
     {
         _jobAddedCallback = aJobAddedCallback;
+    }
+
+    void CUPSListenerImplOSX::setJobChangedCallback(
+        const onJobChanged& aJobChangedCallback)
+    {
+        _jobChangedCallback = aJobChangedCallback;
     }
 
 #pragma mark -
@@ -65,26 +86,39 @@ namespace CupsUtilities
 
     void CUPSListenerImplOSX::printerListChanged()
     {
-        std::vector<std::string> currentPrintersList;
+        std::vector<CupsPrinter> currentPrintersList;
 
-        {
-            CupsUtils cupsUtils;
-            currentPrintersList = cupsUtils.getPrintersNames();
-        }
+        CupsUtils cupsUtils;
 
-        if (_printerAddedCallback)
+        currentPrintersList = cupsUtils.getPrinters();
+
+        for (int i = 0; i < currentPrintersList.size(); i++)
         {
-            if (_printers.size() != currentPrintersList.size())
-            {
-                if (_printers.size() < currentPrintersList.size())
+            CupsPrinter currentPrinter = currentPrintersList.at(i);
+
+            auto printerIt = std::find_if(_printers.begin(), _printers.end(),
+                [&](CupsPrinter aPrinter)
                 {
-                    for (int i = 0; i < currentPrintersList.size(); i++)
+                    return currentPrinter.name == aPrinter.name;
+                });
+
+            if (printerIt == _printers.end())
+            {
+                if (_printerAddedCallback)
+                {
+                    _printerAddedCallback(currentPrinter.name);
+                }
+            }
+            else
+            {
+                CupsPrinter printer = *printerIt;
+                if (std::strcmp(
+                    currentPrinter.stateReasons.c_str(),
+                    printer.stateReasons.c_str()) != 0)
+                {
+                    if (_printerStateChangedCallback)
                     {
-                        if (i > _printers.size() || _printers.empty())
-                        {
-                            std::string printerName = currentPrintersList.at(i);
-                            _printerAddedCallback(printerName);
-                        }
+                        _printerStateChangedCallback(currentPrinter.name);
                     }
                 }
             }
@@ -103,30 +137,33 @@ namespace CupsUtilities
 
     void CUPSListenerImplOSX::jobChanged()
     {
-        if (_jobAddedCallback)
+        std::vector<CupsJob::PtrT> currentJobsList;
+
         {
-            std::vector<CupsJob> currentJobsList;
+            CupsUtils cupsUtils;
+            currentJobsList = cupsUtils.getActiveJobs();
+        }
 
-            {
-                CupsUtils cupsUtils;
-                currentJobsList = cupsUtils.getActiveJobs();
-            }
+        if (_jobChangedCallback)
+        {
+            _jobChangedCallback(currentJobsList);
+        }
 
-            if (_jobs.size() != currentJobsList.size())
+        if (_jobs.size() < currentJobsList.size())
+        {
+            for (int i = 0; i < currentJobsList.size(); i++)
             {
-                if (_jobs.size() < currentJobsList.size())
+                if (i > _jobs.size() || _jobs.empty())
                 {
-                    for (int i = 0; i < currentJobsList.size(); i++)
+                    if (_jobAddedCallback)
                     {
-                        if (i > _jobs.size() || _jobs.empty())
-                        {
-                            CupsJob job = currentJobsList.at(i);
-                            _jobAddedCallback(job);
-                        }
+                        CupsJob::PtrT job = currentJobsList.at(i);
+                        _jobAddedCallback(job);
                     }
                 }
-                _jobs = currentJobsList;
             }
         }
+
+        _jobs = currentJobsList;
     }
 }
