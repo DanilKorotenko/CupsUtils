@@ -63,6 +63,7 @@
 		DACDAA8226245A49003731E5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DACDAA8126245A49003731E5 /* main.cpp */; };
 		DAE687912652A1050065F7F7 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DAE687902652A1050065F7F7 /* main.cpp */; };
 		DAE687952652A1C20065F7F7 /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
+		DAECEEF92657EB2B00A30C64 /* CupsJob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DAECEEF82657EB2200A30C64 /* CupsJob.cpp */; };
 		DAF7D1E3261EE9190035C543 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DAF7D1E2261EE9190035C543 /* main.cpp */; };
 		DAF7D211261EF8590035C543 /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
 /* End PBXBuildFile section */
@@ -310,6 +311,8 @@
 		DACDAA8126245A49003731E5 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		DAE6878E2652A1050065F7F7 /* cancelJob */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cancelJob; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAE687902652A1050065F7F7 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		DAECEEF72657EB2200A30C64 /* CupsJob.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CupsJob.hpp; sourceTree = "<group>"; };
+		DAECEEF82657EB2200A30C64 /* CupsJob.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CupsJob.cpp; sourceTree = "<group>"; };
 		DAF7D1E0261EE9190035C543 /* getDocument */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = getDocument; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAF7D1E2261EE9190035C543 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -543,6 +546,8 @@
 		DA95C3CC2615C184008D989B /* cupsutils */ = {
 			isa = PBXGroup;
 			children = (
+				DAECEEF82657EB2200A30C64 /* CupsJob.cpp */,
+				DAECEEF72657EB2200A30C64 /* CupsJob.hpp */,
 				DA240B492625C0090014E80E /* CUPSListenerFactory.cpp */,
 				DA240B472625C0090014E80E /* CUPSListenerImplOSX.cpp */,
 				DA240B4A2625C0090014E80E /* CUPSListenerImplOSX.hpp */,
@@ -1043,6 +1048,7 @@
 				DA240BD32625CD3A0014E80E /* CUPSListenerImplOSX.cpp in Sources */,
 				DA240BC52625CD370014E80E /* CUPSListenerFactory.cpp in Sources */,
 				DA95C3D52615C1A5008D989B /* CupsUtils.cpp in Sources */,
+				DAECEEF92657EB2B00A30C64 /* CupsJob.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
