@@ -32,6 +32,143 @@ CupsUtilsImpl::~CupsUtilsImpl()
 ////////////////////////////////////////////////////////////////////////////////
 // Public
 
+int CupsUtilsImpl::getJobNumberOfDocuments(int aJobID)
+{
+    static const char * const job_attrs[] =/* Job attributes we want */
+        {
+            "number-of-documents"
+        };
+
+    ipp_t *request = ippNewRequest(IPP_OP_GET_JOB_ATTRIBUTES);
+
+    // create jobUri
+    char jobUri[HTTP_MAX_URI];
+    snprintf(jobUri, sizeof(jobUri), "ipp://localhost/jobs/%d", aJobID);
+
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", NULL, jobUri);
+
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
+        NULL, cupsUser());
+
+    ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
+        "requested-attributes", 2, NULL, job_attrs);
+
+    ipp_t *response = cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/jobs/");
+
+    int result = 0;
+
+    ipp_status_t lastError = cupsLastError();
+    if (lastError > IPP_STATUS_OK_CONFLICTING)
+    {
+        std::cout << "IPP error string: " << ippErrorString(lastError) << std::endl;
+        std::cout << "Cups last error: " << cupsLastErrorString() << std::endl;
+        result = 0;
+    }
+    else
+    {
+        ipp_attribute_t *attr = ippFindAttribute(response, "number-of-documents", IPP_TAG_INTEGER);
+        result = ippGetInteger(attr, 0);
+    }
+
+    ippDelete(response);
+
+    return result;
+}
+
+bool CupsUtilsImpl::getDocument(int aJobID, int aDocumentNumber,
+    const std::string &anOutputFileName)
+{
+    ipp_t *request = ippNewRequest(IPP_OP_CUPS_GET_DOCUMENT);
+
+//    ATTR charset attributes-charset utf-8
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_CHARSET,
+        "attributes-charset", NULL, "utf-8");
+
+//    ATTR language attributes-natural-language en
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_LANGUAGE,
+        "attributes-natural-language", NULL, "en");
+
+    // create jobUri
+    char jobUri[HTTP_MAX_URI];
+    snprintf(jobUri, sizeof(jobUri), "ipp://localhost/jobs/%d", aJobID);
+
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", NULL, jobUri);
+
+//    ATTR integer document-number 1
+    ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
+        "document-number", aDocumentNumber);
+
+    int fd = open(anOutputFileName.c_str(), O_WRONLY | O_CREAT);
+    if (fd > 0)
+    {
+        ipp_t *response = cupsDoIORequest(CUPS_HTTP_DEFAULT, request, "/admin/", -1, fd);
+
+        ipp_status_t lastError = cupsLastError();
+        if (lastError > IPP_STATUS_OK_CONFLICTING)
+        {
+            std::cout << "IPP error string: " << ippErrorString(lastError) << std::endl;
+            std::cout << "Cups last error: " << cupsLastErrorString() << std::endl;
+
+            fchmod(fd, 0644);
+            close(fd);
+
+            return false;
+        }
+
+        fchmod(fd, 0644);
+        close(fd);
+
+        ippDelete(response);
+    }
+
+    return true;
+}
+
+void CupsUtilsImpl::cancelJob(int aJobId)
+{
+    cupsCancelJob(NULL, aJobId);
+}
+
+bool CupsUtilsImpl::releaseJob(int aJobId)
+{
+    ipp_t *request = ippNewRequest(IPP_OP_RELEASE_JOB);
+
+    // create jobUri
+    char jobUri[HTTP_MAX_URI];
+    snprintf(jobUri, sizeof(jobUri), "ipp://localhost/jobs/%d", aJobId);
+
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", NULL, jobUri);
+
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
+               NULL, cupsUser());
+
+    ippDelete(cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/jobs/"));
+
+    ipp_status_t lastError = cupsLastError();
+    if (lastError > IPP_STATUS_OK_CONFLICTING)
+    {
+        std::cout << "IPP error string: " << ippErrorString(lastError) << std::endl;
+        std::cout << "Cups last error: " << cupsLastErrorString() << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+std::string CupsUtilsImpl::lastErrorString()
+{
+    std::stringstream ss;
+    ipp_status_t lastError = cupsLastError();
+    ss << "lastError code: " << lastError << "\n";
+    if (lastError > IPP_STATUS_OK_CONFLICTING)
+    {
+        ss << "IPP error string: " << ippErrorString(lastError) << "\n";
+        ss << "Cups last error: " << cupsLastErrorString() << "\n";
+    }
+
+    return ss.str();
+}
+
 std::vector<CupsPrinter> CupsUtilsImpl::getPrinters()
 {
     std::vector<CupsPrinter> result;
@@ -72,6 +209,9 @@ CupsPrinter CupsUtilsImpl::getPrinterWithName(std::string aPrinterName)
 
     printer.stateReasons = getOptionValueForPrinterWithName(
         printerDestination, kOptionNamePrinterStateReasons);
+
+    printer.uri = getOptionValueForPrinterWithName(
+        printerDestination, kOptionNameDeviceURI);
 
 //    std::string stateString =
 //        getOptionValueForPrinterWithName(
@@ -196,109 +336,11 @@ bool CupsUtilsImpl::checkURI(std::string anUri)
     return true;
 }
 
-int CupsUtilsImpl::getJobNumberOfDocuments(int aJobID)
+std::vector<CupsJob::PtrT> CupsUtilsImpl::getActiveJobs()
 {
-    static const char * const job_attrs[] =/* Job attributes we want */
-        {
-            "number-of-documents"
-        };
-
-    ipp_t *request = ippNewRequest(IPP_OP_GET_JOB_ATTRIBUTES);
-
-    // create jobUri
-    char jobUri[HTTP_MAX_URI];
-    snprintf(jobUri, sizeof(jobUri), "ipp://localhost/jobs/%d", aJobID);
-
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", NULL, jobUri);
-
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-        NULL, cupsUser());
-
-    ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
-        "requested-attributes", 2, NULL, job_attrs);
-
-    ipp_t *response = cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/jobs/");
-
-    int result = 0;
-
-    ipp_status_t lastError = cupsLastError();
-    if (lastError > IPP_STATUS_OK_CONFLICTING)
-    {
-        std::cout << "IPP error string: " << ippErrorString(lastError) << std::endl;
-        std::cout << "Cups last error: " << cupsLastErrorString() << std::endl;
-        result = 0;
-    }
-    else
-    {
-        ipp_attribute_t *attr = ippFindAttribute(response, "number-of-documents", IPP_TAG_INTEGER);
-        result = ippGetInteger(attr, 0);
-    }
-
-    ippDelete(response);
-
-    return result;
-}
-
-bool CupsUtilsImpl::getDocument(int aJobID, int aDocumentNumber,
-    const std::string &anOutputFileName)
-{
-    ipp_t *request = ippNewRequest(IPP_OP_CUPS_GET_DOCUMENT);
-
-//    ATTR charset attributes-charset utf-8
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_CHARSET,
-        "attributes-charset", NULL, "utf-8");
-
-//    ATTR language attributes-natural-language en
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_LANGUAGE,
-        "attributes-natural-language", NULL, "en");
-
-    // create jobUri
-    char jobUri[HTTP_MAX_URI];
-    snprintf(jobUri, sizeof(jobUri), "ipp://localhost/jobs/%d", aJobID);
-
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", NULL, jobUri);
-
-//    ATTR integer document-number 1
-    ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
-        "document-number", aDocumentNumber);
-
-    int fd = open(anOutputFileName.c_str(), O_WRONLY | O_CREAT);
-    if (fd > 0)
-    {
-        ipp_t *response = cupsDoIORequest(CUPS_HTTP_DEFAULT, request, "/admin/", -1, fd);
-
-        ipp_status_t lastError = cupsLastError();
-        if (lastError > IPP_STATUS_OK_CONFLICTING)
-        {
-            std::cout << "IPP error string: " << ippErrorString(lastError) << std::endl;
-            std::cout << "Cups last error: " << cupsLastErrorString() << std::endl;
-
-            fchmod(fd, 0644);
-            close(fd);
-
-            return false;
-        }
-
-        fchmod(fd, 0644);
-        close(fd);
-
-        ippDelete(response);
-    }
-
-    return true;
-}
-
-std::vector<CupsJob> CupsUtilsImpl::getActiveJobs()
-{
-    std::vector<CupsJob> result;
+    std::vector<CupsJob::PtrT> result;
 
     cups_job_t *jobs = NULL;
-
-//int					/* O - Number of jobs */
-//cupsGetJobs(cups_job_t **jobs,		/* O - Job data */
-//            const char *name,		/* I - @code NULL@ = all destinations, otherwise show jobs for named destination */
-//            int        myjobs,		/* I - 0 = all users, 1 = mine */
-//	    int        whichjobs)	/* I - @code CUPS_WHICHJOBS_ALL@, @code CUPS_WHICHJOBS_ACTIVE@, or @code CUPS_WHICHJOBS_COMPLETED@ */
 
     int num_jobs = cupsGetJobs(&jobs, NULL, 0, CUPS_WHICHJOBS_ACTIVE);
 
@@ -306,12 +348,16 @@ std::vector<CupsJob> CupsUtilsImpl::getActiveJobs()
     {
         cups_job_t aJob = jobs[i];
 
-        CupsJob job;
-        job.job_id = aJob.id;
-        job.title = aJob.title;
-        job.destinationName = aJob.dest;
-        job.userName = aJob.user;
-        job.format = aJob.format;
+        CupsJob::PtrT job = std::shared_ptr<CupsJob>(new CupsJob());
+        job->job_id = aJob.id;
+        job->title = aJob.title;
+
+        CupsPrinter printer = getPrinterWithName(aJob.dest);
+
+        job->printer = printer;
+        job->userName = aJob.user;
+        job->format = aJob.format;
+        job->size = aJob.size;
 
         result.push_back(job);
     }
@@ -319,51 +365,6 @@ std::vector<CupsJob> CupsUtilsImpl::getActiveJobs()
     cupsFreeJobs(num_jobs, jobs);
 
     return result;
-}
-
-void CupsUtilsImpl::cancelJob(int aJobId)
-{
-    cupsCancelJob(NULL, aJobId);
-}
-
-bool CupsUtilsImpl::releaseJob(int aJobId)
-{
-    ipp_t *request = ippNewRequest(IPP_OP_RELEASE_JOB);
-
-    // create jobUri
-    char jobUri[HTTP_MAX_URI];
-    snprintf(jobUri, sizeof(jobUri), "ipp://localhost/jobs/%d", aJobId);
-
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", NULL, jobUri);
-
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
-
-    ippDelete(cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/jobs/"));
-
-    ipp_status_t lastError = cupsLastError();
-    if (lastError > IPP_STATUS_OK_CONFLICTING)
-    {
-        std::cout << "IPP error string: " << ippErrorString(lastError) << std::endl;
-        std::cout << "Cups last error: " << cupsLastErrorString() << std::endl;
-        return false;
-    }
-
-    return true;
-}
-
-std::string CupsUtilsImpl::lastErrorString()
-{
-    std::stringstream ss;
-    ipp_status_t lastError = cupsLastError();
-    ss << "lastError code: " << lastError << "\n";
-    if (lastError > IPP_STATUS_OK_CONFLICTING)
-    {
-        ss << "IPP error string: " << ippErrorString(lastError) << "\n";
-        ss << "Cups last error: " << cupsLastErrorString() << "\n";
-    }
-
-    return ss.str();
 }
 
 #pragma mark Private

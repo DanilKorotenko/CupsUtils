@@ -32,6 +32,32 @@ CupsUtils::~CupsUtils()
     _impl.reset();
 }
 
+int CupsUtils::getJobNumberOfDocuments(int aJobID)
+{
+    return CupsUtilsImpl::getJobNumberOfDocuments(aJobID);
+}
+
+bool CupsUtils::getDocument(int aJobID, int aDocumentNumber,
+    const std::string &anOutputFileName)
+{
+    return CupsUtilsImpl::getDocument(aJobID, aDocumentNumber, anOutputFileName);
+}
+
+void CupsUtils::cancelJob(int aJobId)
+{
+    CupsUtilsImpl::cancelJob(aJobId);
+}
+
+bool CupsUtils::releaseJob(int aJobId)
+{
+    return CupsUtilsImpl::releaseJob(aJobId);
+}
+
+std::string CupsUtils::lastErrorString()
+{
+    return CupsUtilsImpl::lastErrorString();
+}
+
 std::vector<CupsPrinter> CupsUtils::getPrinters()
 {
     if (_impl)
@@ -82,25 +108,6 @@ bool CupsUtils::checkURI(std::string anUri)
     return false;
 }
 
-int CupsUtils::getJobNumberOfDocuments(int aJobID)
-{
-    if (_impl)
-    {
-        return _impl->getJobNumberOfDocuments(aJobID);
-    }
-    return -1;
-}
-
-bool CupsUtils::getDocument(int aJobID, int aDocumentNumber,
-    const std::string &anOutputFileName)
-{
-    if (_impl)
-    {
-        return _impl->getDocument(aJobID, aDocumentNumber, anOutputFileName);
-    }
-    return false;
-}
-
 std::vector<CupsJob::PtrT> CupsUtils::getActiveJobs()
 {
     if (_impl)
@@ -110,33 +117,5 @@ std::vector<CupsJob::PtrT> CupsUtils::getActiveJobs()
     std::vector<CupsJob::PtrT> result;
     return result;
 }
-
-void CupsUtils::cancelJob(int aJobId)
-{
-    if (_impl)
-    {
-        _impl->cancelJob(aJobId);
-    }
-}
-
-bool CupsUtils::releaseJob(int aJobId)
-{
-    if (_impl)
-    {
-        _impl->releaseJob(aJobId);
-    }
-    return false;
-}
-
-std::string CupsUtils::lastErrorString()
-{
-    if (_impl)
-    {
-        return _impl->lastErrorString();
-    }
-    std::string result;
-    return result;
-}
-
 
 }

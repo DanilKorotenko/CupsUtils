@@ -30,6 +30,7 @@ struct CupsPrinter
 //    };
 
     std::string name;
+    std::string uri;
 //    State       state;
     std::string stateReasons;
 };

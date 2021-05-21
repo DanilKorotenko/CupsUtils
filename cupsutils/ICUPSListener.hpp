@@ -6,15 +6,16 @@
 #include <functional>
 #include "CupsUtilsTypes.hpp"
 #include "CupsJob.hpp"
+#include "CupsUtils.hpp"
 
 namespace CupsUtilities
 {
     // 1st argument is added printer name
-    using onPrinterAdded = std::function<void(const std::string&)>;
-    using onPrinterStateChanged = std::function<void(const std::string&)>;
+    using onPrinterAdded = std::function<void(CupsUtils&, const std::string&)>;
+    using onPrinterStateChanged = std::function<void(CupsUtils&, const std::string&)>;
     using onPrinterListEmpty = std::function<void()>;
     using onJobAdded = std::function<void(const CupsJob::PtrT&)>;
-    using onJobChanged = std::function<void(std::vector<CupsJob::PtrT>)>;
+//    using onJobChanged = std::function<void(std::vector<CupsJob::PtrT>)>;
 
     class ICUPSListener
     {
@@ -30,7 +31,7 @@ namespace CupsUtilities
         virtual void setPrinterListEmpty(
             const onPrinterListEmpty& aPrinterListEmptyCallback) = 0;
         virtual void setJobAddedCallback(const onJobAdded& aJobAddedCallback) = 0;
-        virtual void setJobChangedCallback(const onJobChanged& aJobChangedCallback) = 0;
+//        virtual void setJobChangedCallback(const onJobChanged& aJobChangedCallback) = 0;
     };
 
     ICUPSListener::UPtrT createCupsListener();

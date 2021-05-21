@@ -20,7 +20,7 @@ namespace CupsUtilities
         void setPrinterListEmpty(
             const onPrinterListEmpty& aPrinterListEmptyCallback) override;
         void setJobAddedCallback(const onJobAdded& aJobAddedCallback) override;
-        void setJobChangedCallback(const onJobChanged& aJobChangedCallback) override;
+//        void setJobChangedCallback(const onJobChanged& aJobChangedCallback) override;
 
     private:
         void printerListChanged();
@@ -30,7 +30,7 @@ namespace CupsUtilities
         onPrinterStateChanged   _printerStateChangedCallback;
         onPrinterListEmpty      _printerListEmptyCallback;
         onJobAdded              _jobAddedCallback;
-        onJobChanged            _jobChangedCallback;
+//        onJobChanged            _jobChangedCallback;
 
         dispatch_queue_t    _listening_queue;
         int                 _printerListChangedToken;

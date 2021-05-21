@@ -14,7 +14,7 @@ namespace CupsUtilities
         : job_id(0)
         , title("untitled")
         , printer()
-        , userName(unknown)
+        , userName("unknown")
         , format("application/octet-stream")
         , size(0)
         , state(3)
@@ -29,6 +29,7 @@ namespace CupsUtilities
             << "job_id: " << job_id << ", \n\t"
             << "title: " << title << ", \n\t"
             << "printer.name: " << printer.name << ", \n\t"
+            << "printer.uri: " << printer.uri << ", \n\t"
             << "printer.stateReasons: " << printer.stateReasons << ", \n\t"
             << "userName: " << userName << ", \n\t"
             << "format: " << format << ", \n\t"

@@ -75,11 +75,11 @@ namespace CupsUtilities
         _jobAddedCallback = aJobAddedCallback;
     }
 
-    void CUPSListenerImplOSX::setJobChangedCallback(
-        const onJobChanged& aJobChangedCallback)
-    {
-        _jobChangedCallback = aJobChangedCallback;
-    }
+//    void CUPSListenerImplOSX::setJobChangedCallback(
+//        const onJobChanged& aJobChangedCallback)
+//    {
+//        _jobChangedCallback = aJobChangedCallback;
+//    }
 
 #pragma mark -
 ////////////////////////////////////////////////////////////////////////////////
@@ -106,7 +106,7 @@ namespace CupsUtilities
             {
                 if (_printerAddedCallback)
                 {
-                    _printerAddedCallback(currentPrinter.name);
+                    _printerAddedCallback(cupsUtils, currentPrinter.name);
                 }
             }
             else
@@ -118,7 +118,8 @@ namespace CupsUtilities
                 {
                     if (_printerStateChangedCallback)
                     {
-                        _printerStateChangedCallback(currentPrinter.name);
+                        _printerStateChangedCallback(
+                            cupsUtils, currentPrinter.name);
                     }
                 }
             }
@@ -137,27 +138,18 @@ namespace CupsUtilities
 
     void CUPSListenerImplOSX::jobChanged()
     {
-        std::vector<CupsJob::PtrT> currentJobsList;
-
-        {
-            CupsUtils cupsUtils;
-            currentJobsList = cupsUtils.getActiveJobs();
-        }
-
-        if (_jobChangedCallback)
-        {
-            _jobChangedCallback(currentJobsList);
-        }
+        CupsUtils cupsUtils;
+        std::vector<CupsJob::PtrT> currentJobsList = cupsUtils.getActiveJobs();
 
         if (_jobs.size() < currentJobsList.size())
         {
             for (int i = 0; i < currentJobsList.size(); i++)
             {
-                if (i > _jobs.size() || _jobs.empty())
+                if (_jobAddedCallback)
                 {
-                    if (_jobAddedCallback)
+                    CupsJob::PtrT job = currentJobsList.at(i);
+                    if (job->state == 3 || job->state == 4) // pending or held
                     {
-                        CupsJob::PtrT job = currentJobsList.at(i);
                         _jobAddedCallback(job);
                     }
                 }
