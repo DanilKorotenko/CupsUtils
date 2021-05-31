@@ -26,6 +26,7 @@ extern const char *kJobHoldUntilDefaultOptionValueIndefinite;
 
 extern const char *kOptionNamePrinterState;
 extern const char *kOptionNamePrinterStateReasons;
+extern const char *kOptionNamePrinterInfo;
 
 class CupsUtils
 {

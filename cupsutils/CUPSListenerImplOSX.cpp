@@ -15,9 +15,10 @@ namespace CupsUtilities
         , _jobChangedToken(0)
         , _printers()
         , _jobs()
+        , _listening_queue(NULL)
     {
         _listening_queue =
-            dispatch_queue_create("cups_listening_queue", NULL);
+            dispatch_queue_create("cups_listening_queue", DISPATCH_QUEUE_SERIAL);
     }
 
     CUPSListenerImplOSX::~CUPSListenerImplOSX()
@@ -106,7 +107,7 @@ namespace CupsUtilities
             {
                 if (_printerAddedCallback)
                 {
-                    _printerAddedCallback(cupsUtils, currentPrinter.name);
+                    _printerAddedCallback(cupsUtils, currentPrinter);
                 }
             }
             else
@@ -119,7 +120,7 @@ namespace CupsUtilities
                     if (_printerStateChangedCallback)
                     {
                         _printerStateChangedCallback(
-                            cupsUtils, currentPrinter.name);
+                            cupsUtils, currentPrinter);
                     }
                 }
             }

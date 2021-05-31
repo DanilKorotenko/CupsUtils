@@ -11,8 +11,8 @@
 namespace CupsUtilities
 {
     // 1st argument is added printer name
-    using onPrinterAdded = std::function<void(CupsUtils&, const std::string&)>;
-    using onPrinterStateChanged = std::function<void(CupsUtils&, const std::string&)>;
+    using onPrinterAdded = std::function<void(CupsUtils&, CupsPrinter&)>;
+    using onPrinterStateChanged = std::function<void(CupsUtils&, CupsPrinter&)>;
     using onPrinterListEmpty = std::function<void()>;
     using onJobAdded = std::function<void(const CupsJob::PtrT&)>;
 //    using onJobChanged = std::function<void(std::vector<CupsJob::PtrT>)>;

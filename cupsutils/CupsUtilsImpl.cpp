@@ -175,22 +175,7 @@ std::vector<CupsPrinter> CupsUtilsImpl::getPrinters()
 
     for (int i = 0; i < _destinations_data.number_of_destinations; i++)
     {
-        CupsPrinter printer;
-        printer.name = _destinations_data.destinations[i].name;
-
-        printer.stateReasons = getOptionValueForPrinterWithName(
-            printer.name, kOptionNamePrinterStateReasons);
-
-//        std::string stateString =
-//            getOptionValueForPrinterWithName(
-//                printer.name, kOptionNamePrinterState);
-//        int state = atoi(stateString.c_str());
-//        if (state < 3 || state > 5)
-//        {
-//            state = 5; // stopped
-//        }
-//
-//        printer.state = (CupsPrinter::State)state;
+        CupsPrinter printer = getPrinterWithDestination(&_destinations_data.destinations[i]);
 
         result.push_back(printer);
     }
@@ -200,18 +185,26 @@ std::vector<CupsPrinter> CupsUtilsImpl::getPrinters()
 
 CupsPrinter CupsUtilsImpl::getPrinterWithName(std::string aPrinterName)
 {
-    CupsPrinter printer;
-
     cups_dest_t *printerDestination = cupsGetDest(aPrinterName.c_str(), NULL,
         _destinations_data.number_of_destinations, _destinations_data.destinations);
+
+    return getPrinterWithDestination(printerDestination);
+}
+
+CupsPrinter CupsUtilsImpl::getPrinterWithDestination(cups_dest_t *printerDestination)
+{
+    CupsPrinter printer;
 
     printer.name = printerDestination->name;
 
     printer.stateReasons = getOptionValueForPrinterWithName(
         printerDestination, kOptionNamePrinterStateReasons);
 
-    printer.uri = getOptionValueForPrinterWithName(
-        printerDestination, kOptionNameDeviceURI);
+    printer.printerInfo = getOptionValueForPrinterWithName(
+        printerDestination, kOptionNamePrinterInfo);
+
+//    printer.uri = getOptionValueForPrinterWithName(
+//        printerDestination, kOptionNameDeviceURI);
 
 //    std::string stateString =
 //        getOptionValueForPrinterWithName(
@@ -358,6 +351,7 @@ std::vector<CupsJob::PtrT> CupsUtilsImpl::getActiveJobs()
         job->userName = aJob.user;
         job->format = aJob.format;
         job->size = aJob.size;
+        job->state = aJob.state;
 
         result.push_back(job);
     }

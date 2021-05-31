@@ -20,6 +20,7 @@ const char *kJobHoldUntilDefaultOptionValueIndefinite = "indefinite";
 
 const char *kOptionNamePrinterState =               "printer-state";
 const char *kOptionNamePrinterStateReasons =        "printer-state-reasons";
+const char *kOptionNamePrinterInfo =                "printer-info";
 
 CupsUtils::CupsUtils()
     : _impl(new CupsUtilsImpl())

@@ -38,6 +38,7 @@ public:
 
     std::vector<CupsPrinter> getPrinters();
     CupsPrinter getPrinterWithName(std::string aPrinterName);
+    CupsPrinter getPrinterWithDestination(cups_dest_t *printerDestination);
 
     std::vector<CupsOption> getOptionsForPrinterWithName(std::string aPrinterName);
 
