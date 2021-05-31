@@ -12,12 +12,12 @@ int main(int argc, const char * argv[])
 {
     CupsUtilities::CupsUtils cupsUtils;
 
-    std::vector<std::string> printerNames = cupsUtils.getPrintersNames();
+    std::vector<CupsUtilities::CupsPrinter> printers = cupsUtils.getPrinters();
 
-    for (std::vector<std::string>::iterator it = printerNames.begin();
-        it != printerNames.end(); it++)
+    for (std::vector<CupsUtilities::CupsPrinter>::iterator it = printers.begin();
+        it != printers.end(); it++)
     {
-        std::cout << (*it).c_str() << std::endl;
+        std::cout << (*it).name.c_str() << std::endl;
     }
 
     return 0;

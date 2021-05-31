@@ -9,14 +9,14 @@
 #include <dispatch/dispatch.h>
 #include "ICUPSListener.hpp"
 
-void onPrinterAdded(const std::string& aPrinterName)
+void onPrinterAdded(CupsUtilities::CupsUtils& aCupsUtils, const CupsUtilities::CupsPrinter& aPrinter)
 {
-    std::cout << "Printer Added: " << aPrinterName.c_str() << std::endl;
+    std::cout << "Printer Added: " << aPrinter.name.c_str() << std::endl;
 }
 
-void onPrinterStateChanged(const std::string& aPrinterName)
+void onPrinterStateChanged(CupsUtilities::CupsUtils& aCupsUtils, const CupsUtilities::CupsPrinter& aPrinter)
 {
-    std::cout << "Printer State Changed: " << aPrinterName.c_str() << std::endl;
+    std::cout << "Printer State Changed: " << aPrinter.name.c_str() << std::endl;
 }
 
 void onPrinterListEmpty()
@@ -46,12 +46,12 @@ int main(int argc, const char * argv[])
     using onJobChanged = std::function<void(std::vector<CupsUtilities::CupsJob::PtrT>)>;
 
     cupsListener->setPrinterAddedCallback(std::bind(&onPrinterAdded,
-        std::placeholders::_1));
+        std::placeholders::_1, std::placeholders::_2));
     cupsListener->setPrinterStateChangedCallback(std::bind(&onPrinterStateChanged,
-        std::placeholders::_1));
+        std::placeholders::_1, std::placeholders::_2));
     cupsListener->setPrinterListEmpty(std::bind(&onPrinterListEmpty));
     cupsListener->setJobAddedCallback(std::bind(&onJobAdded, std::placeholders::_1));
-    cupsListener->setJobChangedCallback(std::bind(&onJobChanged, std::placeholders::_1));
+//    cupsListener->setJobChangedCallback(std::bind(&onJobChanged, std::placeholders::_1));
 
     dispatch_main();
 

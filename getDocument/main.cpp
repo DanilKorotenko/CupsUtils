@@ -34,27 +34,27 @@ int main(int argc, const char * argv[])
     {
         std::cout << "Get all documents from all active jobs." << std::endl;
 
-        std::vector<CupsUtilities::CupsJob> activeJobs = cupsUtils.getActiveJobs();
+        std::vector<CupsUtilities::CupsJob::PtrT> activeJobs = cupsUtils.getActiveJobs();
 
-        for (CupsUtilities::CupsJob job: activeJobs)
+        for (CupsUtilities::CupsJob::PtrT job: activeJobs)
         {
-            int numberOfDocuments = cupsUtils.getJobNumberOfDocuments(job.job_id);
+            int numberOfDocuments = cupsUtils.getJobNumberOfDocuments(job->job_id);
 
-            std::cout << "Job ( " << job.job_id << " ) " << job.title.c_str()
-                << " documents: " << numberOfDocuments << " format: " << job.format << std::endl;
+            std::cout << "Job ( " << job->job_id << " ) " << job->title.c_str()
+            << " documents: " << numberOfDocuments << " format: " << job->format << std::endl;
 
             for (int docNum = 0; docNum < numberOfDocuments; docNum++)
             {
-                std::string ext = UTFileExtensionForMIMEType(job.format);
+                std::string ext = UTFileExtensionForMIMEType(job->format);
 
                 // we must specify docNumber starting from 1
                 std::stringstream docName;
-                docName << job.title << "-" << (docNum + 1) << "." << ext;
+                docName << job->title << "-" << (docNum + 1) << "." << ext;
 
                 std::cout << "retriving document: " << docName.str() << std::endl;
 
                 // we must specify docNumber starting from 1
-                cupsUtils.getDocument(job.job_id, (docNum + 1), docName.str());
+                cupsUtils.getDocument(job->job_id, (docNum + 1), docName.str());
             }
         }
     }

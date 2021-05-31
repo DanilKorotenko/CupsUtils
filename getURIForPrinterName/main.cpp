@@ -20,7 +20,7 @@ int main(int argc, const char * argv[])
 
     CupsUtilities::CupsUtils cupsUtils;
 
-    std::cout << cupsUtils.getOptionValueForPrinterWithName(printerName, CupsUtilities::kDeviceURIOptionName) << std::endl;
+    std::cout << cupsUtils.getOptionValueForPrinterWithName(printerName, CupsUtilities::kOptionNameDeviceURI) << std::endl;
 
     return 0;
 }
