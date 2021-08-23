@@ -9,8 +9,8 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include "CupsUtilsTypes.hpp"
-#include "CupsJob.hpp"
 
 namespace CupsUtilities
 {

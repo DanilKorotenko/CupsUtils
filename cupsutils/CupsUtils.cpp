@@ -54,8 +54,7 @@ std::vector<CupsPrinter> CupsUtils::getPrinters()
     {
         return _impl->getPrinters();
     }
-    std::vector<CupsPrinter> result;
-    return result;
+    return std::vector<CupsPrinter>();
 }
 
 std::vector<CupsOption> CupsUtils::getListOfOptionsForPrinterWithName(

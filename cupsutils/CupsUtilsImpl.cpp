@@ -52,28 +52,25 @@ int CupsUtilsImpl::getJobNumberOfDocuments(int aJobID)
     // Job attributes we want
     static const char * const jobAttrs[] = { "number-of-documents" };
 
-    ipp_t *request = ippNewRequest(IPP_OP_GET_JOB_ATTRIBUTES);
+    ipp_t *request = ::ippNewRequest(IPP_GET_JOB_ATTRIBUTES);
 
     // create jobUri
     char jobUri[HTTP_MAX_URI];
     snprintf(jobUri, sizeof(jobUri), "ipp://localhost/jobs/%d", aJobID);
 
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", NULL, jobUri);
+    ::ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", nullptr, jobUri);
+    ::ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", nullptr, cupsUser());
+    ::ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
+        "requested-attributes", 2, nullptr, jobAttrs);
 
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-        NULL, cupsUser());
-
-    ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
-        "requested-attributes", 2, NULL, job_attrs);
-
-    ipp_t *response = cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/jobs/");
+    ipp_t *response = ::cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/jobs/");
 
     int result = 0;
     ipp_status_t lastError = cupsLastError();
-    if (lastError > IPP_STATUS_OK_CONFLICTING)
+    if (lastError > IPP_OK_CONFLICT)
     {
-        std::cout << "IPP error string: " << ippErrorString(lastError) << std::endl;
-        std::cout << "Cups last error: " << cupsLastErrorString() << std::endl;
+        std::cerr << "IPP error string: " << ::ippErrorString(lastError)
+                  << " Cups last error: " << cupsLastErrorString() << std::endl;
         result = 0;
     }
     else
@@ -90,75 +87,65 @@ int CupsUtilsImpl::getJobNumberOfDocuments(int aJobID)
 bool CupsUtilsImpl::getDocument(int aJobID, int aDocumentNumber,
     const std::string &anOutputFileName)
 {
-    ipp_t *request = ippNewRequest(IPP_OP_CUPS_GET_DOCUMENT);
-
-//    ATTR charset attributes-charset utf-8
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_CHARSET,
-        "attributes-charset", NULL, "utf-8");
-
-//    ATTR language attributes-natural-language en
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_LANGUAGE,
-        "attributes-natural-language", NULL, "en");
+    bool result = true;
+    ipp_t *request = ::ippNewRequest(CUPS_GET_DOCUMENT);
 
     // create jobUri
     char jobUri[HTTP_MAX_URI];
     snprintf(jobUri, sizeof(jobUri), "ipp://localhost/jobs/%d", aJobID);
 
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", NULL, jobUri);
-
-//    ATTR integer document-number 1
-    ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
+    ::ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_CHARSET, "attributes-charset", nullptr, "utf-8");
+    ::ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_LANGUAGE, "attributes-natural-language", nullptr, "en");
+    ::ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", nullptr, jobUri);
+    ::ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
         "document-number", aDocumentNumber);
 
-    int fd = open(anOutputFileName.c_str(), O_WRONLY | O_CREAT);
+    int fd = open(anOutputFileName.c_str(), O_CREAT | O_WRONLY | O_TRUNC, 0600);
     if (fd > 0)
     {
-        ipp_t *response = cupsDoIORequest(CUPS_HTTP_DEFAULT, request, "/admin/", -1, fd);
+        ipp_t *response = ::cupsDoIORequest(CUPS_HTTP_DEFAULT, request, "/admin/", -1, fd);
 
         ipp_status_t lastError = cupsLastError();
-        if (lastError > IPP_STATUS_OK_CONFLICTING)
+        if (lastError > IPP_OK_CONFLICT)
         {
-            std::cout << "IPP error string: " << ippErrorString(lastError) << std::endl;
-            std::cout << "Cups last error: " << cupsLastErrorString() << std::endl;
-
-            fchmod(fd, 0644);
-            close(fd);
-
-            return false;
+            std::cerr << "IPP error string: " << ::ippErrorString(lastError)
+                      << " Cups last error: " << cupsLastErrorString() << std::endl;
+            result = false;
         }
         fchmod(fd, 0644);
         close(fd);
         ippDelete(response);
     }
+    else
+    {
+        result = false;
+    }
 
-    return true;
+    return result;
 }
 
 void CupsUtilsImpl::cancelJob(int aJobId)
 {
-    cupsCancelJob(NULL, aJobId);
+    ::cupsCancelJob(nullptr, aJobId);
 }
 
 bool CupsUtilsImpl::releaseJob(int aJobId)
 {
-    ipp_t *request = ippNewRequest(IPP_OP_RELEASE_JOB);
+    ipp_t *request = ::ippNewRequest(IPP_RELEASE_JOB);
 
     // create jobUri
     char jobUri[HTTP_MAX_URI];
     snprintf(jobUri, sizeof(jobUri), "ipp://localhost/jobs/%d", aJobId);
 
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", NULL, jobUri);
-
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
-
-    ippDelete(cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/jobs/"));
+    ::ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", nullptr, jobUri);
+    ::ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", nullptr, cupsUser());
+    ::ippDelete(::cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/jobs/"));
 
     ipp_status_t lastError = cupsLastError();
-    if (lastError > IPP_STATUS_OK_CONFLICTING)
+    if (lastError > IPP_OK_CONFLICT)
     {
-        std::cout << "IPP error string: " << ippErrorString(lastError) << std::endl;
-        std::cout << "Cups last error: " << cupsLastErrorString() << std::endl;
+        std::cerr << "IPP error string: " << ::ippErrorString(lastError)
+                  << " Cups last error: " << cupsLastErrorString() << std::endl;
         return false;
     }
 
@@ -168,12 +155,12 @@ bool CupsUtilsImpl::releaseJob(int aJobId)
 std::string CupsUtilsImpl::lastErrorString()
 {
     std::stringstream ss;
-    ipp_status_t lastError = cupsLastError();
-    ss << "lastError code: " << lastError << "\n";
-    if (lastError > IPP_STATUS_OK_CONFLICTING)
+    ipp_status_t lastError = ::cupsLastError();
+    ss << "lastError code: " << lastError << std::endl;
+    if (lastError > IPP_OK_CONFLICT)
     {
-        ss << "IPP error string: " << ippErrorString(lastError) << "\n";
-        ss << "Cups last error: " << cupsLastErrorString() << "\n";
+        ss << "IPP error string: " << ippErrorString(lastError) << std::endl;
+        ss << "Cups last error: " << cupsLastErrorString() << std::endl;
     }
 
     return ss.str();
@@ -191,8 +178,8 @@ std::vector<CupsPrinter> CupsUtilsImpl::getPrinters()
 
 CupsPrinter CupsUtilsImpl::getPrinterWithName(std::string aPrinterName)
 {
-    cups_dest_t *printerDestination = cupsGetDest(aPrinterName.c_str(), NULL,
-        _destinations_data.number_of_destinations, _destinations_data.destinations);
+    auto printerDestination = ::cupsGetDest(aPrinterName.c_str(), nullptr,
+        _destinationsData.numberOfDestinations, _destinationsData.destinations);
 
     return getPrinterWithDestination(printerDestination);
 }
@@ -206,20 +193,9 @@ CupsPrinter CupsUtilsImpl::getPrinterWithDestination(cups_dest_t *printerDestina
         printerDestination, kOptionNamePrinterStateReasons);
     printer.printerInfo = getOptionValueForPrinterWithName(
         printerDestination, kOptionNamePrinterInfo);
-
-//    printer.uri = getOptionValueForPrinterWithName(
-//        printerDestination, kOptionNameDeviceURI);
-
-//    std::string stateString =
-//        getOptionValueForPrinterWithName(
-//            printer.name, kOptionNamePrinterState);
-//    int state = atoi(stateString.c_str());
-//    if (state < 3 || state > 5)
-//    {
-//        state = 5; // stopped
-//    }
-//
-//    printer.state = (CupsPrinter::State)state;
+    printer.policy        = getPrinterPolicy(printerDestination);
+    printer.jobsHoldUntil = getOptionValueForPrinterWithName(printerDestination, "job-hold-until");
+    printer.uri           = getOptionValueForPrinterWithName(printerDestination, kOptionNamePrinterURI);
 
     return printer;
 }
@@ -233,8 +209,7 @@ std::vector<CupsOption> CupsUtilsImpl::getOptionsForPrinterWithName(std::string 
 
     for (int i = 0; i < printerDestination->num_options; i++)
     {
-        cups_option_t option = printerDestination->options[i];
-
+        auto& option = printerDestination->options[i];
         CupsOption cupsOption = { option.name, option.value };
         result.push_back(cupsOption);
     }
@@ -245,12 +220,11 @@ std::vector<CupsOption> CupsUtilsImpl::getOptionsForPrinterWithName(std::string 
 std::string CupsUtilsImpl::getOptionValueForPrinterWithName(
     cups_dest_t *aPrinterDestination, std::string anOptionName)
 {
-    const char *optionValue = cupsGetOption(anOptionName.c_str(),
+    auto optionValue = ::cupsGetOption(anOptionName.c_str(),
         aPrinterDestination->num_options, aPrinterDestination->options);
 
     std::string result;
-
-    if (optionValue != NULL)
+    if (optionValue != nullptr)
     {
         result = optionValue;
     }
@@ -261,15 +235,14 @@ std::string CupsUtilsImpl::getOptionValueForPrinterWithName(
 std::string CupsUtilsImpl::getOptionValueForPrinterWithName(
     std::string aPrinterName, std::string anOptionName)
 {
-    cups_dest_t *printerDestination = cupsGetDest(aPrinterName.c_str(), NULL,
-        _destinations_data.number_of_destinations, _destinations_data.destinations);
+    auto printerDestination = ::cupsGetDest(aPrinterName.c_str(), nullptr,
+        _destinationsData.numberOfDestinations, _destinationsData.destinations);
 
-    const char *optionValue = cupsGetOption(anOptionName.c_str(),
+    auto optionValue = ::cupsGetOption(anOptionName.c_str(),
         printerDestination->num_options, printerDestination->options);
 
     std::string result;
-
-    if (optionValue != NULL)
+    if (optionValue != nullptr)
     {
         result = optionValue;
     }
@@ -283,15 +256,15 @@ bool CupsUtilsImpl::setOptionForPrinterWithName(std::string aPrinterName,
     auto printerDestination = ::cupsGetDest(printerName.c_str(), nullptr,
         _destinationsData.numberOfDestinations, _destinationsData.destinations);
 
-    printerDestination->num_options = cupsRemoveOption(anOption.name.c_str(),
-        printerDestination->num_options, &printerDestination->options);
+    printerDestination->num_options = ::cupsRemoveOption(anOption.name.c_str(),
+        printerDestination->num_options,
+        &printerDestination->options);
 
     printerDestination->num_options = cupsAddOption(anOption.name.c_str(),
         anOption.value.c_str(),
         printerDestination->num_options, &printerDestination->options);
 
-    std::string printerURI = cupsGetOption(kOptionNamePrinterURI,
-        printerDestination->num_options,
+    std::string printerURI = ::cupsGetOption(kOptionNamePrinterURI,printerDestination->num_options,
         printerDestination->options);
 
     bool result = setPrinterOptions(printerDestination->num_options,
@@ -309,23 +282,16 @@ bool CupsUtilsImpl::checkURI(std::string anUri)
     char resource[HTTP_MAX_URI];    /* Resource portion of URI */
     int port;
 
-//    http_uri_status_t uri_status = myHttpSeparateURI(HTTP_URI_CODING_ALL,
-//        uri.c_str(),
-//        scheme, sizeof(scheme),
-//        username, sizeof(username),
-//        host, sizeof(host), &port,
-//        resource, sizeof(resource));
-
-    http_uri_status_t uri_status = httpSeparateURI(HTTP_URI_CODING_ALL,
+    http_uri_status_t uri_status = ::httpSeparateURI(HTTP_URI_CODING_ALL,
         anUri.c_str(),
         scheme, sizeof(scheme),
         username, sizeof(username),
         host, sizeof(host), &port,
         resource, sizeof(resource));
 
-    if (uri_status != HTTP_URI_STATUS_OK)
+    if (uri_status != HTTP_URI_OK)
     {
-        std::cout << "URI status: " << httpURIStatusString(uri_status) << std::endl;
+        std::cerr << "URI status: " << uri_status << std::endl;
         return false;
     }
 
@@ -336,9 +302,8 @@ std::vector<CupsJob::PtrT> CupsUtilsImpl::getActiveJobs()
 {
     std::vector<CupsJob::PtrT> result;
 
-    cups_job_t *jobs = NULL;
-
-    int num_jobs = cupsGetJobs(&jobs, NULL, 0, CUPS_WHICHJOBS_ACTIVE);
+    cups_job_t *jobs = nullptr;
+    int numJobs = ::cupsGetJobs(&jobs, nullptr, 0, CUPS_WHICHJOBS_ACTIVE);
 
     for (int i = 0; i < numJobs; i++)
     {
@@ -373,52 +338,45 @@ int CupsUtilsImpl::destinationsCallback(CupsDestinationsData *destinations_data,
     {
         // Remove destination from array...
 
-        destinations_data->number_of_destinations =
-            cupsRemoveDest(dest->name, dest->instance,
-                destinations_data->number_of_destinations,
+        destinations_data->numberOfDestinations =
+            ::cupsRemoveDest(dest->name, dest->instance,
+                destinations_data->numberOfDestinations,
                 &(destinations_data->destinations));
     }
     else
     {
         // Add destination to array...
 
-        destinations_data->number_of_destinations =
-            cupsCopyDest(dest, destinations_data->number_of_destinations,
-                     &(destinations_data->destinations));
+        destinations_data->numberOfDestinations =
+            ::cupsCopyDest(dest, destinations_data->numberOfDestinations,
+                    &(destinations_data->destinations));
     }
 
     return (1);
 }
 
-int CupsUtilsImpl::getDestinations(cups_ptype_t type, cups_ptype_t mask,
-    CupsDestinationsData *aDestinationsData)
+void CupsUtilsImpl::getDestinations(cups_ptype_t type, cups_ptype_t mask,
+    CupsDestinationsData* destinationsDataOut)
 {
-    if (!cupsEnumDests(CUPS_DEST_FLAGS_NONE, 5000, NULL, type,
+    if (!::cupsEnumDests(CUPS_DEST_FLAGS_NONE, 5000, nullptr, type,
         mask, (cups_dest_cb_t)CupsUtilsImpl::destinationsCallback,
         aDestinationsData))
     {
         // An error occurred, free all of the destinations and
         // return...
-
-        cupsFreeDests(aDestinationsData->number_of_destinations, aDestinationsData->destinations);
+        ::cupsFreeDests(destinationsDataOut->numberOfDestinations, destinationsDataOut->destinations);
 
         destinationsDataOut->numberOfDestinations = 0;
         destinationsDataOut->destinations = nullptr;
 
-        return (0);
     }
-
-    // Return the destination array...
-
-    return (aDestinationsData->number_of_destinations);
 }
 
 void CupsUtilsImpl::freeDestinationsData(CupsDestinationsData *aDestinationsData)
 {
     cupsFreeDests(aDestinationsData->numberOfDestinations,
         aDestinationsData->destinations);
-
-    *aDestinationsData = {0, NULL};
+    *aDestinationsData = {0, nullptr};
 }
 
 bool CupsUtilsImpl::setPrinterOptions(
@@ -426,20 +384,20 @@ bool CupsUtilsImpl::setPrinterOptions(
     cups_option_t *options,
     const char *printerUri)
 {
-    ipp_t *request = ippNewRequest(IPP_OP_CUPS_ADD_MODIFY_PRINTER);
+    ipp_t *request = ippNewRequest(CUPS_ADD_MODIFY_PRINTER);
 
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, printerUri);
-//    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
+    ::ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", nullptr, printerUri);
+//    ::ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", nullptr, cupsUser());
 
-    cupsEncodeOptions2(request, num_options, options, IPP_TAG_PRINTER);
+    cupsEncodeOptions2(request, numOptions, options, IPP_TAG_PRINTER);
 
     ippDelete(cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/admin/"));
 
     ipp_status_t lastError = cupsLastError();
-    if (lastError > IPP_STATUS_OK_CONFLICTING)
+    if (lastError > IPP_OK_CONFLICT)
     {
-        std::cout << "IPP error string: " << ippErrorString(lastError) << std::endl;
-        std::cout << "Cups last error: " << cupsLastErrorString() << std::endl;
+        std::cerr << "IPP error string: " << ::ippErrorString(lastError)
+                  << " Cups last error: " << cupsLastErrorString() << std::endl;
         return false;
     }
 
