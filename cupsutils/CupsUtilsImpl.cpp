@@ -13,6 +13,7 @@
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <cstring>
 
 namespace CupsUtilities
 {
@@ -32,14 +33,14 @@ const char* kOptionNamePrinterInfo =                "printer-info";
 
 
 CupsUtilsImpl::CupsUtilsImpl()
-    : _destinations_data({ 0, NULL })
+    : _destinationsData({0, nullptr })
 {
-    getDestinations(CUPS_PRINTER_LOCAL, CUPS_PRINTER_DISCOVERED, &_destinations_data);
+    getDestinations(CUPS_PRINTER_LOCAL, CUPS_PRINTER_DISCOVERED, &_destinationsData);
 }
 
 CupsUtilsImpl::~CupsUtilsImpl()
 {
-    freeDestinationsData(&_destinations_data);
+    freeDestinationsData(&_destinationsData);
 }
 
 #pragma mark Public
@@ -48,10 +49,8 @@ CupsUtilsImpl::~CupsUtilsImpl()
 
 int CupsUtilsImpl::getJobNumberOfDocuments(int aJobID)
 {
-    static const char * const job_attrs[] =/* Job attributes we want */
-        {
-            "number-of-documents"
-        };
+    // Job attributes we want
+    static const char * const jobAttrs[] = { "number-of-documents" };
 
     ipp_t *request = ippNewRequest(IPP_OP_GET_JOB_ATTRIBUTES);
 
@@ -70,7 +69,6 @@ int CupsUtilsImpl::getJobNumberOfDocuments(int aJobID)
     ipp_t *response = cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/jobs/");
 
     int result = 0;
-
     ipp_status_t lastError = cupsLastError();
     if (lastError > IPP_STATUS_OK_CONFLICTING)
     {
@@ -128,10 +126,8 @@ bool CupsUtilsImpl::getDocument(int aJobID, int aDocumentNumber,
 
             return false;
         }
-
         fchmod(fd, 0644);
         close(fd);
-
         ippDelete(response);
     }
 
@@ -186,14 +182,10 @@ std::string CupsUtilsImpl::lastErrorString()
 std::vector<CupsPrinter> CupsUtilsImpl::getPrinters()
 {
     std::vector<CupsPrinter> result;
-
-    for (int i = 0; i < _destinations_data.number_of_destinations; i++)
+    for (int i = 0; i < _destinationsData.numberOfDestinations; i++)
     {
-        CupsPrinter printer = getPrinterWithDestination(&_destinations_data.destinations[i]);
-
-        result.push_back(printer);
+        result.emplace_back(getPrinterWithDestination(&_destinationsData.destinations[i]));
     }
-
     return result;
 }
 
@@ -210,10 +202,8 @@ CupsPrinter CupsUtilsImpl::getPrinterWithDestination(cups_dest_t *printerDestina
     CupsPrinter printer;
 
     printer.name = printerDestination->name;
-
     printer.stateReasons = getOptionValueForPrinterWithName(
         printerDestination, kOptionNamePrinterStateReasons);
-
     printer.printerInfo = getOptionValueForPrinterWithName(
         printerDestination, kOptionNamePrinterInfo);
 
@@ -238,15 +228,14 @@ std::vector<CupsOption> CupsUtilsImpl::getOptionsForPrinterWithName(std::string 
 {
     std::vector<CupsOption> result;
 
-    cups_dest_t *printerDestination = cupsGetDest(aPrinterName.c_str(), NULL,
-        _destinations_data.number_of_destinations, _destinations_data.destinations);
+    auto printerDestination = ::cupsGetDest(aPrinterName.c_str(), nullptr,
+        _destinationsData.numberOfDestinations, _destinationsData.destinations);
 
     for (int i = 0; i < printerDestination->num_options; i++)
     {
         cups_option_t option = printerDestination->options[i];
 
         CupsOption cupsOption = { option.name, option.value };
-
         result.push_back(cupsOption);
     }
 
@@ -291,8 +280,8 @@ std::string CupsUtilsImpl::getOptionValueForPrinterWithName(
 bool CupsUtilsImpl::setOptionForPrinterWithName(std::string aPrinterName,
     const CupsOption &anOption)
 {
-    cups_dest_t *printerDestination = cupsGetDest(aPrinterName.c_str(), NULL,
-        _destinations_data.number_of_destinations, _destinations_data.destinations);
+    auto printerDestination = ::cupsGetDest(printerName.c_str(), nullptr,
+        _destinationsData.numberOfDestinations, _destinationsData.destinations);
 
     printerDestination->num_options = cupsRemoveOption(anOption.name.c_str(),
         printerDestination->num_options, &printerDestination->options);
@@ -351,27 +340,25 @@ std::vector<CupsJob::PtrT> CupsUtilsImpl::getActiveJobs()
 
     int num_jobs = cupsGetJobs(&jobs, NULL, 0, CUPS_WHICHJOBS_ACTIVE);
 
-    for (int i = 0; i < num_jobs; i++)
+    for (int i = 0; i < numJobs; i++)
     {
-        cups_job_t aJob = jobs[i];
+        cups_job_t cupsJob = jobs[i];
 
         CupsJob::PtrT job = std::shared_ptr<CupsJob>(new CupsJob());
-        job->job_id = aJob.id;
-        job->title = aJob.title;
+        job->jobId = cupsJob.id;
+        job->title = cupsJob.title;
 
-        CupsPrinter printer = getPrinterWithName(aJob.dest);
-
+        CupsPrinter printer = getPrinterWithName(cupsJob.dest);
         job->printer = printer;
-        job->userName = aJob.user;
-        job->format = aJob.format;
-        job->size = aJob.size;
-        job->state = aJob.state;
+        job->userName = cupsJob.user;
+        job->format = cupsJob.format;
+        job->size = cupsJob.size;
+        job->state = cupsJob.state;
 
         result.push_back(job);
     }
 
-    cupsFreeJobs(num_jobs, jobs);
-
+    cupsFreeJobs(numJobs, jobs);
     return result;
 }
 
@@ -415,8 +402,8 @@ int CupsUtilsImpl::getDestinations(cups_ptype_t type, cups_ptype_t mask,
 
         cupsFreeDests(aDestinationsData->number_of_destinations, aDestinationsData->destinations);
 
-        aDestinationsData->number_of_destinations = 0;
-        aDestinationsData->destinations = NULL;
+        destinationsDataOut->numberOfDestinations = 0;
+        destinationsDataOut->destinations = nullptr;
 
         return (0);
     }
@@ -428,14 +415,14 @@ int CupsUtilsImpl::getDestinations(cups_ptype_t type, cups_ptype_t mask,
 
 void CupsUtilsImpl::freeDestinationsData(CupsDestinationsData *aDestinationsData)
 {
-    cupsFreeDests(aDestinationsData->number_of_destinations,
+    cupsFreeDests(aDestinationsData->numberOfDestinations,
         aDestinationsData->destinations);
 
     *aDestinationsData = {0, NULL};
 }
 
 bool CupsUtilsImpl::setPrinterOptions(
-    int num_options,
+    int numOptions,
     cups_option_t *options,
     const char *printerUri)
 {
@@ -931,4 +918,4 @@ myHttpSeparateURI(
   return (status);
 }
 
-}
+} // namespace CupsUtilities

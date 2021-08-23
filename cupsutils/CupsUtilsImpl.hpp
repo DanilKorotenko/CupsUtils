@@ -29,7 +29,7 @@ extern const char* kOptionNamePrinterInfo;
 
 typedef struct
 {
-    int number_of_destinations;
+    int numberOfDestinations;
     cups_dest_t *destinations;
 } CupsDestinationsData;
 
@@ -74,8 +74,8 @@ private:
         cups_option_t *options,
         const char *printerUri);
 
-    CupsDestinationsData _destinations_data = { 0, NULL };
 
+    CupsDestinationsData _destinationsData = {0, NULL };
 };
 
 } // namespace CupsUtilities
