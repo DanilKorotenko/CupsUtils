@@ -18,20 +18,6 @@
 namespace CupsUtilities
 {
 
-
-const char* kOptionNameDeviceURI =                  "device-uri";
-const char* kOptionNamePrinterURI =                 "printer-uri-supported";
-const char* kOptionNamePrinterOperationPolicy =     "printer-op-policy";
-
-const char* kOptionNameJobHoldUntilDefault =        "job-hold-until-default";
-const char* kJobHoldUntilDefaultValueIndefinite =   "indefinite";
-const char* kJobHoldUntilDefaultValueNoHold =       "no-hold";
-
-const char* kOptionNamePrinterState =               "printer-state";
-const char* kOptionNamePrinterStateReasons =        "printer-state-reasons";
-const char* kOptionNamePrinterInfo =                "printer-info";
-
-
 CupsUtilsImpl::CupsUtilsImpl()
     : _destinationsData({0, nullptr })
 {
@@ -278,7 +264,7 @@ std::string CupsUtilsImpl::getOptionValueForPrinterWithName(
 bool CupsUtilsImpl::setOptionForPrinterWithName(std::string aPrinterName,
     const CupsOption &anOption)
 {
-    auto printerDestination = ::cupsGetDest(printerName.c_str(), nullptr,
+    auto printerDestination = ::cupsGetDest(aPrinterName.c_str(), nullptr,
         _destinationsData.numberOfDestinations, _destinationsData.destinations);
 
     printerDestination->num_options = ::cupsRemoveOption(anOption.name.c_str(),
@@ -385,7 +371,7 @@ void CupsUtilsImpl::getDestinations(cups_ptype_t type, cups_ptype_t mask,
 {
     if (!::cupsEnumDests(CUPS_DEST_FLAGS_NONE, 5000, nullptr, type,
         mask, (cups_dest_cb_t)CupsUtilsImpl::destinationsCallback,
-        aDestinationsData))
+        destinationsDataOut))
     {
         // An error occurred, free all of the destinations and
         // return...

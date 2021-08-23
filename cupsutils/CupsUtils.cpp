@@ -11,6 +11,18 @@
 namespace CupsUtilities
 {
 
+const char* kOptionNameDeviceURI =                  "device-uri";
+const char* kOptionNamePrinterURI =                 "printer-uri-supported";
+const char* kOptionNamePrinterOperationPolicy =     "printer-op-policy";
+
+const char* kOptionNameJobHoldUntilDefault =        "job-hold-until-default";
+const char* kJobHoldUntilDefaultValueIndefinite =   "indefinite";
+const char* kJobHoldUntilDefaultValueNoHold =       "no-hold";
+
+const char* kOptionNamePrinterState =               "printer-state";
+const char* kOptionNamePrinterStateReasons =        "printer-state-reasons";
+const char* kOptionNamePrinterInfo =                "printer-info";
+
 CupsUtils::CupsUtils()
     : _impl(new CupsUtilsImpl())
 {
