@@ -5,8 +5,7 @@
 //  Created by Danil Korotenko on 4/1/21.
 //
 
-#ifndef cupsutilsimpl_hpp
-#define cupsutilsimpl_hpp
+#pragma once
 
 #include <memory>
 #include <cups/cups.h>
@@ -67,6 +66,4 @@ private:
 
 };
 
-}
-
-#endif /* cupsutilsimpl_hpp */
+} // namespace CupsUtilities

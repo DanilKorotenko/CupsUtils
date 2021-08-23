@@ -5,8 +5,7 @@
 //  Created by Danil Korotenko on 4/1/21.
 //
 
-#ifndef CupsUtilsTypes_hpp
-#define CupsUtilsTypes_hpp
+#pragma once
 
 #include <string>
 #include <sstream>
@@ -38,4 +37,4 @@ struct CupsPrinter
 
 }
 
-#endif /* CupsUtilsTypes_hpp */
+} // namespace CupsUtilities
