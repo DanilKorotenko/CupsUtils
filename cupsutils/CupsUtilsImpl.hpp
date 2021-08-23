@@ -15,6 +15,18 @@
 namespace CupsUtilities
 {
 
+extern const char* kOptionNameDeviceURI;
+extern const char* kOptionNamePrinterURI;
+extern const char* kOptionNamePrinterOperationPolicy;
+
+extern const char* kOptionNameJobHoldUntilDefault;
+extern const char* kJobHoldUntilDefaultValueIndefinite;
+extern const char* kJobHoldUntilDefaultValueNoHold;
+
+extern const char* kOptionNamePrinterState;
+extern const char* kOptionNamePrinterStateReasons;
+extern const char* kOptionNamePrinterInfo;
+
 typedef struct
 {
     int number_of_destinations;

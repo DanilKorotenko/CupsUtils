@@ -17,16 +17,6 @@ namespace CupsUtilities
 
 class CupsUtilsImpl;
 
-extern const char *kOptionNameDeviceURI;
-extern const char *kOptionNamePrinterURI;
-extern const char *kOptionNamePrinterOperationPolicy;
-extern const char *kOptionNameJobHoldUntilDefault;
-extern const char *kJobHoldUntilDefaultOptionValueIndefinite;
-
-extern const char *kOptionNamePrinterState;
-extern const char *kOptionNamePrinterStateReasons;
-extern const char *kOptionNamePrinterInfo;
-
 class CupsUtils
 {
 public:
