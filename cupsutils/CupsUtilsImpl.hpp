@@ -9,7 +9,8 @@
 
 #include <memory>
 #include <cups/cups.h>
-
+#include <vector>
+#include "CupsUtilsTypes.hpp"
 #include "CupsUtils.hpp"
 
 namespace CupsUtilities
@@ -45,6 +46,7 @@ public:
         const std::string &anOutputFileName);
     static void cancelJob(int aJobId);
     static bool releaseJob(int aJobId);
+    static std::vector<CupsOption> loadJobProperties(const std::string& jobHistFile);
     static std::string lastErrorString();
 
     std::vector<CupsPrinter> getPrinters();
@@ -64,16 +66,15 @@ public:
 
 #pragma mark Private
 private:
-    static int destinationsCallback(CupsDestinationsData *destinations_data,
+    static int destinationsCallback(CupsDestinationsData *destinationsData,
         unsigned flags, cups_dest_t *dest);
-    int getDestinations(cups_ptype_t type, cups_ptype_t mask,
-        CupsDestinationsData *aDestinationsData);
+    void getDestinations(cups_ptype_t type, cups_ptype_t mask,
+        CupsDestinationsData *destinationsDataOut);
     void freeDestinationsData(CupsDestinationsData *aDestinationsData);
     bool setPrinterOptions(
         int num_options,
         cups_option_t *options,
         const char *printerUri);
-
 
     CupsDestinationsData _destinationsData = {0, NULL };
 };

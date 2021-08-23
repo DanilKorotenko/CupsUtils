@@ -429,26 +429,49 @@ bool CupsUtilsImpl::setPrinterOptions(
     return true;
 }
 
+std::vector<CupsOption> CupsUtilsImpl::loadJobProperties(const std::string& jobHistFile)
 {
+    std::vector<CupsOption> result;
 
+    cups_file_t		*fp;		/* Job file */
+    ipp_t           *jobAttrs;
+    ipp_attribute_t	*attr;
 
+    if ((fp = ::cupsFileOpen(jobHistFile.c_str(), "r")) == nullptr)
     {
+        throw std::runtime_error("CupsFileOpen error");
     }
 
+    if ((jobAttrs = ippNew()) == nullptr)
     {
+        cupsFileClose(fp);
+        throw std::runtime_error("Ran out of memory for job attributes.");
     }
 
+    if (ippReadIO(fp, (ipp_iocb_t)cupsFileRead, 1, nullptr, jobAttrs) != IPP_DATA)
     {
+        cupsFileClose(fp);
+        ippDelete(jobAttrs);
+        throw std::runtime_error("ippReadIO error");
     }
 
+    cupsFileClose(fp);
 
+    attr = ippFindAttribute(jobAttrs, "job-name", IPP_TAG_NAME);
+    if (const char* value = ippGetString(attr, 0, nullptr))
     {
+        result.push_back({"job-name", value});
     }
 
+    attr = ippFindAttribute(jobAttrs, "job-originating-user-name", IPP_TAG_NAME);
+    if (const char* value = ippGetString(attr, 0, nullptr))
     {
+        result.push_back({"job-originating-user-name", value});
     }
 
+    ippDelete(jobAttrs);
 
+    return result;
 }
 
 } // namespace CupsUtilities

@@ -43,6 +43,11 @@ bool CupsUtils::releaseJob(int aJobId)
     return CupsUtilsImpl::releaseJob(aJobId);
 }
 
+std::vector<CupsOption> CupsUtils::loadJobProperties(const std::string& jobHistFile)
+{
+    return CupsUtilsImpl::loadJobProperties(jobHistFile);
+}
+
 std::string CupsUtils::lastErrorString()
 {
     return CupsUtilsImpl::lastErrorString();
@@ -107,4 +112,22 @@ std::vector<CupsJob::PtrT> CupsUtils::getActiveJobs()
     return result;
 }
 
+bool CupsUtils::setJobHoldUntilDefaultIndefinite(const CupsPrinter& printer)
+{
+    return setOptionForPrinterWithName(printer.name,{ CupsUtilities::kOptionNameJobHoldUntilDefault,
+                                                      CupsUtilities::kJobHoldUntilDefaultValueIndefinite });
 }
+
+bool CupsUtils::unsetJobHoldUntilDefaultIndefinite(const CupsPrinter& printer)
+{
+    return setOptionForPrinterWithName(printer.name,{ CupsUtilities::kOptionNameJobHoldUntilDefault,
+                                                      CupsUtilities::kJobHoldUntilDefaultValueNoHold });
+}
+
+bool CupsUtils::setPrinterOperationPolicy(const CupsPrinter& printer, const std::string& policyName)
+{
+    return setOptionForPrinterWithName(printer.name, { CupsUtilities::kOptionNamePrinterOperationPolicy,
+                                                       policyName });
+}
+
+} // namespace CupsUtilities
