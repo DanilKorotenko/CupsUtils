@@ -27,7 +27,7 @@ int main(int argc, const char * argv[])
 
     bool setOptionResult = cupsUtils.setOptionForPrinterWithName(printerName,
         { CupsUtilities::kOptionNameJobHoldUntilDefault,
-        CupsUtilities::kJobHoldUntilDefaultOptionValueIndefinite });
+        CupsUtilities::kJobHoldUntilDefaultValueIndefinite });
 
     std::cout << (setOptionResult ?
         "The option was successfuly set." : "Unable to set option.") << std::endl;

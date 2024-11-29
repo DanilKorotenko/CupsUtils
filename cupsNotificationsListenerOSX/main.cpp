@@ -8,6 +8,7 @@
 #include <iostream>
 #include <notify.h>
 #include <dispatch/dispatch.h>
+#include <assert.h>
 
 static const char *NotifyErrorToString(uint32_t noteErr)
 {

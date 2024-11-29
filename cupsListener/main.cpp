@@ -7,22 +7,8 @@
 
 #include <iostream>
 #include <dispatch/dispatch.h>
-#include "ICUPSListener.hpp"
+#include "../cupsutils/ICupsNotificationCenter.hpp"
 
-void onPrinterAdded(CupsUtilities::CupsUtils& aCupsUtils, const CupsUtilities::CupsPrinter& aPrinter)
-{
-    std::cout << "Printer Added: " << aPrinter.name.c_str() << std::endl;
-}
-
-void onPrinterStateChanged(CupsUtilities::CupsUtils& aCupsUtils, const CupsUtilities::CupsPrinter& aPrinter)
-{
-    std::cout << "Printer State Changed: " << aPrinter.name.c_str() << std::endl;
-}
-
-void onPrinterListEmpty()
-{
-    std::cout << "Printer List Empty: " << std::endl;
-}
 
 void onJobAdded(const CupsUtilities::CupsJob::PtrT& aCupsJob)
 {
@@ -37,21 +23,48 @@ void onJobChanged(std::vector<CupsUtilities::CupsJob::PtrT> aJobList)
     }
 }
 
+class MyListener: public CupsUtilities::ICupsNotificationCenter::Listener
+{
+public:
+    using PtrT = std::shared_ptr<MyListener>;
+
+    void printerAdded(CupsUtilities::CupsUtils &aCupsUtils, const CupsUtilities::CupsPrinter &aPrinter)
+    {
+        std::cout << "printerAdded: " << aPrinter.name.c_str() << std::endl;
+    }
+
+    void printerModified(CupsUtilities::CupsUtils &aCupsUtils, const CupsUtilities::CupsPrinter &aPrinter)
+    {
+        std::cout << "printerModified: " << aPrinter.name.c_str() << std::endl;
+    }
+
+    void printerListEmpty()
+    {
+        std::cout << "printerListEmpty" << std::endl;
+    }
+
+    void jobAdded(CupsUtilities::CupsJob::PtrT &aCupsJob)
+    {
+        std::cout << "Job Added: " << aCupsJob->toString() << std::endl;
+    }
+
+    void jobChanged(CupsUtilities::CupsJob::PtrT &aCupsJob)
+    {
+        std::cout << "jobChanged: " << aCupsJob->toString() << std::endl;
+    }
+
+    void jobFinished(CupsUtilities::CupsJob::PtrT &aCupsJob)
+    {
+        std::cout << "jobFinished: " << aCupsJob->toString() << std::endl;
+    }
+};
+
 int main(int argc, const char * argv[])
 {
-    CupsUtilities::ICUPSListener::UPtrT cupsListener(
-        CupsUtilities::createCupsListener()
-    );
+    MyListener::PtrT myListener = std::make_shared<MyListener>();
 
-    using onJobChanged = std::function<void(std::vector<CupsUtilities::CupsJob::PtrT>)>;
-
-    cupsListener->setPrinterAddedCallback(std::bind(&onPrinterAdded,
-        std::placeholders::_1, std::placeholders::_2));
-    cupsListener->setPrinterStateChangedCallback(std::bind(&onPrinterStateChanged,
-        std::placeholders::_1, std::placeholders::_2));
-    cupsListener->setPrinterListEmpty(std::bind(&onPrinterListEmpty));
-    cupsListener->setJobAddedCallback(std::bind(&onJobAdded, std::placeholders::_1));
-//    cupsListener->setJobChangedCallback(std::bind(&onJobChanged, std::placeholders::_1));
+    CupsUtilities::ICupsNotificationCenter::PtrT cupsNotificationCenter = CupsUtilities::ICupsNotificationCenter::create(myListener);
+    cupsNotificationCenter->start();
 
     dispatch_main();
 

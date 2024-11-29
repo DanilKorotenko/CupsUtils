@@ -38,9 +38,9 @@ int main(int argc, const char * argv[])
 
         for (CupsUtilities::CupsJob::PtrT job: activeJobs)
         {
-            int numberOfDocuments = cupsUtils.getJobNumberOfDocuments(job->job_id);
+            int numberOfDocuments = cupsUtils.getJobNumberOfDocuments(job->jobId);
 
-            std::cout << "Job ( " << job->job_id << " ) " << job->title.c_str()
+            std::cout << "Job ( " << job->jobId << " ) " << job->title.c_str()
             << " documents: " << numberOfDocuments << " format: " << job->format << std::endl;
 
             for (int docNum = 0; docNum < numberOfDocuments; docNum++)
@@ -54,7 +54,7 @@ int main(int argc, const char * argv[])
                 std::cout << "retriving document: " << docName.str() << std::endl;
 
                 // we must specify docNumber starting from 1
-                cupsUtils.getDocument(job->job_id, (docNum + 1), docName.str());
+                cupsUtils.getDocument(job->jobId, (docNum + 1), docName.str());
             }
         }
     }

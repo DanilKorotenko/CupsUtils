@@ -39,6 +39,8 @@
 		DA240BC42625CD2A0014E80E /* libcupsutils.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA95C3C22615C17D008D989B /* libcupsutils.dylib */; };
 		DA2EBC8826454537007CC932 /* UTTypeAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA2EBC87264544A9007CC932 /* UTTypeAdapter.mm */; };
 		DA2EBC8C264546CC007CC932 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA2EBC8B264546CC007CC932 /* UniformTypeIdentifiers.framework */; };
+		DA3F1CF92CFA065700D501E7 /* CupsNotificationCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA454C0D26D3955100EA640F /* CupsNotificationCenter.cpp */; };
+		DA3F1CFA2CFA065F00D501E7 /* CupsNotificationReceiverMacOSX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA454C0B26D3955100EA640F /* CupsNotificationReceiverMacOSX.cpp */; };
 		DA95C27026133EC7008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C26F26133EC7008D989B /* main.cpp */; };
 		DA95C29226136FB9008D989B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C29126136FB9008D989B /* main.cpp */; };
 		DA95C3D52615C1A5008D989B /* CupsUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA95C3D32615C1A5008D989B /* CupsUtils.cpp */; };
@@ -278,6 +280,7 @@
 		DA2EBC87264544A9007CC932 /* UTTypeAdapter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = UTTypeAdapter.mm; sourceTree = "<group>"; };
 		DA2EBC89264546B9007CC932 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		DA2EBC8B264546CC007CC932 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
+		DA3F1CF72CFA061B00D501E7 /* std_make_unique.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = std_make_unique.h; sourceTree = "<group>"; };
 		DA454C0B26D3955100EA640F /* CupsNotificationReceiverMacOSX.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CupsNotificationReceiverMacOSX.cpp; sourceTree = "<group>"; };
 		DA454C0C26D3955100EA640F /* ICupsNotificationCenter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ICupsNotificationCenter.hpp; sourceTree = "<group>"; };
 		DA454C0D26D3955100EA640F /* CupsNotificationCenter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CupsNotificationCenter.cpp; sourceTree = "<group>"; };
@@ -545,20 +548,21 @@
 		DA95C3CC2615C184008D989B /* cupsutils */ = {
 			isa = PBXGroup;
 			children = (
-				DA454C0E26D3955100EA640F /* CupsFile.cpp */,
 				DA454C1126D3955100EA640F /* CupsFile.hpp */,
-				DA454C0D26D3955100EA640F /* CupsNotificationCenter.cpp */,
+				DA454C0E26D3955100EA640F /* CupsFile.cpp */,
 				DA454C1026D3955100EA640F /* CupsNotificationCenter.hpp */,
+				DA454C0D26D3955100EA640F /* CupsNotificationCenter.cpp */,
 				DA454C0F26D3955100EA640F /* CupsNotificationReceiver.hpp */,
 				DA454C1226D3955100EA640F /* CupsNotificationReceiverLinux.cpp */,
 				DA454C0B26D3955100EA640F /* CupsNotificationReceiverMacOSX.cpp */,
-				DA95C3D32615C1A5008D989B /* CupsUtils.cpp */,
 				DA95C3D42615C1A5008D989B /* CupsUtils.hpp */,
-				DA95C4272615D5C4008D989B /* CupsUtilsImpl.cpp */,
+				DA95C3D32615C1A5008D989B /* CupsUtils.cpp */,
 				DA95C4282615D5C4008D989B /* CupsUtilsImpl.hpp */,
+				DA95C4272615D5C4008D989B /* CupsUtilsImpl.cpp */,
 				DA240BB42625CAC80014E80E /* CupsUtilsTypes.hpp */,
 				DA454C0C26D3955100EA640F /* ICupsNotificationCenter.hpp */,
 				DAB6E3D1262D9FD4009D2E77 /* policyManager.py */,
+				DA3F1CF72CFA061B00D501E7 /* std_make_unique.h */,
 				DA2EBC86264543F5007CC932 /* UTTypeAdapter.h */,
 				DA2EBC87264544A9007CC932 /* UTTypeAdapter.mm */,
 			);
@@ -1046,7 +1050,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA95C4292615D5C4008D989B /* CupsUtilsImpl.cpp in Sources */,
+				DA3F1CFA2CFA065F00D501E7 /* CupsNotificationReceiverMacOSX.cpp in Sources */,
 				DA95C3D52615C1A5008D989B /* CupsUtils.cpp in Sources */,
+				DA3F1CF92CFA065700D501E7 /* CupsNotificationCenter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
